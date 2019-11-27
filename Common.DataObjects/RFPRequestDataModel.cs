@@ -27,6 +27,7 @@ namespace Common.DataObjects
 
     public class ProposalStatus
     {
+        public int Id { get; set; }
         public int RFPRequestID { get; set; }
         public string Date { get; set; }
         public string Status { get; set; }
