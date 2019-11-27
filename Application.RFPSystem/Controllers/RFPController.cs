@@ -71,8 +71,48 @@ namespace Application.RFPSystem.Controllers
 
             return Ok(datavizCategory_Proposal);
         }
-        
 
+        [Route("api/V1/GetProposalsGrid")]
+        [HttpGet]
+        public async Task<IActionResult> GetProposalsGrid(string requestID)
+        {
+            using (var dbComponent = new LiteDatabase(@"D:\LiteDB\RFPData.db"))
+            {
+                List<RFPRequestDataModel> rFPRequestDataModels = new List<RFPRequestDataModel>();
+                LiteCollection<RFPRequestDataModel> getRequestModels =
+                    dbComponent.GetCollection<RFPRequestDataModel>("RequestProposals");
+
+                if (string.IsNullOrEmpty(requestID))
+                {
+                    var listAll = getRequestModels.FindAll().ToList();
+
+
+
+                    listAll.ForEach(x => rFPRequestDataModels.Add(x));
+
+                    return Ok(listAll);
+
+                }
+                else
+                {
+                    var matchResponse = getRequestModels.Find(x => x.RFPCode.Equals(requestID)).Any();
+
+                    if (matchResponse)
+                    {
+                        var results = getRequestModels.Find(x => x.RFPCode.Equals(requestID)).ToList();
+
+                        results.ForEach(x => rFPRequestDataModels.Add(x));
+
+                        return Ok(results);
+                    }
+                    else
+                    {
+                        return Ok(new { Reason = "Not Found", Response = "No Record on " + requestID });
+                    }
+
+                }
+            }
+        }
 
         [Route("api/V1/GetProposals")]
         [HttpGet]

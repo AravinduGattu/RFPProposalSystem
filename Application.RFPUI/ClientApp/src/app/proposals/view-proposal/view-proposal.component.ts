@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ProposalData } from '../../global/data-json';
-import * as FileSaver from 'file-saver';
+// import * as FileSaver from 'file-saver';
 import { ProposalService } from '../proposal.service';
 import { RequestTypes } from '../../global/constants';
 import { ActivatedRoute } from '@angular/router';
@@ -334,7 +334,7 @@ export class ViewProposalComponent implements OnInit {
     const fileBlob = new Blob([byteArray], { type: doc.documentType });
     const file = new File([fileBlob], doc.documentName, { type: doc.documentType });
 
-    FileSaver.saveAs(file);
+    // FileSaver.saveAs(file);
   }
 
 }
