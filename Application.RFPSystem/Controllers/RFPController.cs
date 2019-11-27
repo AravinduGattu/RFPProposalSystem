@@ -48,7 +48,7 @@ namespace Application.RFPSystem.Controllers
             if(!string.IsNullOrEmpty(usersInfo.userName) && !string.IsNullOrEmpty(usersInfo.accessKey))
             {
                 RFPUsersInformation rFPUsersInformation =
-                    allUsers.ToList().Find(c => (c.userId == usersInfo.userName) && (c.AccessKey == usersInfo.accessKey));
+                    allUsers.ToList().Find(c => (c.Email == usersInfo.userName) && (c.AccessKey == usersInfo.accessKey));
 
                 return Ok(rFPUsersInformation);
             }
