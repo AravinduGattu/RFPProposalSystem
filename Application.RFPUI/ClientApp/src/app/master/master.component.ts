@@ -20,9 +20,10 @@ export class MasterComponent implements OnInit {
 
 
   ngOnInit() {
-    const user = this.loginService.getSessionStorage('userName');
+    const user = this.loginService.getSessionStorage('name');
     const role = this.loginService.getSessionStorage('role');
-    this.userNmae = (user.split('@', 1)).toString();
+    //this.userNmae = (user.split('@', 1)).toString();
+    this.userNmae = user;
     this.role = role.replace(/([A-Z])/g, ' $1').trim();
     this.MenuList = this.getMenuList(role);
   }
