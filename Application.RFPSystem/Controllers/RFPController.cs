@@ -89,7 +89,7 @@ namespace Application.RFPSystem.Controllers
 
                     if (validateResponse.NoErrors)
                     {
-                        using (var dbComponent = new LiteDatabase(@"D:\LiteDB\RFPData.db"))
+                        using (var dbComponent = new LiteDatabase(Constants.DBPath))
                         {
                             LiteCollection<RFPRequestDataModel> createRequestModel =
                                 dbComponent.GetCollection<RFPRequestDataModel>("RequestProposals");

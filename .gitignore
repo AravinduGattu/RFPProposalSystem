@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /Application.RFPUI/ClientApp/dist
+/Apps.PacteraSolutions
+/Application.RFPSystem/Controllers/FileUploadController.cs
