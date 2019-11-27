@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{B8B5471C-2CD0-412D-A69E-66BB74A315DF}"
 EndProject
@@ -16,6 +16,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.RulesSetup", "Application.RulesSetup\Application.RulesSetup.csproj", "{1DB1B3EA-58B7-4133-98C5-7E484312D43B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Async Actions", "Async Actions", "{886303CE-BCBF-43FE-9E60-F1F1DC3FF871}"
+	ProjectSection(SolutionItems) = preProject
+		Application.RFPSystem\Program.cs = Application.RFPSystem\Program.cs
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Applications.Operations", "Applications.Operations\Applications.Operations.csproj", "{D56AF168-B5EF-4784-A1E9-B3119581A443}"
 EndProject
@@ -23,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.RFPUI", "Applic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{7ACDF76B-47A6-4726-A718-49FE4660BFA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.RFPSystem.Services", "App.RFPSystem.Services\App.RFPSystem.Services.csproj", "{FCF9F03C-C157-4527-98FC-E2EF69C61666}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.RFPSystem.Services", "App.RFPSystem.Services\App.RFPSystem.Services.csproj", "{FCF9F03C-C157-4527-98FC-E2EF69C61666}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

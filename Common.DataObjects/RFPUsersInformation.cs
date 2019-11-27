@@ -12,6 +12,8 @@ namespace Common.DataObjects
 
         public string Email { get; set; }
 
+        public string userId { get; set; }
+
         public string AccessKey { get; set; }
 
         public string Environment { get; set; }

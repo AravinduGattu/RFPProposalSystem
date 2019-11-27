@@ -48,7 +48,7 @@ namespace Application.RFPSystem.Controllers
             if(!string.IsNullOrEmpty(usersInfo.userName) && !string.IsNullOrEmpty(usersInfo.accessKey))
             {
                 RFPUsersInformation rFPUsersInformation =
-                    allUsers.ToList().Find(c => (c.userName == usersInfo.userName) && (c.AccessKey == usersInfo.accessKey));
+                    allUsers.ToList().Find(c => (c.userId == usersInfo.userName) && (c.AccessKey == usersInfo.accessKey));
 
                 return Ok(rFPUsersInformation);
             }
@@ -118,7 +118,7 @@ namespace Application.RFPSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProposals(string requestID)
         {
-            using (var dbComponent = new LiteDatabase(@"D:\LiteDB\RFPData.db"))
+            using (var dbComponent = new LiteDatabase(Constants.DBPath))
             {
                 List<RFPRequestDataModel> rFPRequestDataModels = new List<RFPRequestDataModel>();
                 LiteCollection<RFPRequestDataModel> getRequestModels =

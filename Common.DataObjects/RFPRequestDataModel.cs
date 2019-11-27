@@ -25,10 +25,19 @@ namespace Common.DataObjects
         public List<Question> questions { get; set; }
     }
 
+    public class ProposalStatus
+    {
+        public int RFPRequestID { get; set; }
+        public string Date { get; set; }
+        public string Status { get; set; }
+        public string Accceptance { get; set; }
+        public RFPUsersInformation User { get; set; }
+    }
+
     public class RFPRequestDataModel
     {
         public int Id { get; set; }
-        public object RFPUser { get; set; }
+        public RFPUsersInformation RFPUser { get; set; }
         public string RFPCode { get; set; }
         public string status { get; set; }
         public string requestType { get; set; }
@@ -51,17 +60,9 @@ namespace Common.DataObjects
         public RFPUsersInformation RFPUser { get; set; }
         public string RFPCode { get; set; }
         public string status { get; set; }
-        public string requestType { get; set; }
-        public string practiceType { get; set; }
-        public string practiceLead { get; set; }
-        public string customer { get; set; }
-        public string location { get; set; }
+        public string requestType { get; set; }       
         public DateTime requestedDate { get; set; }
         public string title { get; set; }
         public string scope { get; set; }
-        public string description { get; set; }
-        public string additionalInformation { get; set; }
-        public List<Schedule> schedule { get; set; }
-        public List<Questionnaire> questionnaire { get; set; }
     }
 }
