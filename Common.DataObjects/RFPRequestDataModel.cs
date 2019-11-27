@@ -58,7 +58,7 @@ namespace Common.DataObjects
     public class RFPRequestDataGridModel
     {
         public int Id { get; set; }
-        public RFPUsersInformation RFPUser { get; set; }
+        public string RFPUser { get; set; }
         public string RFPCode { get; set; }
         public string status { get; set; }
         public string requestType { get; set; }       

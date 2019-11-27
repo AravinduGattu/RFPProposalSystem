@@ -18,7 +18,9 @@ namespace Common.DataObjects
 
         public string Environment { get; set; }
 
-        public String Role { get; set; }
+        public ProposalUsers Role { get; set; }
+
+        public Stream Stream { get; set; }
 
     }
 }
