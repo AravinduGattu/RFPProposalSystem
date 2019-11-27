@@ -33,7 +33,7 @@ namespace Application.RulesSetup
 
             if(rFPUsersInformation != null)
             {
-                if(rFPUsersInformation.Role == ProposalUsers.SalesLead.ToString())
+                if(rFPUsersInformation.Role == ProposalUsers.SalesLead)
                 {
                     return await Task.Run(() => validateResponse);
                 }

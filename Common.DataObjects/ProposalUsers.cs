@@ -11,4 +11,12 @@ namespace Common.DataObjects
         PursuitTeamLead=3,
         DeliveryTeamLead=4
     }
+
+    public enum Stream
+    {
+        Engineering = 1,
+        Digitalization = 2,
+        Globalization = 3,
+        EmergingTech = 4
+    }
 }

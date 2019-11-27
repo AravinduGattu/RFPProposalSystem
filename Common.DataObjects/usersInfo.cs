@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Common.DataObjects
 {
-    public class usersInfo
+    public class userInfo
     {
         public string userName { get; set; }
 

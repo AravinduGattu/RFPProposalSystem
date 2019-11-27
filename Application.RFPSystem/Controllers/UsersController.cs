@@ -24,7 +24,7 @@ namespace Application.RFPSystem.Controllers
     {
         [Route("api/V1/Authenticate")]
         [HttpPost]
-        public async Task<IActionResult> Authenticate([FromForm]usersInfo usersInfo)
+        public async Task<IActionResult> Authenticate([FromForm]userInfo userInfo)
         {
             IEnumerable<RFPUsersInformation> allUsers = new List<RFPUsersInformation>();
 
@@ -33,10 +33,10 @@ namespace Application.RFPSystem.Controllers
                 allUsers = await getAllUsers.rFPUsersInformation();
             }
 
-            if (!string.IsNullOrEmpty(usersInfo.userName) && !string.IsNullOrEmpty(usersInfo.accessKey))
+            if (!string.IsNullOrEmpty(userInfo.userName) && !string.IsNullOrEmpty(userInfo.accessKey))
             {
                 RFPUsersInformation rFPUsersInformation =
-                    allUsers.ToList().Find(c => (c.Email == usersInfo.userName) && (c.AccessKey == usersInfo.accessKey));
+                    allUsers.ToList().Find(c => (c.Email == userInfo.userName) && (c.AccessKey == userInfo.accessKey));
 
                 return Ok(rFPUsersInformation);
             }
@@ -47,8 +47,8 @@ namespace Application.RFPSystem.Controllers
         }
 
         [Route("api/V1/UserList")]
-        [HttpPost]
-        public async Task<IActionResult> UsersInformation([FromForm]usersInfo usersInfo)
+        [HttpGet]
+        public async Task<IActionResult> UsersInformation(string userId, int? role, int? stream)
         {
             IEnumerable<RFPUsersInformation> allUsers = new List<RFPUsersInformation>();
 
@@ -57,17 +57,11 @@ namespace Application.RFPSystem.Controllers
                 allUsers = await getAllUsers.rFPUsersInformation();
             }
 
-            if (!string.IsNullOrEmpty(usersInfo.userName) && !string.IsNullOrEmpty(usersInfo.accessKey))
-            {
-                RFPUsersInformation rFPUsersInformation =
-                    allUsers.ToList().Find(c => (c.Email == usersInfo.userName) && (c.AccessKey == usersInfo.accessKey));
+            allUsers = allUsers.ToList().FindAll(c => (string.IsNullOrEmpty(userId) || c.Email == userId) && 
+                (!role.HasValue || role.Value == 0 || c.Role == (ProposalUsers)role.Value) &&
+                (!stream.HasValue || stream.Value == 0 || c.Stream == (Stream)stream.Value));
 
-                return Ok(rFPUsersInformation);
-            }
-            else
-            {
-                return Ok(allUsers);
-            }
+            return Ok(allUsers);
         }
 
     }
