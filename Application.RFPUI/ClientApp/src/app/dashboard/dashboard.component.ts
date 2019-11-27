@@ -17,6 +17,11 @@ export class DashboardComponent implements OnInit {
     responsive: true,
     legend: {
       position: "right"
+    },
+    plugins: {
+      datalabels: {
+        color: "white",
+      }
     }
   };
   public pieChartLabels: Label[] =[]; // = ['Self Creation', 'Created by others'];
@@ -73,7 +78,15 @@ export class DashboardComponent implements OnInit {
   public chartOptions: ChartOptions = {
     responsive: true,
     legend: {
-      position: "bottom"
+      position: "bottom",
+      //labels: {
+      //  fontColor: 'white'
+      //}
+    },
+    plugins: {
+      datalabels: {
+        color: "white"
+      }
     }
   };
   public chartColors: Array<any> = [{ backgroundColor: ["#e84351", "#434a54", "#3ebf9b", "#4d86dc", "#f3af37"] }];
