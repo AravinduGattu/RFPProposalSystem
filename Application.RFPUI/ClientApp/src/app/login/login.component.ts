@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit {
         this.userData = response;
         this.loginService.setSessionStorage('token', 'TOKEN');
         this.loginService.setSessionStorage('userid', this.userData.id);
+        this.loginService.setSessionStorage('name', this.userData.name);
         this.loginService.setSessionStorage('email', this.userData.email);
         this.loginService.setSessionStorage('role', this.userData.role);
         this.validateStorage();
@@ -77,7 +78,7 @@ export class LoginComponent implements OnInit {
   }
 
   validateStorage() {
-    const userName = this.loginService.getSessionStorage('userName');
+    const userName = this.loginService.getSessionStorage('name');
     const role = this.loginService.getSessionStorage('role');
     if (userName && role) {
       this.router.navigate(['']);
