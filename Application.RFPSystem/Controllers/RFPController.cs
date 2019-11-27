@@ -45,7 +45,7 @@ namespace Application.RFPSystem.Controllers
                 allUsers = await getAllUsers.rFPUsersInformation();
             }
 
-            if(!string.IsNullOrEmpty(usersInfo.userName) && !string.IsNullOrEmpty(usersInfo.accessKey))
+            if (!string.IsNullOrEmpty(usersInfo.userName) && !string.IsNullOrEmpty(usersInfo.accessKey))
             {
                 RFPUsersInformation rFPUsersInformation =
                     allUsers.ToList().Find(c => (c.Email == usersInfo.userName) && (c.AccessKey == usersInfo.accessKey));
@@ -76,41 +76,48 @@ namespace Application.RFPSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProposalsGrid(string requestID)
         {
-            using (var dbComponent = new LiteDatabase(Constants.DBPath))
+            try
             {
-                List<RFPRequestDataModel> rFPRequestDataModels = new List<RFPRequestDataModel>();
-                LiteCollection<RFPRequestDataModel> getRequestModels =
-                    dbComponent.GetCollection<RFPRequestDataModel>("RequestProposals");
-
-                if (string.IsNullOrEmpty(requestID))
+                using (var dbComponent = new LiteDatabase(Constants.DBPath))
                 {
-                    var listAll = getRequestModels.FindAll().ToList();
+                    List<RFPRequestDataModel> rFPRequestDataModels = new List<RFPRequestDataModel>();
+                    LiteCollection<RFPRequestDataModel> getRequestModels =
+                        dbComponent.GetCollection<RFPRequestDataModel>("RequestProposals");
 
-
-
-                    listAll.ForEach(x => rFPRequestDataModels.Add(x));
-
-                    return Ok(listAll);
-
-                }
-                else
-                {
-                    var matchResponse = getRequestModels.Find(x => x.RFPCode.Equals(requestID)).Any();
-
-                    if (matchResponse)
+                    if (string.IsNullOrEmpty(requestID))
                     {
-                        var results = getRequestModels.Find(x => x.RFPCode.Equals(requestID)).ToList();
+                        var listAll = getRequestModels.FindAll().ToList();
 
-                        results.ForEach(x => rFPRequestDataModels.Add(x));
 
-                        return Ok(results);
+
+                        listAll.ForEach(x => rFPRequestDataModels.Add(x));
+
+                        return Ok(listAll);
+
                     }
                     else
                     {
-                        return Ok(new { Reason = "Not Found", Response = "No Record on " + requestID });
-                    }
+                        var matchResponse = getRequestModels.Find(x => x.RFPCode.Equals(requestID)).Any();
 
+                        if (matchResponse)
+                        {
+                            var results = getRequestModels.Find(x => x.RFPCode.Equals(requestID)).ToList();
+
+                            results.ForEach(x => rFPRequestDataModels.Add(x));
+
+                            return Ok(results);
+                        }
+                        else
+                        {
+                            return Ok(new { Reason = "Not Found", Response = "No Record on " + requestID });
+                        }
+
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex);
             }
         }
 
@@ -118,41 +125,48 @@ namespace Application.RFPSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProposals(string requestID)
         {
-            using (var dbComponent = new LiteDatabase(Constants.DBPath))
+            try
             {
-                List<RFPRequestDataModel> rFPRequestDataModels = new List<RFPRequestDataModel>();
-                LiteCollection<RFPRequestDataModel> getRequestModels =
-                    dbComponent.GetCollection<RFPRequestDataModel>("RequestProposals");
-
-                if (string.IsNullOrEmpty(requestID))
+                using (var dbComponent = new LiteDatabase(Constants.DBPath))
                 {
-                    var listAll = getRequestModels.FindAll().ToList();
+                    List<RFPRequestDataModel> rFPRequestDataModels = new List<RFPRequestDataModel>();
+                    LiteCollection<RFPRequestDataModel> getRequestModels =
+                        dbComponent.GetCollection<RFPRequestDataModel>("RequestProposals");
 
-                    
-
-                    listAll.ForEach(x=>rFPRequestDataModels.Add(x));
-
-                    return Ok(listAll);
-
-                }
-                else
-                {
-                    var matchResponse = getRequestModels.Find(x => x.RFPCode.Equals(requestID)).Any();
-
-                    if(matchResponse)
+                    if (string.IsNullOrEmpty(requestID))
                     {
-                        var results = getRequestModels.Find(x => x.RFPCode.Equals(requestID)).ToList();
+                        var listAll = getRequestModels.FindAll().ToList();
 
-                        results.ForEach(x => rFPRequestDataModels.Add(x));
 
-                        return Ok(results);
+
+                        listAll.ForEach(x => rFPRequestDataModels.Add(x));
+
+                        return Ok(listAll);
+
                     }
                     else
                     {
-                        return Ok(new { Reason = "Not Found", Response = "No Record on "+requestID });
-                    }
+                        var matchResponse = getRequestModels.Find(x => x.RFPCode.Equals(requestID)).Any();
 
+                        if (matchResponse)
+                        {
+                            var results = getRequestModels.Find(x => x.RFPCode.Equals(requestID)).ToList();
+
+                            results.ForEach(x => rFPRequestDataModels.Add(x));
+
+                            return Ok(results);
+                        }
+                        else
+                        {
+                            return Ok(new { Reason = "Not Found", Response = "No Record on " + requestID });
+                        }
+
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex);
             }
         }
 
@@ -169,7 +183,7 @@ namespace Application.RFPSystem.Controllers
                 using (IAsyncValidations asyncValidations = new ValdiateRules())
                 {
 
-                    ValidateResponse validateResponse = 
+                    ValidateResponse validateResponse =
                         await asyncValidations.validateProposalRequest(rFPRequestDataModel);
 
                     if (validateResponse.NoErrors)
@@ -205,12 +219,12 @@ namespace Application.RFPSystem.Controllers
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Ok(ex);
             }
 
-            
+
         }
 
     }
