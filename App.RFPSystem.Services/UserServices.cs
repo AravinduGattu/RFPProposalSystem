@@ -18,13 +18,13 @@ namespace App.RFPSystem.Services
             IList<RFPUsersInformation> rFPUsersInformation =
                 new List<RFPUsersInformation>
                 {
-                    new RFPUsersInformation { Id=1, AccessKey = "QWERTYUIOP",Environment="Sandbox",userName="Narayana@pactera.com",Role="DeliveryTeamLead"  },
-                    new RFPUsersInformation { Id=2, AccessKey = "ASDFGHJKL",Environment="Sandbox",userName="Sreekanth@pactera.com", Role = "PracticeLead" },
-                    new RFPUsersInformation { Id=3, AccessKey = "LKJHGFDSA",Environment="Sandbox",userName="Sashi@pactera.com" , Role="DeliveryTeamLead"},
-                    new RFPUsersInformation { Id=4, AccessKey = "POIUYTREWQ",Environment="Sandbox",userName="Phani@pactera.com" , Role="PracticeLead"},
-                    new RFPUsersInformation { Id=5, AccessKey = "#EDCXSW@",Environment="Sandbox",userName="Thomson@pactera.com" , Role="SalesLead"},
-                    new RFPUsersInformation { Id=6, AccessKey = "!QAZ@WSX",Environment="Sandbox",userName="maruthi@pactera.com" , Role="PursuitTeamLead"},
-                    new RFPUsersInformation { Id=6, AccessKey = "ZAQ!XSW@",Environment="Sandbox",userName="Aravind.Gattu@pactera.com" , Role="PursuitTeamLead"}
+                    new RFPUsersInformation { Id=1, AccessKey = "QWERTYUIOP",Environment="Sandbox", Name = "Narayana", Email="Narayana@pactera.com",Role="DeliveryTeamLead"  },
+                    new RFPUsersInformation { Id=2, AccessKey = "ASDFGHJKL",Environment="Sandbox", Name = "Sreekanth", Email="Sreekanth@pactera.com", Role = "PracticeLead" },
+                    new RFPUsersInformation { Id=3, AccessKey = "LKJHGFDSA",Environment="Sandbox", Name = "Sashi", Email="Sashi@pactera.com" , Role="DeliveryTeamLead"},
+                    new RFPUsersInformation { Id=4, AccessKey = "POIUYTREWQ",Environment="Sandbox", Name = "Phani", Email="Phani@pactera.com" , Role="PracticeLead"},
+                    new RFPUsersInformation { Id=5, AccessKey = "#EDCXSW@",Environment="Sandbox", Name = "Thomson", Email="Thomson@pactera.com" , Role="SalesLead"},
+                    new RFPUsersInformation { Id=6, AccessKey = "!QAZ@WSX",Environment="Sandbox",Name = "maruthi", Email="maruthi@pactera.com" , Role="PursuitTeamLead"},
+                    new RFPUsersInformation { Id=6, AccessKey = "ZAQ!XSW@",Environment="Sandbox",Name = "Aravind.Gattu", Email="Aravind.Gattu@pactera.com" , Role="PursuitTeamLead"}
                 };
 
 

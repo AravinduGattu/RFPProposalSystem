@@ -8,7 +8,9 @@ namespace Common.DataObjects
     {
         public int Id { get; set; }
 
-        public string userName { get; set; }
+        public string Name { get; set; }
+
+        public string Email { get; set; }
 
         public string AccessKey { get; set; }
 
