@@ -29,7 +29,7 @@ namespace Application.RulesSetup
             allUsers = await new UserServices().rFPUsersInformation();
 
             RFPUsersInformation rFPUsersInformation =
-                    allUsers.ToList().Find(x => x.Name == rFPRequestDataModel.RFPUser.Name.ToString());
+                    allUsers.ToList().Find(x => x.Name == rFPRequestDataModel.RFPUser.ToString());
 
             if(rFPUsersInformation != null)
             {
