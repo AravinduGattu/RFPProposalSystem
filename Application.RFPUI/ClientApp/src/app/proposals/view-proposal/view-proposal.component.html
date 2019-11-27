@@ -122,7 +122,7 @@
         <br />
 
 
-        <!--<mat-accordion>
+        <mat-accordion>
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
         <mat-panel-title>Journey of Proposal</mat-panel-title>
@@ -131,16 +131,17 @@
 
       <div class="journeysection">
         <div class="timeline">
-          <div class="dottedTimeline" *ngFor="let journey of RequestJourney; let L = last;">
+          <div class="dottedTimeline" *ngFor="let step of steps; let L = last;">
             <div class="timelineCard">
-              <p>{{journey.Name}}</p>
-              <div>
-                <img class="timeLineImg" src="{{getProcessImage(journey.statusId)}}" alt="Image Here"><br />
+              <p class="italic">{{step.dateLabel}}</p>
+              <div class="statusback" [ngClass]="{'rejectM': step.acceptance === 'No', 'pendingM': step.acceptance === 'Pending' }">
+                <!--<img class="timeLineImg" src="../../../assets/images/correct.svg" alt="Image Here">-->
+                <div class="timeLineImg"></div>
+                <br />
               </div>
-              <p>{{journey.status}}</p>
-              <p>{{journey.dateTime}}</p>
+              <p class="italic bold">{{step.title}}</p>
             </div>
-            <div *ngIf="!L" class="journeyLine"></div>
+            <!--<div *ngIf="!L" class="journeyLine"></div>-->
           </div>
 
         </div>
@@ -148,7 +149,7 @@
 
     </mat-expansion-panel>
   </mat-accordion>
-  <br />-->
+  <br />
         <mat-accordion>
           <mat-expansion-panel [expanded]="true">
             <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
@@ -210,14 +211,14 @@
                       </td>
                       <td>
                         <mat-form-field>
-                          <input matInput [matDatepicker]="picker2" required formControlName="scheduleStartDate" readonly>
+                          <input matInput [matDatepicker]="picker2" required formControlName="scheduleStartDate" readonly [max]="X.controls['scheduleEndDate'].value">
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
                       </td>
                       <td>
                         <mat-form-field>
-                          <input matInput [matDatepicker]="picker3" required formControlName="scheduleEndDate" readonly>
+                          <input matInput [matDatepicker]="picker3" required formControlName="scheduleEndDate" readonly [min]="X.controls['scheduleStartDate'].value">
                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                           <mat-datepicker #picker3></mat-datepicker>
                         </mat-form-field>
@@ -309,15 +310,15 @@
                           <input matInput formControlName="totalCost" required maxlength="50">
                         </mat-form-field>
                       </td>
-                      <td *ngIf="proposalForm.get('schedule').controls.length > 1">
-                        <mat-icon class="matIconButton" (click)="removeSchedule(i)">remove_circle</mat-icon>
+                      <td *ngIf="proposalForm.get('pricing').controls.length > 1">
+                        <mat-icon class="matIconButton" (click)="removePricing(i)">remove_circle</mat-icon>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <div class="col-lg-1">
-                <div class="btn" (click)="addNewSchedule()">
+                <div class="btn" (click)="addNewPricing()">
                   <mat-icon>add_circle</mat-icon>
                 </div>
               </div>
@@ -434,7 +435,6 @@
               <div formArrayName="questionnaire" *ngFor="let X of proposalForm.get('questionnaire')['controls']; let i = index;">
                 <div class="questionnaire" [formGroupName]="i">
                   <div class="pull-right btn crossbtn" *ngIf="proposalForm.get('questionnaire').controls.length > 1" (click)="removeQuestionnaire(i)">
-                    n>
                     <mat-icon>highlight_off</mat-icon>
                   </div>
                   <br />

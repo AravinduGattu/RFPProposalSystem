@@ -4,6 +4,39 @@
   /*padding: 0px 10px;*/
 }
 
+/* Table Common CSS */
+
+table mat-form-field {
+  padding: 5px;
+}
+
+th {
+  height: 40px;
+  color: white;
+  background-color: #00163b;
+  text-align: center;
+}
+
+th, td {
+  border: 1px solid black;
+}
+
+td {
+  height: 40px;
+  padding: 0px 10px;
+}
+
+/*Buttons*/
+
+.actionbtn {
+  margin-left: 5px;
+}
+
+.matIconButton {
+  cursor: pointer;
+}
+
+/* Top Details Section */
 .details {
   margin: 10px;
   padding: 5px;
@@ -12,6 +45,46 @@
 }
 
 /* Journey Section*/
+.statusback {
+  background-color: #37bf78;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  position: relative;
+}
+
+.statusback::after {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 3px;
+  background: gray;
+  width: 180px;
+  left: 100%;
+  top: calc(50% - 2px);
+}
+
+.dottedTimeline:last-child .statusback::after {
+  display: none;
+}
+
+.rejectM {
+  background-color: orangered;
+}
+
+.rejectM .timeLineImg {
+  mask: url('../../../assets/images/wrong.svg') center/20px 20px no-repeat;
+}
+
+.pendingM {
+  background-color: gray;
+}
+
+.pendingM .timeLineImg {
+  mask: url('../../../assets/images/pending.svg') center/25px 25px no-repeat;
+}
+
 .journeysection {
   width: auto;
   /*white-space: nowrap;*/
@@ -19,14 +92,29 @@
 }
 
 .timelineCard {
-  width: 100px;
+  width: 200px;
 }
 
+.timelineCard p {
+  height: 40px;
+}
+
+/*.date {
+  position:relative;
+}
+
+.date p {
+  position: absolute;
+  bottom: 0;
+}*/
+
 .timeLineImg {
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
   z-index: 0;
   opacity: 1;
+  mask: url('../../../assets/images/correct.svg') center/25px 25px no-repeat;
+  background-color: white;
 }
 
 .timeline {
@@ -48,7 +136,7 @@
 }
 
 /*Progress Arrow Start*/
-.arrow {
+/*.arrow {
   font-size: 0;
 }
 
@@ -82,7 +170,7 @@
 
 .arrow:after {
   border-left-color: green;
-}
+}*/
 /*Progress Arrow End*/
 
 /* Document Section */
@@ -113,11 +201,11 @@
   text-align: center;
 }
 
-  .docLabel label {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+.docLabel label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .docRemove {
   width: 100%;
@@ -186,16 +274,9 @@ mat-panel-title {
   padding: 0px 20px 20px;
 }
 
-th {
-  height: 40px;
-  color: white;
-  background-color: #00163b;
-}
 
-th, td {
-  border: 1px solid black;
-}
 
+/* Schedule Section */
 .scheduleSection th:nth-child(5) {
   border: none;
   background-color: transparent;
@@ -203,19 +284,6 @@ th, td {
 
 .scheduleSection td:nth-child(5) {
   border: none;
-}
-
-th {
-  text-align: center;
-}
-
-table mat-form-field {
-  padding: 5px;
-}
-
-td {
-  height: 40px;
-  padding: 0px 10px;
 }
 
 .scheduleSection th:nth-child(1) {
@@ -244,16 +312,6 @@ td {
   padding: 0px;
 }
 
-.matIconButton {
-  cursor: pointer;
-}
-
-/*Buttons*/
-.actionbtn {
-  margin-left: 5px;
-}
-
-
 /*New Horizontal Process*/
 
 .timelinehr {
@@ -267,6 +325,14 @@ td {
 
 .timelinehr li {
   transition: all 200ms ease-in;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.bold {
+  font-weight: 600;
 }
 
 .timestamp {
@@ -298,14 +364,24 @@ td {
   content: '';
   width: 20px;
   height: 20px;
-  background-color: forestgreen;
+  background-color: #37bf78;
   border-radius: 25px;
-  border: 2px solid gray;
+  /*border: 2px solid gray;*/
+  /*mask: url('../../../assets/images/correct.svg') center/25px 25px no-repeat;*/
+  background-image: url('../../../assets/images/correct.svg');
   position: absolute;
   top: -12px;
   left: 42%;
   transition: all 200ms ease-in;
 }
+
+/*.reject {
+  border-top: 2px solid orangered;
+}
+
+.pending {
+  border-top: 2px solid gray;
+}*/
 
 .reject span:before {
   background-color: orangered;
@@ -334,4 +410,27 @@ td {
     width: 40%;
   }*/
 
+/* Pricing Section */
 
+.pricingSection {
+  overflow-x: auto;
+}
+
+.pricingSection
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.pricingSection
+::ng-deep .mat-form-field-wrapper {
+  padding: 0px;
+}
+
+.pricingSection th:nth-child(9) {
+  border: none;
+  background-color: transparent;
+}
+
+.pricingSection td:nth-child(9) {
+  border: none;
+}

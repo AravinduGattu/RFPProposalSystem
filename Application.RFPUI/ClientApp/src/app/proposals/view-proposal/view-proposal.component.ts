@@ -21,6 +21,7 @@ export class ViewProposalComponent implements OnInit {
   proposalForm: FormGroup;
   documentsForm: FormArray;
   scheduleForm: FormArray;
+  pricingForm: FormArray;
   questionnaireForm: FormArray;
   questionForm: FormArray;
   fileStream: any;
@@ -260,6 +261,16 @@ export class ViewProposalComponent implements OnInit {
   removeSchedule(index: number) {
     this.scheduleForm = this.proposalForm.get('schedule') as FormArray;
     this.scheduleForm.removeAt(index);
+  }
+
+  addNewPricing() {
+    this.pricingForm = this.proposalForm.get('pricing') as FormArray;
+    this.pricingForm.push(this.createPricingForm());
+  }
+
+  removePricing(index: number) {
+    this.pricingForm = this.proposalForm.get('pricing') as FormArray;
+    this.pricingForm.removeAt(index);
   }
 
   addNewQuestionnaire() {

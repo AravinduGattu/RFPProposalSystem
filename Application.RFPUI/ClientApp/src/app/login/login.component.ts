@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
         this.userData = response;
         this.loginService.setSessionStorage('token', 'TOKEN');
         this.loginService.setSessionStorage('userid', this.userData.id);
-        this.loginService.setSessionStorage('userName', this.userData.userName);
+        this.loginService.setSessionStorage('email', this.userData.email);
         this.loginService.setSessionStorage('role', this.userData.role);
         this.validateStorage();
       } else {
