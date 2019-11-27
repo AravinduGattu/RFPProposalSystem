@@ -56,6 +56,22 @@ namespace Application.RulesSetup
             return await Task.Run(() => validateResponse);
         }
 
+        public async Task<ValidateResponse> validateProposalStatus(ProposalStatus proposalStatus)
+        {
+
+            ValidateResponse validateResponse = new ValidateResponse();
+            validateResponse.NoErrors = true;
+
+            IEnumerable<RFPUsersInformation> allUsers = new List<RFPUsersInformation>();
+
+            allUsers = await new UserServices().rFPUsersInformation();
+
+            RFPUsersInformation rFPUsersInformation =
+                    allUsers.ToList().Find(x => x.userId == proposalStatus.RFPUserID);
+
+            return await Task.Run(() => validateResponse);
+        }
+
         public async Task<ValidateResponse> ValidateProposalUser(ProposalUsers proposalUser)
         {
             ValidateResponse validateResponse = new ValidateResponse();

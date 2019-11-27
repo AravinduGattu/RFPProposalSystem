@@ -31,7 +31,7 @@ namespace Common.DataObjects
         public string Date { get; set; }
         public string Status { get; set; }
         public string Accceptance { get; set; }
-        public RFPUsersInformation User { get; set; }
+        public string RFPUserID { get; set; }
     }
 
     public class RFPRequestDataModel
