@@ -196,14 +196,14 @@ th, td {
   border: 1px solid black;
 }
 
-  th:nth-child(5) {
-    border: none;
-    background-color: transparent;
-  }
+.scheduleSection th:nth-child(5) {
+  border: none;
+  background-color: transparent;
+}
 
-  td:nth-child(5) {
-    border: none;
-  }
+.scheduleSection td:nth-child(5) {
+  border: none;
+}
 
 th {
   text-align: center;
@@ -218,19 +218,19 @@ td {
   padding: 0px 10px;
 }
 
-th:nth-child(1) {
+.scheduleSection th:nth-child(1) {
   width: 350px;
 }
 
-td:nth-child(1) {
+.scheduleSection td:nth-child(1) {
   width: 350px;
 }
 
-th:nth-child(4) {
+.scheduleSection th:nth-child(4) {
   width: 350px;
 }
 
-td:nth-child(4) {
+.scheduleSection td:nth-child(4) {
   width: 350px;
 }
 

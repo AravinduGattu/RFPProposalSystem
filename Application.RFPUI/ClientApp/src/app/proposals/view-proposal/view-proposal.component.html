@@ -123,32 +123,32 @@
 
 
         <!--<mat-accordion>
-          <mat-expansion-panel [expanded]="true">
-            <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
-              <mat-panel-title>Journey of Proposal</mat-panel-title>
-              <mat-panel-description></mat-panel-description>
-            </mat-expansion-panel-header>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
+        <mat-panel-title>Journey of Proposal</mat-panel-title>
+        <mat-panel-description></mat-panel-description>
+      </mat-expansion-panel-header>
 
-            <div class="journeysection">
-              <div class="timeline">
-                <div class="dottedTimeline" *ngFor="let journey of RequestJourney; let L = last;">
-                  <div class="timelineCard">
-                    <p>{{journey.Name}}</p>
-                    <div>
-                      <img class="timeLineImg" src="{{getProcessImage(journey.statusId)}}" alt="Image Here"><br />
-                    </div>
-                    <p>{{journey.status}}</p>
-                    <p>{{journey.dateTime}}</p>
-                  </div>
-                  <div *ngIf="!L" class="journeyLine"></div>
-                </div>
-
+      <div class="journeysection">
+        <div class="timeline">
+          <div class="dottedTimeline" *ngFor="let journey of RequestJourney; let L = last;">
+            <div class="timelineCard">
+              <p>{{journey.Name}}</p>
+              <div>
+                <img class="timeLineImg" src="{{getProcessImage(journey.statusId)}}" alt="Image Here"><br />
               </div>
+              <p>{{journey.status}}</p>
+              <p>{{journey.dateTime}}</p>
             </div>
+            <div *ngIf="!L" class="journeyLine"></div>
+          </div>
 
-          </mat-expansion-panel>
-        </mat-accordion>
-        <br />-->
+        </div>
+      </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+  <br />-->
         <mat-accordion>
           <mat-expansion-panel [expanded]="true">
             <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
@@ -159,15 +159,15 @@
             <div>
               <div class="journeyDiv">
                 <!--<div class="arrow">
-                <div class="inner-arrow">Completed</div>
-                </div>-->
+          <div class="inner-arrow">Completed</div>
+          </div>-->
                 <div class="timelinehr">
                   <div class="swiper-slide" *ngFor="let item of steps">
                     <div class="timestamp">
                       <span class="date">{{item.dateLabel}}</span>
                     </div>
                     <div class="status" [ngClass]="{'reject': item.acceptance === 'No', 'pending': item.acceptance === 'Pending' }">
-                    <!--<div class="{{item.acceptance === 'No' ?'status reject':'status'}}">-->
+                      <!--<div class="{{item.acceptance === 'No' ?'status reject':'status'}}">-->
                       <span>{{item.title}}</span>
                     </div>
                   </div>
@@ -225,6 +225,88 @@
                       <td>
                         <mat-form-field>
                           <input matInput formControlName="remarks" name="txtRemarks" required maxlength="100">
+                        </mat-form-field>
+                      </td>
+                      <td *ngIf="proposalForm.get('schedule').controls.length > 1">
+                        <mat-icon class="matIconButton" (click)="removeSchedule(i)">remove_circle</mat-icon>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-lg-1">
+                <div class="btn" (click)="addNewSchedule()">
+                  <mat-icon>add_circle</mat-icon>
+                </div>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <br />
+
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
+              <mat-panel-title>Pricing</mat-panel-title>
+              <mat-panel-description></mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="pricingSection">
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>S.No</th>
+                      <th>Role</th>
+                      <th>Description</th>
+                      <th>Count</th>
+                      <th>Allocation</th>
+                      <th>Location</th>
+                      <th>Total Hours</th>
+                      <th>Total Cost</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="pricing" *ngFor="let X of proposalForm.get('pricing')['controls']; let i = index;">
+                    <tr [formGroupName]="i">
+                      <td>
+                        <label>{{i+1}}</label>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <input matInput formControlName="role" required maxlength="50">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <input matInput formControlName="description" required maxlength="50">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <input matInput formControlName="count" required maxlength="50">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <input matInput formControlName="allocation" required maxlength="50">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <input matInput formControlName="location" required maxlength="50">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <input matInput formControlName="totalHours" required maxlength="50">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <input matInput formControlName="totalCost" required maxlength="50">
                         </mat-form-field>
                       </td>
                       <td *ngIf="proposalForm.get('schedule').controls.length > 1">
@@ -352,6 +434,7 @@
               <div formArrayName="questionnaire" *ngFor="let X of proposalForm.get('questionnaire')['controls']; let i = index;">
                 <div class="questionnaire" [formGroupName]="i">
                   <div class="pull-right btn crossbtn" *ngIf="proposalForm.get('questionnaire').controls.length > 1" (click)="removeQuestionnaire(i)">
+                    n>
                     <mat-icon>highlight_off</mat-icon>
                   </div>
                   <br />

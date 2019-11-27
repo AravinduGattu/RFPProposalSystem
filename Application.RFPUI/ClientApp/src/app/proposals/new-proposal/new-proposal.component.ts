@@ -54,6 +54,10 @@ export class NewProposalComponent implements OnInit {
       // createdDate: new FormControl(''),
       // modifiedBy: new FormControl(''),
       // modifiedDate: new FormControl('')
+      assignedTo: new FormControl(),
+      viewers: new FormControl(['']),
+      history: this.formBuilder.array([this.createHistoryForm()]),
+      pricing: this.formBuilder.array([this.createPricingForm()])
     });
   }
 
@@ -91,6 +95,28 @@ export class NewProposalComponent implements OnInit {
       // questionID: new FormControl(0),
       question: new FormControl(''),
       answer: new FormControl('')
+    });
+  }
+
+  createHistoryForm(): FormGroup {
+    return this.formBuilder.group({
+      date: new FormControl(),
+      status: new FormControl(),
+      acceptance: new FormControl()
+    });
+  }
+
+  createPricingForm(): FormGroup {
+    return this.formBuilder.group({
+      role: new FormControl(),
+      description: new FormControl(),
+      count: new FormControl(),
+      allocation: new FormControl(),
+      location: new FormControl(),
+      //cost: new FormControl(),
+      //rate: new FormControl(),
+      totalHours: new FormControl(),
+      totalCost: new FormControl(),
     });
   }
 

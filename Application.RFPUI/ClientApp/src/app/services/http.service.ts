@@ -41,9 +41,9 @@ export class HttpService {
  * @returns {Observable<any>}
  */
   makePostRequestforFormData(url: string, body?: any): Observable<any> {
-    let headers = new HttpHeaders();
+    //let headers = new HttpHeaders();
     //headers = headers.append('fileupload', 'fileupload');
-    return this._http.post(this.API_URL + url, body, { headers: headers });
+    return this._http.post(this.API_URL + url, body, {headers: { 'Access-Control-Allow-Origin': '*' }});
   }
 
   /**
