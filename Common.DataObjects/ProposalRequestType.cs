@@ -9,4 +9,9 @@ namespace Common.DataObjects
         Project=1,
         Resource=2
     }
+
+    public static class Constants
+    {
+        public static string DBPath = @"D:\LiteDB\RFPData.db";
+    }
 }

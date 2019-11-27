@@ -76,7 +76,7 @@ namespace Application.RFPSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProposalsGrid(string requestID)
         {
-            using (var dbComponent = new LiteDatabase(@"D:\LiteDB\RFPData.db"))
+            using (var dbComponent = new LiteDatabase(Constants.DBPath))
             {
                 List<RFPRequestDataModel> rFPRequestDataModels = new List<RFPRequestDataModel>();
                 LiteCollection<RFPRequestDataModel> getRequestModels =
