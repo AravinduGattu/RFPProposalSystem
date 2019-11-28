@@ -21,7 +21,7 @@ export class RouteGuardService implements CanActivate {
       var activatedRouteUsers = next.routeConfig.data.users;
 
 
-      if (activatedRouteUsers.includes('All') || activatedRouteUsers.includes(role)) {
+      if (activatedRouteUsers.includes(0) || activatedRouteUsers.includes(+role)) {
         return true;
       } else {
         this.router.navigate(['/app/unauthorized']);
