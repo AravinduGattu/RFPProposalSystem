@@ -26,17 +26,17 @@ namespace Application.RFPSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Authenticate([FromForm]userInfo userInfo)
         {
-            IEnumerable<RFPUsersInformation> allUsers = new List<RFPUsersInformation>();
+            IEnumerable<UserInfo> allUsers = new List<UserInfo>();
 
-            using (ISyncRFPUsersInformation getAllUsers = new UserServices())
+            using (ISyncUserInfo getAllUsers = new UserService())
             {
                 allUsers = await getAllUsers.rFPUsersInformation();
             }
 
             if (!string.IsNullOrEmpty(userInfo.userName) && !string.IsNullOrEmpty(userInfo.accessKey))
             {
-                RFPUsersInformation rFPUsersInformation =
-                    allUsers.ToList().Find(c => (c.Email == userInfo.userName) && (c.AccessKey == userInfo.accessKey));
+                UserInfo rFPUsersInformation =
+                    allUsers.ToList().Find(c => (c.EmailID == userInfo.userName) && (c.AccessKey == userInfo.accessKey));
 
                 return Ok(rFPUsersInformation);
             }
@@ -50,14 +50,14 @@ namespace Application.RFPSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> UsersInformation(string userId, int? role, int? stream)
         {
-            IEnumerable<RFPUsersInformation> allUsers = new List<RFPUsersInformation>();
+            IEnumerable<UserInfo> allUsers = new List<UserInfo>();
 
-            using (ISyncRFPUsersInformation getAllUsers = new UserServices())
+            using (ISyncUserInfo getAllUsers = new UserService())
             {
                 allUsers = await getAllUsers.rFPUsersInformation();
             }
 
-            allUsers = allUsers.ToList().FindAll(c => (string.IsNullOrEmpty(userId) || c.Email == userId) && 
+            allUsers = allUsers.ToList().FindAll(c => (string.IsNullOrEmpty(userId) || c.EmailID == userId) && 
                 (!role.HasValue || role.Value == 0 || c.Role == (ProposalUsers)role.Value) &&
                 (!stream.HasValue || stream.Value == 0 || c.Stream == (Stream)stream.Value));
 

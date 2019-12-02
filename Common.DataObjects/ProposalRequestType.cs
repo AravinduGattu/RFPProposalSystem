@@ -36,8 +36,5 @@ namespace Common.DataObjects
         Accept = 12
     }
 
-    public static class Constants
-    {
-        public static string DBPath = @"\\10.130.0.14\RFP\RFPData.db";
-    }
+    
 }
