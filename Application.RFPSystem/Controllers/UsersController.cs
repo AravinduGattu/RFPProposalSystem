@@ -22,29 +22,29 @@ namespace Application.RFPSystem.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        [Route("api/V1/Authenticate")]
-        [HttpPost]
-        public async Task<IActionResult> Authenticate([FromForm]userInfo userInfo)
-        {
-            IEnumerable<UserInfo> allUsers = new List<UserInfo>();
+        //[Route("api/V1/Authenticate")]
+        //[HttpPost]
+        //public async Task<IActionResult> Authenticate([FromForm]userInfo userInfo)
+        //{
+        //    IEnumerable<UserInfo> allUsers = new List<UserInfo>();
 
-            using (ISyncUserInfo getAllUsers = new UserService())
-            {
-                allUsers = await getAllUsers.rFPUsersInformation();
-            }
+        //    using (ISyncUserInfo getAllUsers = new UserService())
+        //    {
+        //        allUsers = await getAllUsers.rFPUsersInformation();
+        //    }
 
-            if (!string.IsNullOrEmpty(userInfo.userName) && !string.IsNullOrEmpty(userInfo.accessKey))
-            {
-                UserInfo rFPUsersInformation =
-                    allUsers.ToList().Find(c => (c.EmailID == userInfo.userName) && (c.AccessKey == userInfo.accessKey));
+        //    if (!string.IsNullOrEmpty(userInfo.userName) && !string.IsNullOrEmpty(userInfo.accessKey))
+        //    {
+        //        UserInfo rFPUsersInformation =
+        //            allUsers.ToList().Find(c => (c.EmailID == userInfo.userName) && (c.AccessKey == userInfo.accessKey));
 
-                return Ok(rFPUsersInformation);
-            }
-            else
-            {
-                return Ok(null);
-            }
-        }
+        //        return Ok(rFPUsersInformation);
+        //    }
+        //    else
+        //    {
+        //        return Ok(null);
+        //    }
+        //}
 
         [Route("api/V1/UserList")]
         [HttpGet]

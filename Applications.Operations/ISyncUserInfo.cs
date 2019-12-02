@@ -12,6 +12,6 @@ namespace Applications.Operations
         Task<List<UserInfo>> GetList();
         Task<UserInfo> GetByName(string name);
         Task<int> Save(UserInfo item);
-        Task<int> Delete(string name);
+        Task<int> Delete(int id);
     }
 }
