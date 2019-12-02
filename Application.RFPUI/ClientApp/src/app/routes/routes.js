@@ -11,7 +11,7 @@ var planner_proposal_component_1 = require("../proposals/planner-proposal/planne
 var planner_name_component_1 = require("../proposals/planner-name/planner-name.component");
 var unauthorized_component_1 = require("../unauthorized/unauthorized.component");
 var route_guard_service_1 = require("./route-guard.service");
-var constants_1 = require("../global/constants");
+var enum_1 = require("../global/enum");
 exports.childRoutes = [
     {
         path: 'dashboard',
@@ -21,7 +21,7 @@ exports.childRoutes = [
             title: 'Dashboard',
             class: 'glyphicon-stats',
             menu: true,
-            users: [constants_1.Roles.ALL]
+            users: [enum_1.ProposalUsers.All]
         }
     },
     {
@@ -32,7 +32,7 @@ exports.childRoutes = [
             title: 'Proposals',
             class: 'glyphicon-list-alt',
             menu: true,
-            users: [constants_1.Roles.ALL]
+            users: [enum_1.ProposalUsers.All]
         }
     },
     {
@@ -43,7 +43,7 @@ exports.childRoutes = [
             title: 'New Proposal',
             class: 'glyphicon-copy',
             menu: true,
-            users: [constants_1.Roles.Sales_Lead]
+            users: [enum_1.ProposalUsers.SalesLead]
         }
     },
     {
@@ -54,7 +54,7 @@ exports.childRoutes = [
             title: 'Administration',
             class: 'glyphicon-wrench',
             menu: true,
-            users: [constants_1.Roles.Sales_Lead]
+            users: [enum_1.ProposalUsers.SalesLead]
         }
     },
     {
@@ -65,7 +65,7 @@ exports.childRoutes = [
             title: 'Planner Proposal',
             class: 'glyphicon-copy',
             menu: false,
-            users: [constants_1.Roles.Sales_Lead]
+            users: [enum_1.ProposalUsers.SalesLead]
         }
     },
     {
@@ -76,7 +76,7 @@ exports.childRoutes = [
             title: 'Planner Proposal',
             class: 'glyphicon-copy',
             menu: false,
-            users: [constants_1.Roles.Sales_Lead]
+            users: [enum_1.ProposalUsers.SalesLead]
         }
     },
     {
@@ -87,7 +87,7 @@ exports.childRoutes = [
             title: 'View Proposal',
             class: 'glyphicon-copy',
             menu: false,
-            users: [constants_1.Roles.ALL]
+            users: [enum_1.ProposalUsers.All]
         }
     },
     {
@@ -98,7 +98,7 @@ exports.childRoutes = [
             title: '',
             class: '',
             menu: false,
-            users: [constants_1.Roles.ALL]
+            users: [enum_1.ProposalUsers.All]
         }
     }
 ];
@@ -116,7 +116,7 @@ exports.routes = [
             title: '',
             class: '',
             menu: false,
-            users: [constants_1.Roles.ALL]
+            users: [enum_1.ProposalUsers.All]
         }
     },
     {

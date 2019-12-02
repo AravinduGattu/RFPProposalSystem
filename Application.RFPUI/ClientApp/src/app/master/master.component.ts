@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Routes, Router } from '@angular/router';
 import { LoginService } from '../login/login.service';
 import { childRoutes } from '../routes/routes';
+import { Roles } from '../global/constants'
 
 @Component({
   selector: 'app-master',
@@ -20,17 +21,18 @@ export class MasterComponent implements OnInit {
 
 
   ngOnInit() {
-    const user = this.loginService.getSessionStorage('name');
+    const name = this.loginService.getSessionStorage('name');
     const role = this.loginService.getSessionStorage('role');
     //this.userNmae = (user.split('@', 1)).toString();
-    this.userNmae = user;
-    this.role = role.replace(/([A-Z])/g, ' $1').trim();
-    this.MenuList = this.getMenuList(role);
+    this.userNmae = name;
+    //this.role = role.replace(/([A-Z])/g, ' $1').trim();
+    this.role = Roles[role];
+    this.MenuList = this.getMenuList(+role);
   }
 
-  getMenuList(role: string) {
+  getMenuList(role: any) {
     var routes = childRoutes.filter(list => list.data.menu === true && list.data.users.filter((user) => {
-      return (user === 'All' || user === role)
+      return (user === 0 || user === role)
     }).length > 0);
 
     return routes;

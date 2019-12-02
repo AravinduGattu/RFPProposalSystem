@@ -1,32 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NavbarMenu = [
-    {
-        path: 'dashboard',
-        title: 'Dashboard',
-        class: 'glyphicon-stats'
-    },
-    {
-        path: 'newProposal',
-        title: 'New Proposal',
-        class: 'glyphicon-copy'
-    },
-    {
-        path: 'proposals',
-        title: 'Proposals',
-        class: 'glyphicon-list-alt'
-    },
-    {
-        path: 'administration',
-        title: 'Administration',
-        class: 'glyphicon-wrench'
-    },
-    {
-        path: 'plannerName',
-        title: 'Planner',
-        class: 'glyphicon-copy'
-    }
-];
 exports.UserData = {
     userId: 'P0145011',
     userName: 'Aravindu Gattu',
@@ -36,11 +9,10 @@ exports.UserData = {
     token: 'XDRTYIE$RTTYIDLEO'
 };
 exports.Roles = {
-    ALL: 'All',
-    Sales_Lead: 'SalesLead',
-    Practice_Lead: 'PracticeLead',
-    Pursuit_Team_Lead: 'PursuitTeamLead',
-    Delivery_TeamLead: 'DeliveryTeamLead'
+    1: 'Sales Lead',
+    2: 'Practice Lead',
+    3: 'Pursuit Lead',
+    4: 'Delivery Lead'
 };
 exports.RequestTypes = [
     {

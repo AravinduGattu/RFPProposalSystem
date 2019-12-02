@@ -11,6 +11,7 @@ import { PlannerNameComponent } from '../proposals/planner-name/planner-name.com
 import { UnauthorizedComponent } from '../unauthorized/unauthorized.component';
 import { RouteGuardService } from './route-guard.service';
 import { Roles } from '../global/constants';
+import { ProposalUsers } from '../global/enum';
 
 export const childRoutes: Routes = [
   {
@@ -21,7 +22,7 @@ export const childRoutes: Routes = [
       title: 'Dashboard',
       class: 'glyphicon-stats',
       menu: true,
-      users: [Roles.ALL]
+      users: [ProposalUsers.All]
     }
   },
   {
@@ -32,7 +33,7 @@ export const childRoutes: Routes = [
       title: 'Proposals',
       class: 'glyphicon-list-alt',
       menu: true,
-      users: [Roles.ALL]
+      users: [ProposalUsers.All]
     }
   },
   {
@@ -43,7 +44,7 @@ export const childRoutes: Routes = [
       title: 'New Proposal',
       class: 'glyphicon-copy',
       menu: true,
-      users: [Roles.Sales_Lead]
+      users: [ProposalUsers.SalesLead]
     }
   },
   {
@@ -54,7 +55,7 @@ export const childRoutes: Routes = [
       title: 'Administration',
       class: 'glyphicon-wrench',
       menu: true,
-      users: [Roles.Sales_Lead]
+      users: [ProposalUsers.SalesLead]
     }
   },
   {
@@ -65,7 +66,7 @@ export const childRoutes: Routes = [
       title: 'Planner Proposal',
       class: 'glyphicon-copy',
       menu: false,
-      users: [Roles.Sales_Lead]
+      users: [ProposalUsers.SalesLead]
     }
   },
   {
@@ -76,7 +77,7 @@ export const childRoutes: Routes = [
       title: 'Planner Proposal',
       class: 'glyphicon-copy',
       menu: false,
-      users: [Roles.Sales_Lead]
+      users: [ProposalUsers.SalesLead]
     }
   },
   {
@@ -87,7 +88,7 @@ export const childRoutes: Routes = [
       title: 'View Proposal',
       class: 'glyphicon-copy',
       menu: false,
-      users: [Roles.ALL]
+      users: [ProposalUsers.All]
     }
   },
   {
@@ -98,7 +99,7 @@ export const childRoutes: Routes = [
       title: '',
       class: '',
       menu: false,
-      users: [Roles.ALL]
+      users: [ProposalUsers.All]
     }
   }
 
@@ -119,7 +120,7 @@ export const routes: Routes = [
       title: '',
       class: '',
       menu: false,
-      users: [Roles.ALL]
+      users: [ProposalUsers.All]
     }
   },
   {
