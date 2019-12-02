@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Form, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
-import { UserData } from '../global/constants';
+import { SessionService } from '../global/session.service';
+import { Session } from '../global/enum';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   public userData: any; //Comment: User Model
 
   constructor(private formBuilder: FormBuilder, private router: Router,
-              private loginService: LoginService) { }
+    private loginService: LoginService, private sessionService: SessionService) { }
 
   ngOnInit() {
     this.loginForm = this.createLoginForm();
@@ -49,15 +50,6 @@ export class LoginComponent implements OnInit {
     const username = this.loginForm.get('username').value;
     const password = this.loginForm.get('password').value;
 
-    // Temporary process
-    //if (username === 'Thomson@pactera.com' && password === 'password') {
-    //  this.router.navigate(['']);
-    //} else {
-    //  this.isValidCredentials = false;
-    //}
-
-    // Main Login Process
-
     const loginData = new FormData();
     loginData.append('userName', username);
     loginData.append('accessKey', password);
@@ -65,11 +57,11 @@ export class LoginComponent implements OnInit {
     this.loginService.login(loginData).subscribe((response: any) => {
       if (response) {
         this.userData = response;
-        this.loginService.setSessionStorage('token', 'TOKEN');
-        this.loginService.setSessionStorage('userid', this.userData.id);
-        this.loginService.setSessionStorage('name', this.userData.name);
-        this.loginService.setSessionStorage('email', this.userData.email);
-        this.loginService.setSessionStorage('role', this.userData.role);
+        this.sessionService.setSession(Session.token, 'TOKEN');
+        this.sessionService.setSession(Session.userId, this.userData.id);
+        this.sessionService.setSession(Session.userName, this.userData.employeeName);
+        this.sessionService.setSession(Session.userEmail, this.userData.emailID);
+        this.sessionService.setSession(Session.userRole, this.userData.role);
         this.validateStorage();
       } else {
         this.isValidCredentials = false;
@@ -78,8 +70,8 @@ export class LoginComponent implements OnInit {
   }
 
   validateStorage() {
-    const userName = this.loginService.getSessionStorage('name');
-    const role = this.loginService.getSessionStorage('role');
+    const userName = this.sessionService.getSession(Session.userName);
+    const role = this.sessionService.getSession(Session.userRole);
     if (userName && role) {
       this.router.navigate(['']);
     } else {

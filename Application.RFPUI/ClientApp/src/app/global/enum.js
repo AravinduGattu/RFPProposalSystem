@@ -15,6 +15,14 @@ var Stream;
     Stream[Stream["Globalization"] = 3] = "Globalization";
     Stream[Stream["EmergingTech"] = 4] = "EmergingTech";
 })(Stream = exports.Stream || (exports.Stream = {}));
+var Session;
+(function (Session) {
+    Session["token"] = "token";
+    Session["userId"] = "userId";
+    Session["userName"] = "userName";
+    Session["userEmail"] = "userEmail";
+    Session["userRole"] = "userRole";
+})(Session = exports.Session || (exports.Session = {}));
 var ProposalRequestType;
 (function (ProposalRequestType) {
     ProposalRequestType[ProposalRequestType["Drafted"] = 1] = "Drafted";

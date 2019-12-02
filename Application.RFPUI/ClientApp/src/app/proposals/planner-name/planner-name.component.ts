@@ -17,4 +17,8 @@ export class PlannerNameComponent implements OnInit {
     this.router.navigate(['/app/plannerProposal']);
   }
 
+  createNew(Stream: number) {
+    this.router.navigate(['/app/new/plannerProposal/' + Stream]);
+  }
+
 }

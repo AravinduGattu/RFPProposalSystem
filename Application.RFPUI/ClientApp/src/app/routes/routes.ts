@@ -6,12 +6,45 @@ import { ProposalsComponent } from '../proposals/proposals.component';
 import { NewProposalComponent } from '../proposals/new-proposal/new-proposal.component';
 import { ViewProposalComponent } from '../proposals/view-proposal/view-proposal.component';
 import { AdministrationComponent } from '../administration/administration.component';
+//import { NewComponent } from '../proposals/new/new.component';
 import { PlannerProposalComponent } from '../proposals/planner-proposal/planner-proposal.component';
 import { PlannerNameComponent } from '../proposals/planner-name/planner-name.component';
 import { UnauthorizedComponent } from '../unauthorized/unauthorized.component';
 import { RouteGuardService } from './route-guard.service';
 import { Roles } from '../global/constants';
 import { ProposalUsers } from '../global/enum';
+
+
+export const newProposalRoutes = [
+  {
+    path: 'plannerProposal/:Id',
+    component: PlannerProposalComponent,
+    canActivate: [RouteGuardService],
+    data: {
+      title: 'Planner Proposal',
+      class: 'glyphicon-copy',
+      menu: false,
+      users: [ProposalUsers.SalesLead]
+    }
+  },
+  {
+    path: 'plannerName',
+    component: PlannerNameComponent,
+    canActivate: [RouteGuardService],
+    data: {
+      title: 'Planner Proposal',
+      class: 'glyphicon-copy',
+      menu: false,
+      users: [ProposalUsers.SalesLead]
+    }
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/app/new/plannerName'
+  }
+]
+
 
 export const childRoutes: Routes = [
   {
@@ -58,26 +91,38 @@ export const childRoutes: Routes = [
       users: [ProposalUsers.SalesLead]
     }
   },
+  //{
+  //  path: 'plannerProposal',
+  //  component: PlannerProposalComponent,
+  //  canActivate: [RouteGuardService],
+  //  data: {
+  //    title: 'Planner Proposal',
+  //    class: 'glyphicon-copy',
+  //    menu: false,
+  //    users: [ProposalUsers.SalesLead]
+  //  }
+  //},
+  //{
+  //  path: 'plannerName',
+  //  component: PlannerNameComponent,
+  //  canActivate: [RouteGuardService],
+  //  data: {
+  //    title: 'Planner Proposal',
+  //    class: 'glyphicon-copy',
+  //    menu: false,
+  //    users: [ProposalUsers.SalesLead]
+  //  }
+  //},
   {
-    path: 'plannerProposal',
-    component: PlannerProposalComponent,
-    canActivate: [RouteGuardService],
+    path: 'new',
+    //canActivate: [RouteGuardService],
+    //component: NewComponent,
+    children: newProposalRoutes,
     data: {
-      title: 'Planner Proposal',
+      title: 'New Proposal',
       class: 'glyphicon-copy',
-      menu: false,
-      users: [ProposalUsers.SalesLead]
-    }
-  },
-  {
-    path: 'plannerName',
-    component: PlannerNameComponent,
-    canActivate: [RouteGuardService],
-    data: {
-      title: 'Planner Proposal',
-      class: 'glyphicon-copy',
-      menu: false,
-      users: [ProposalUsers.SalesLead]
+      menu: true,
+      users: [ProposalUsers.All]
     }
   },
   {
@@ -102,7 +147,6 @@ export const childRoutes: Routes = [
       users: [ProposalUsers.All]
     }
   }
-
 ];
 
 

@@ -13,6 +13,14 @@ export enum Stream {
   EmergingTech = 4
 }
 
+export enum Session {
+  token = 'token',
+  userId = 'userId',
+  userName = 'userName',
+  userEmail = 'userEmail',
+  userRole = 'userRole',
+}
+
 export enum ProposalRequestType {
   Drafted = 1,
   //PRLApprove

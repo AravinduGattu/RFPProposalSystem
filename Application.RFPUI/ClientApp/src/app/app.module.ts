@@ -28,6 +28,7 @@ import { ProposalService } from './proposals/proposal.service';
 import { LoginService } from './login/login.service';
 import { LoaderService } from './loader/loader.service';
 import { DashboardService } from './dashboard/dashboard.service';
+import { SessionService } from './global/session.service';
 
 import { LoaderInterceptor } from './loader/loaderIntercepter';
 import { AdministrationComponent } from './administration/administration.component';
@@ -66,7 +67,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     ToastrModule.forRoot(),
     ChartsModule
   ],
-  providers: [HttpService, ProposalService, LoginService, LoaderService, DashboardService,
+  providers: [HttpService, ProposalService, LoginService, LoaderService, DashboardService, SessionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
