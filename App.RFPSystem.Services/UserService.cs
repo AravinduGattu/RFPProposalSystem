@@ -82,17 +82,17 @@ namespace App.RFPSystem.Services
             //}
         }
 
-        public async Task<int> Delete(string name)
+        public async Task<int> Delete(int id)
         {
-            return 0;
-            //using (SqlConnection con = new SqlConnection(strConString))
-            //{
-            //    await con.OpenAsync();
-            //    string query = "Delete from tblStudent where student_id=@studid";
-            //    SqlCommand cmd = new SqlCommand(query, con);
-            //    cmd.Parameters.AddWithValue("@studid", intStudentID);
-            //    return await cmd.ExecuteNonQueryAsync();
-            //}
+            using (SqlConnection con = new SqlConnection(strConString))
+            {
+                await con.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_Delete", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID", id);
+                cmd.Parameters.AddWithValue("@Table", "LocationMaster");
+                return await cmd.ExecuteNonQueryAsync();
+            }
         }
 
     }

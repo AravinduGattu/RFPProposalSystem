@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace App.RFPSystem.Services
 {
-    public class LocationService : BaseService, ISyncLocation
+    public class MilestoneService : BaseService, ISyncMilestone
     {
         string strConString = Constants.DBConnection;
         
@@ -19,32 +19,35 @@ namespace App.RFPSystem.Services
             //throw new NotImplementedException();
         }
 
-        public async Task<List<Location>> GetList(string name, string code)
+        public async Task<List<Milestone>> GetList(int proposalId, int milestoneId)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_GETLocationMaster", con);
+                SqlCommand cmd = new SqlCommand("sp_GETMilestoneMaster", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@LocationName", name);
-                cmd.Parameters.AddWithValue("@LocationCode", code);
+                cmd.Parameters.AddWithValue("@ProposalID", proposalId);
+                cmd.Parameters.AddWithValue("@MilestoneID", milestoneId);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
-            return ConvertDataTable<Location>(dt);
+            return ConvertDataTable<Milestone>(dt);
         }
 
-        public async Task<int> Save(Location item)
+        public async Task<int> Save(Milestone item)
         {
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_LocationMaster", con);
+                SqlCommand cmd = new SqlCommand("sp_Milestone", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", item.ID);
-                cmd.Parameters.AddWithValue("@LocationName", item.LocationName);
-                cmd.Parameters.AddWithValue("@LocationCode", item.LocationCode);
+                cmd.Parameters.AddWithValue("@MilestoneID", item.MilestoneID);
+                cmd.Parameters.AddWithValue("@MilestoneStartDate", item.MilestoneStartDate);
+                cmd.Parameters.AddWithValue("@MilestoneEndDate", item.MilestoneEndDate);
+                cmd.Parameters.AddWithValue("@Remarks", item.Remarks);
+                cmd.Parameters.AddWithValue("@ProposalID", item.ProposalID);
                 cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
                 return await cmd.ExecuteNonQueryAsync();
             }
@@ -58,7 +61,7 @@ namespace App.RFPSystem.Services
                 SqlCommand cmd = new SqlCommand("sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
-                cmd.Parameters.AddWithValue("@Table", "LocationMaster");
+                cmd.Parameters.AddWithValue("@Table", "Milestone");
                 return await cmd.ExecuteNonQueryAsync();
             }
         }
