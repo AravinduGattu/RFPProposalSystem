@@ -3,9 +3,11 @@ import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ProposalData } from '../../global/data-json';
 // import * as FileSaver from 'file-saver';
 import { ProposalService } from '../proposal.service';
+import { SessionService } from '../../global/session.service';
 import { RequestTypes } from '../../global/constants';
 import { ActivatedRoute } from '@angular/router';
-import { Roles } from '../../global/constants';
+//import { Roles } from '../../global/constants';
+import { ProposalUsers, Session } from '../../global/enum';
 
 
 
@@ -31,13 +33,15 @@ export class ViewProposalComponent implements OnInit {
   porposalStatus: string;
   proposalBy: string;
   role: string;
-  roles: object;
+  //roles: object;
+  proposalUsers: any;
 
   proposaldata: any = [];
 
   constructor(private formBuilder: FormBuilder,
     private proposalService: ProposalService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private sessionService: SessionService) {
     //this.proposaldata = ProposalData;
 
     this.steps = [
@@ -85,9 +89,9 @@ export class ViewProposalComponent implements OnInit {
 
   ngOnInit() {
     this.rfpCode = this.activatedRoute.snapshot.params.RFPCode;
-    this.role = sessionStorage.getItem('role');
+    this.role = this.sessionService.getSession(Session.userRole);
     this.requestTypes = RequestTypes;
-    this.roles = Roles;
+    this.proposalUsers = ProposalUsers;
     this.createForm();
 
 

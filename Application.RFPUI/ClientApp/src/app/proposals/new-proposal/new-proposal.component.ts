@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ProposalService } from '../proposal.service';
 import { NotificationService } from '../../services/notification.service';
+import { SessionService } from '../../global/session.service';
 import { Router } from '@angular/router';
 import { RequestTypes, RFPSampleData } from '../../global/constants';
+import { Session } from '../../global/enum';
 
 
 @Component({
@@ -24,7 +26,8 @@ export class NewProposalComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private proposalService: ProposalService,
     private notificationService: NotificationService,
-    private router: Router) { }
+    private router: Router,
+    private sessionService: SessionService) { }
 
   ngOnInit() {
     this.requestTypes = RequestTypes;
@@ -191,7 +194,7 @@ export class NewProposalComponent implements OnInit {
       console.log(newProposalData);
       delete newProposalData['documents'];
       console.log(newProposalData);
-      newProposalData.rfpUser = sessionStorage.getItem('userName');
+      newProposalData.rfpUser = this.sessionService.getSession(Session.userName);
 
       const documentList = this.newProposalForm.value.documents;
 

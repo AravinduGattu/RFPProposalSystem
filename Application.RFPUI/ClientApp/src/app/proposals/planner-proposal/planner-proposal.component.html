@@ -32,7 +32,7 @@
         </div>
         <div class="col-lg-3">
           <mat-label>RFP Code</mat-label>
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" disabled>
             <input matInput formControlName="rfpCode" readonly maxlength="50">
           </mat-form-field>
         </div>
@@ -85,7 +85,7 @@
         <div class="col-lg-3">
           <mat-label>Released Date <label>*</label></mat-label>
           <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="releasePicker" required readonly formControlName="requestedDate">
+            <input matInput [matDatepicker]="releasePicker" required readonly formControlName="requestedDate" [max]="newProposalForm.controls['submissionDate'].value">
             <mat-datepicker-toggle matSuffix [for]="releasePicker"></mat-datepicker-toggle>
             <mat-datepicker #releasePicker></mat-datepicker>
           </mat-form-field>
@@ -93,7 +93,7 @@
         <div class="col-lg-3">
           <mat-label>Submission Date <label>*</label></mat-label>
           <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="submissionPicker" required readonly formControlName="submissionDate">
+            <input matInput [matDatepicker]="submissionPicker" required readonly formControlName="submissionDate" [min]="newProposalForm.controls['requestedDate'].value">
             <mat-datepicker-toggle matSuffix [for]="submissionPicker"></mat-datepicker-toggle>
             <mat-datepicker #submissionPicker></mat-datepicker>
           </mat-form-field>

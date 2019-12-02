@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Route, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LoginService } from '../login/login.service';
+import { SessionService } from '../global/session.service';
 import { childRoutes } from '../routes/routes';
+import { Session } from '../global/enum';
 
 @Injectable()
 
 export class RouteGuardService implements CanActivate {
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router,
+    private sessionService: SessionService) {
 
   }
 
@@ -17,7 +20,7 @@ export class RouteGuardService implements CanActivate {
     
     if (isUserLoggedin) {
 
-      let role = this.loginService.getSessionStorage('role');
+      let role = this.sessionService.getSession(Session.userRole);
       var activatedRouteUsers = next.routeConfig.data.users;
 
 

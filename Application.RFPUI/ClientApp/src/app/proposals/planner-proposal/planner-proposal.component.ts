@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ProposalService } from '../proposal.service';
 import { NotificationService } from '../../services/notification.service';
-import { LoginService } from '../../login/login.service'
+import { SessionService } from '../../global/session.service';
 import { Router } from '@angular/router';
 import { RequestTypes, RFPSampleData } from '../../global/constants';
+import { Session } from '../../global/enum';
 
 @Component({
   selector: 'app-planner-proposal',
@@ -23,7 +24,7 @@ export class PlannerProposalComponent implements OnInit {
     private proposalService: ProposalService,
     private notificationService: NotificationService,
     private router: Router,
-    private loginService: LoginService) { }
+    private sessionService: SessionService) { }
 
   ngOnInit() {
     this.requestTypes = RequestTypes;
@@ -62,7 +63,7 @@ export class PlannerProposalComponent implements OnInit {
       const newProposalData = (<any>Object).assign({}, this.newProposalForm.value);
       console.log(newProposalData);
 
-      newProposalData.rfpUser = this.loginService.getSessionStorage('userName');
+      newProposalData.rfpUser = this.sessionService.getSession(Session.userName);
 
       const newProposalFormData: FormData = new FormData();
       newProposalFormData.append('proposalData', JSON.stringify(newProposalData));
@@ -92,6 +93,10 @@ export class PlannerProposalComponent implements OnInit {
     }
 
 
+  }
+
+  back() {
+    this.router.navigate(['/app/new/plannerName']);
   }
 
 }
