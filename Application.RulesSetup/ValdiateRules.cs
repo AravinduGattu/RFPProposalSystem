@@ -24,12 +24,12 @@ namespace Application.RulesSetup
             ValidateResponse validateResponse = new ValidateResponse();
             validateResponse.NoErrors = true;
 
-            IEnumerable<RFPUsersInformation> allUsers = new List<RFPUsersInformation>();
+            IEnumerable<UserInfo> allUsers = new List<UserInfo>();
 
-            allUsers = await new UserServices().rFPUsersInformation();
+            allUsers = await new UserService().rFPUsersInformation();
 
-            RFPUsersInformation rFPUsersInformation =
-                    allUsers.ToList().Find(x => x.Name == rFPRequestDataModel.RFPUser.ToString());
+            UserInfo rFPUsersInformation =
+                    allUsers.ToList().Find(x => x.EmployeeName == rFPRequestDataModel.RFPUser.ToString());
 
             if(rFPUsersInformation != null)
             {
@@ -62,12 +62,12 @@ namespace Application.RulesSetup
             ValidateResponse validateResponse = new ValidateResponse();
             validateResponse.NoErrors = true;
 
-            IEnumerable<RFPUsersInformation> allUsers = new List<RFPUsersInformation>();
+            IEnumerable<UserInfo> allUsers = new List<UserInfo>();
 
-            allUsers = await new UserServices().rFPUsersInformation();
+            allUsers = await new UserService().rFPUsersInformation();
 
-            RFPUsersInformation rFPUsersInformation =
-                    allUsers.ToList().Find(x => x.userId == proposalStatus.RFPUserID);
+            UserInfo rFPUsersInformation =
+                    allUsers.ToList().Find(x => x.EmployeeID == proposalStatus.RFPUserID);
 
             return await Task.Run(() => validateResponse);
         }

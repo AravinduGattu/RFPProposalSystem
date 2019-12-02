@@ -39,6 +39,7 @@ namespace Common.DataObjects
     {
         public int Id { get; set; }
         public string RFPUser { get; set; }
+        //Auto generated
         public string RFPCode { get; set; }
         public string status { get; set; }
         public string requestType { get; set; }
@@ -53,6 +54,18 @@ namespace Common.DataObjects
         public string additionalInformation { get; set; }
         public List<Schedule> schedule { get; set; }
         public List<Questionnaire> questionnaire { get; set; }
+        //Satya:Added on 28-Nov-19
+        public string RFPSubmissionDate { get; set; }
+        //Satya:Added on 28-Nov-19
+        public string POC { get; set; }
+        //Satya:Added on 28-Nov-19
+        public string CreatedBy { get; set; }
+        //Satya:Added on 28-Nov-19
+        public string CreatedDate { get; set; }
+        //Satya:Added on 28-Nov-19
+        public string ModifiedBy { get; set; }
+        //Satya:Added on 28-Nov-19
+        public string ModifiedDate { get; set; }
     }
 
     public class RFPRequestDataGridModel

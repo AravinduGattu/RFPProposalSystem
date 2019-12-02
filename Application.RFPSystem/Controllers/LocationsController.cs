@@ -1,0 +1,76 @@
+﻿using App.RFPSystem.Services;
+using Applications.Operations;
+using Common.DataObjects;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Application.RFPSystem.Controllers
+{
+    [ApiController]
+    public class LocationsController : ControllerBase
+    {
+        [Route("api/V1/Locations/GetList")]
+        [HttpGet]
+        public async Task<IActionResult> GetList(string location, string code)
+        {
+            try
+            {
+                IEnumerable<Location> locations = new List<Location>();
+
+                using (ISyncLocation service = new LocationService())
+                {
+                    locations = await service.GetList(location, code);
+                }
+
+                return Ok(locations);
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
+        [Route("api/V1/Locations/Save")]
+        [HttpPost]
+        public async Task<IActionResult> Save([FromForm]Location item)
+        {
+            try
+            {
+                bool status = false;
+                using (ISyncLocation service = new LocationService())
+                {
+                    status = await service.Save(item) > 0;
+                }
+
+                return Ok(status);
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
+        [Route("api/V1/Locations/Delete")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                bool status = false;
+                using (ISyncLocation service = new LocationService())
+                {
+                    status = await service.Delete(id) > 0;
+                }
+
+                return Ok(status);
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+    }
+}
