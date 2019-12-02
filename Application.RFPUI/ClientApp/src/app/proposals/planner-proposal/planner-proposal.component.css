@@ -1,15 +1,7 @@
-.planSection {
-  width: auto;
-  overflow-x: auto;
-  height: 500px;
-  border: 1px solid gray;
-}
-
-.buckets {
-  display: inline-flex;
-}
-
-.bucket {
-  width: 400px;
-  padding: 10px;
+.newProposal {
+  margin: 15px;
+  padding: 15px;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  background-color:#e1f3f2;
 }

@@ -7,11 +7,41 @@ var proposals_component_1 = require("../proposals/proposals.component");
 var new_proposal_component_1 = require("../proposals/new-proposal/new-proposal.component");
 var view_proposal_component_1 = require("../proposals/view-proposal/view-proposal.component");
 var administration_component_1 = require("../administration/administration.component");
+//import { NewComponent } from '../proposals/new/new.component';
 var planner_proposal_component_1 = require("../proposals/planner-proposal/planner-proposal.component");
 var planner_name_component_1 = require("../proposals/planner-name/planner-name.component");
 var unauthorized_component_1 = require("../unauthorized/unauthorized.component");
 var route_guard_service_1 = require("./route-guard.service");
 var enum_1 = require("../global/enum");
+exports.newProposalRoutes = [
+    {
+        path: 'plannerProposal/:Id',
+        component: planner_proposal_component_1.PlannerProposalComponent,
+        canActivate: [route_guard_service_1.RouteGuardService],
+        data: {
+            title: 'Planner Proposal',
+            class: 'glyphicon-copy',
+            menu: false,
+            users: [enum_1.ProposalUsers.SalesLead]
+        }
+    },
+    {
+        path: 'plannerName',
+        component: planner_name_component_1.PlannerNameComponent,
+        canActivate: [route_guard_service_1.RouteGuardService],
+        data: {
+            title: 'Planner Proposal',
+            class: 'glyphicon-copy',
+            menu: false,
+            users: [enum_1.ProposalUsers.SalesLead]
+        }
+    },
+    {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/app/new/plannerName'
+    }
+];
 exports.childRoutes = [
     {
         path: 'dashboard',
@@ -57,26 +87,38 @@ exports.childRoutes = [
             users: [enum_1.ProposalUsers.SalesLead]
         }
     },
+    //{
+    //  path: 'plannerProposal',
+    //  component: PlannerProposalComponent,
+    //  canActivate: [RouteGuardService],
+    //  data: {
+    //    title: 'Planner Proposal',
+    //    class: 'glyphicon-copy',
+    //    menu: false,
+    //    users: [ProposalUsers.SalesLead]
+    //  }
+    //},
+    //{
+    //  path: 'plannerName',
+    //  component: PlannerNameComponent,
+    //  canActivate: [RouteGuardService],
+    //  data: {
+    //    title: 'Planner Proposal',
+    //    class: 'glyphicon-copy',
+    //    menu: false,
+    //    users: [ProposalUsers.SalesLead]
+    //  }
+    //},
     {
-        path: 'plannerProposal',
-        component: planner_proposal_component_1.PlannerProposalComponent,
-        canActivate: [route_guard_service_1.RouteGuardService],
+        path: 'new',
+        //canActivate: [RouteGuardService],
+        //component: NewComponent,
+        children: exports.newProposalRoutes,
         data: {
-            title: 'Planner Proposal',
+            title: 'New Proposal',
             class: 'glyphicon-copy',
-            menu: false,
-            users: [enum_1.ProposalUsers.SalesLead]
-        }
-    },
-    {
-        path: 'plannerName',
-        component: planner_name_component_1.PlannerNameComponent,
-        canActivate: [route_guard_service_1.RouteGuardService],
-        data: {
-            title: 'Planner Proposal',
-            class: 'glyphicon-copy',
-            menu: false,
-            users: [enum_1.ProposalUsers.SalesLead]
+            menu: true,
+            users: [enum_1.ProposalUsers.All]
         }
     },
     {
