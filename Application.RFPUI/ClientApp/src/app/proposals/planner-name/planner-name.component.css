@@ -1,18 +1,55 @@
 .planName {
-  width: 400px;
+  width: 500px;
+  /*width: auto;*/
   margin: auto;
   font-family: 'Segoe UI';
   vertical-align: middle;
+  text-align: center;
 }
 
 .card {
   padding: 20px;
-  border: 1px solid darkgray;
-  margin-top: 180px;
 }
 
+mat-card {
+  height: 100px;
+  margin: 15px 15px 15px 0px;
+  cursor: pointer;
+}
 
-.input-container {
+.img {
+  width: 30px;
+  height: 30px;
+  color: white;
+}
+
+.engineering {
+  background-color: #d51a1a;
+  color: white
+}
+
+.digitalization {
+  background-color: #ffd800;
+  color: white
+}
+
+.globalization {
+  background-color: #44a755;
+  color: white
+}
+
+.emergingTech {
+  background-color: #3ba1b7;
+  color: white
+}
+
+.glyphicon {
+  width: 40px;
+  font-size: 30px;
+  color: white;
+}
+
+/*.input-container {
   display: flex;
   width: 100%;
   margin-bottom: 3px;
@@ -43,4 +80,4 @@
   padding: 3px 0px 3px 0px;
   border-radius: 0px;
   margin-left: 3px;
-}
+}*/

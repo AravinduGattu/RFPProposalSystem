@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Routes, Router } from '@angular/router';
 import { LoginService } from '../login/login.service';
+import { SessionService } from '../global/session.service';
 import { childRoutes } from '../routes/routes';
 import { Roles } from '../global/constants'
+import { Session } from '../global/enum';
 
 @Component({
   selector: 'app-master',
@@ -17,12 +19,13 @@ export class MasterComponent implements OnInit {
   public userNmae: string;
   public role: string;
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService,
+    private sessionService: SessionService) { }
 
 
   ngOnInit() {
-    const name = this.loginService.getSessionStorage('name');
-    const role = this.loginService.getSessionStorage('role');
+    const name = this.sessionService.getSession(Session.userName);
+    const role = this.sessionService.getSession(Session.userRole);
     //this.userNmae = (user.split('@', 1)).toString();
     this.userNmae = name;
     //this.role = role.replace(/([A-Z])/g, ' $1').trim();

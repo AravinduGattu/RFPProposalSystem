@@ -512,21 +512,21 @@
           </mat-form-field>
         </div>
 
-        <div *ngIf="role === roles.Sales_Lead">
+        <div *ngIf="role === proposalUsers.SalesLead">
           <!--Sales Lead-->
           <button class="btn actionbtn btn-primary pull-right" type="submit" (click)="submit()">Update</button>
         </div>
-        <div *ngIf="role === roles.Practice_Lead">
+        <div *ngIf="role === proposalUsers.PracticeLead">
           <!--Practice Lead-->
           <button class="btn actionbtn btn-primary pull-right" type="submit" (click)="submit()">Forward</button>
           <button class="btn actionbtn btn-danger pull-right" type="submit" (click)="submit()">Send Back</button>
         </div>
-        <div *ngIf="role === roles.Pursuit_Team_Lead">
+        <div *ngIf="role === proposalUsers.PursuitTeamLead">
           <!--Pursuite Lead-->
           <button class="btn actionbtn btn-primary pull-right" type="submit" (click)="submit()">Forward</button>
           <button class="btn actionbtn btn-danger pull-right" type="submit" (click)="submit()">Send Back</button>
         </div>
-        <div *ngIf="role === roles.Delivery_TeamLead">
+        <div *ngIf="role === proposalUsers.DeliveryTeamLead">
           <!--Delivery Lead-->
           <button class="btn actionbtn btn-success pull-right" type="submit" (click)="submit()">Accept</button>
         </div>
