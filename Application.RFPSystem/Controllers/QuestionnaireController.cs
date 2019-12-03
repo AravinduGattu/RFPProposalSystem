@@ -12,19 +12,19 @@ namespace Application.RFPSystem.Controllers
 {
     //[Authorize]
     [ApiController]
-    public class LocationsController : ControllerBase
+    public class QuestionnaireController : ControllerBase
     {
-        [Route("api/V1/Locations/GetList")]
+        [Route("api/V1/Questionnaire/GetList")]
         [HttpGet]
-        public async Task<IActionResult> GetList(string location, string code)
+        public async Task<IActionResult> GetList(string area, string question, int proposalId)
         {
             try
             {
-                IEnumerable<Location> list = new List<Location>();
+                IEnumerable<Questionnaire> list = new List<Questionnaire>();
 
-                using (ISyncLocation service = new LocationService())
+                using (ISyncQuestionnaire service = new QuestionnaireService())
                 {
-                    list = await service.GetList(location, code);
+                    list = await service.GetList(area, question, proposalId);
                 }
 
                 return Ok(list);
@@ -35,14 +35,14 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
-        [Route("api/V1/Locations/Save")]
+        [Route("api/V1/Questionnaire/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save([FromForm]Location item)
+        public async Task<IActionResult> Save([FromForm]Questionnaire item)
         {
             try
             {
                 bool status = false;
-                using (ISyncLocation service = new LocationService())
+                using (ISyncQuestionnaire service = new QuestionnaireService())
                 {
                     status = await service.Save(item) > 0;
                 }
@@ -55,14 +55,14 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
-        [Route("api/V1/Locations/Delete")]
+        [Route("api/V1/Questionnaire/Delete")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 bool status = false;
-                using (ISyncLocation service = new LocationService())
+                using (ISyncQuestionnaire service = new QuestionnaireService())
                 {
                     status = await service.Delete(id) > 0;
                 }

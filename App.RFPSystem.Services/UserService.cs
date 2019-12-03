@@ -37,49 +37,71 @@ namespace App.RFPSystem.Services
             return await Task.Run(() => rFPUsersInformation);
         }
  
-        public async Task<List<UserInfo>> GetList()
+        public async Task<List<UserInfo>> GetList(string userId, int role, int stream)
         {
-            return null;
-            //DataTable dt = new DataTable();
-            //using (SqlConnection con = new SqlConnection(strConString))
-            //{
-            //    await con.OpenAsync();
-            //    SqlCommand cmd = new SqlCommand("Select * from tblStudent", con);
-            //    SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //    da.Fill(dt);
-            //}
-            //return ConvertDataTable<UserInfo>(dt);
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(strConString))
+            {
+                await con.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_GETUserInfo", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@UserID", userId);
+                if(role > 0)
+                cmd.Parameters.AddWithValue("@Role", role);
+                if(stream > 0)
+                cmd.Parameters.AddWithValue("@Stream", stream);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return ConvertDataTable<UserInfo>(dt);
         }
 
-        public async Task<UserInfo> GetByName(string name)
-        {
-            return null;
-            //DataTable dt = new DataTable();
-
-            //using (SqlConnection con = new SqlConnection(strConString))
-            //{
-            //    await con.OpenAsync();
-            //    SqlCommand cmd = new SqlCommand("Select * from tblStudent where student_id=" + id, con);
-            //    SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //    da.Fill(dt);
-            //}
-            //return (ConvertDataTable<UserInfo>(dt)).FirstOrDefault();
-        }
-  
         public async Task<int> Save(UserInfo item)
         {
-            return 0;
-            //using (SqlConnection con = new SqlConnection(strConString))
-            //{
-            //    await con.OpenAsync();
-            //    string query = "Update tblStudent SET student_name=@studname, student_age=@studage , student_gender=@gender where student_id=@studid";
-            //    SqlCommand cmd = new SqlCommand(query, con);
-            //    cmd.Parameters.AddWithValue("@studname", strStudentName);
-            //    cmd.Parameters.AddWithValue("@studage", intAge);
-            //    cmd.Parameters.AddWithValue("@gender", strGender);
-            //    cmd.Parameters.AddWithValue("@studid", intStudentID);
-            //    return cmd.ExecuteNonQuery();
-            //}
+            using (SqlConnection con = new SqlConnection(strConString))
+            {
+                await con.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_UserInformation", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID", item.ID);
+                cmd.Parameters.AddWithValue("@UserName", item.UserName);
+                cmd.Parameters.AddWithValue("@AccessKey", item.AccessKey);
+                cmd.Parameters.AddWithValue("@Environment", item.Environment);
+                cmd.Parameters.AddWithValue("@EmployeeName", item.EmployeeName);
+                cmd.Parameters.AddWithValue("@EmployeeID", item.EmployeeID);
+                cmd.Parameters.AddWithValue("@EmailID", item.EmailID);
+                cmd.Parameters.AddWithValue("@Role", item.Role);
+                cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
+                return await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+        public async Task<int> UpdateLoginTime(int id)
+        {
+            using (SqlConnection con = new SqlConnection(strConString))
+            {
+                await con.OpenAsync();
+                string query = "Update UserInfo SET LastLoginTime = @logintime where ID = @userid";
+                    ;
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@logintime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmd.Parameters.AddWithValue("@userid", id);
+                return await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+        public async Task<int> UpdateLogoutTime(int id)
+        {
+            using (SqlConnection con = new SqlConnection(strConString))
+            {
+                await con.OpenAsync();
+                string query = "Update UserInfo SET LastLogoutTime = @logouttime where ID = @userid";
+                ;
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@logouttime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmd.Parameters.AddWithValue("@userid", id);
+                return await cmd.ExecuteNonQueryAsync();
+            }
         }
 
         public async Task<int> Delete(int id)
@@ -90,7 +112,7 @@ namespace App.RFPSystem.Services
                 SqlCommand cmd = new SqlCommand("sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
-                cmd.Parameters.AddWithValue("@Table", "LocationMaster");
+                cmd.Parameters.AddWithValue("@Table", "UserInfo");
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

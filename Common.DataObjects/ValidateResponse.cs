@@ -14,6 +14,6 @@ namespace Common.DataObjects
 
         public Task<IActionResult> controllerBase { get; set; }
 
-        public RFPRequestDataModel RequestBody { get; set; }
+        public Proposal RequestBody { get; set; }
     }
 }

@@ -46,23 +46,84 @@ namespace Application.RFPSystem.Controllers
         //    }
         //}
 
-        [Route("api/V1/UserList")]
+        [Route("api/V1/Users/GetList")]
         [HttpGet]
-        public async Task<IActionResult> UsersInformation(string userId, int? role, int? stream)
+        public async Task<IActionResult> GetList(string userId, int role, int stream)
         {
-            IEnumerable<UserInfo> allUsers = new List<UserInfo>();
-
-            using (ISyncUserInfo getAllUsers = new UserService())
+            try
             {
-                allUsers = await getAllUsers.rFPUsersInformation();
+                IEnumerable<UserInfo> list = new List<UserInfo>();
+
+                using (ISyncUserInfo service = new UserService())
+                {
+                    list = await service.GetList(userId, role, stream);
+                }
+
+                return Ok(list);
             }
-
-            allUsers = allUsers.ToList().FindAll(c => (string.IsNullOrEmpty(userId) || c.EmailID == userId) && 
-                (!role.HasValue || role.Value == 0 || c.Role == (ProposalUsers)role.Value) &&
-                (!stream.HasValue || stream.Value == 0 || c.Stream == (Stream)stream.Value));
-
-            return Ok(allUsers);
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
         }
+
+        [Route("api/V1/Users/Save")]
+        [HttpPost]
+        public async Task<IActionResult> Save([FromForm]UserInfo item)
+        {
+            try
+            {
+                bool status = false;
+                using (ISyncUserInfo service = new UserService())
+                {
+                    status = await service.Save(item) > 0;
+                }
+
+                return Ok(status);
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
+        [Route("api/V1/Users/Delete")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                bool status = false;
+                using (ISyncUserInfo service = new UserService())
+                {
+                    status = await service.Delete(id) > 0;
+                }
+
+                return Ok(status);
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
+        //[Route("api/V1/UserList")]
+        //[HttpGet]
+        //public async Task<IActionResult> UsersInformation(string userId, int role, int stream)
+        //{
+        //    IEnumerable<UserInfo> allUsers = new List<UserInfo>();
+
+        //    using (ISyncUserInfo getAllUsers = new UserService())
+        //    {
+        //        allUsers = await getAllUsers.rFPUsersInformation();
+        //    }
+
+        //    allUsers = allUsers.ToList().FindAll(c => (string.IsNullOrEmpty(userId) || c.EmailID == userId) && 
+        //        (!role.HasValue || role.Value == 0 || c.Role == (ProposalUsers)role.Value) &&
+        //        (!stream.HasValue || stream.Value == 0 || c.Stream == (Stream)stream.Value));
+
+        //    return Ok(allUsers);
+        //}
 
     }
 }

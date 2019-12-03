@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Applications.Operations
 {
-    public interface ISyncMilestoneMaster : IDisposable
+    public interface ISyncFileUpload : IDisposable
     {
-        Task<List<MilestoneMaster>> GetList(string name);
-        Task<int> Save(MilestoneMaster item);
+        Task<List<FileUpload>> GetList(string name, string category, int proposalId);
+        Task<int> Save(FileUpload item);
         Task<int> Delete(int id);
     }
 }

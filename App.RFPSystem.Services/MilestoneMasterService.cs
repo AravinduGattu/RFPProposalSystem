@@ -27,7 +27,7 @@ namespace App.RFPSystem.Services
                 await con.OpenAsync();
                 SqlCommand cmd = new SqlCommand("sp_GETMilestoneMaster", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@MilestoneName", name);
+                cmd.Parameters.AddWithValue("@Milestone", name);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
@@ -56,7 +56,7 @@ namespace App.RFPSystem.Services
                 await con.OpenAsync();
                 SqlCommand cmd = new SqlCommand("sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@MilestoneID", id);
+                cmd.Parameters.AddWithValue("@ID", id);
                 cmd.Parameters.AddWithValue("@Table", "MilestoneMaster");
                 return await cmd.ExecuteNonQueryAsync();
             }
