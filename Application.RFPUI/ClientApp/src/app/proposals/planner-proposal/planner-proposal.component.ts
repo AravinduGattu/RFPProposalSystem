@@ -4,9 +4,11 @@ import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ProposalService } from '../proposal.service';
 import { NotificationService } from '../../services/notification.service';
 import { SessionService } from '../../global/session.service';
+import { CommonService } from '../../services/common.service';
 import { Router } from '@angular/router';
-import { RequestTypes, RFPSampleData } from '../../global/constants';
-import { Session } from '../../global/enum';
+import { RequestTypes, Streams } from '../../global/constants';
+import { Session, Stream } from '../../global/enum';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-planner-proposal',
@@ -17,6 +19,9 @@ export class PlannerProposalComponent implements OnInit {
 
   newProposalForm: FormGroup;
   requestTypes: any;
+  practiceTypes: any;
+  practiceLeads: any;
+  locations: any;
 
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -24,20 +29,24 @@ export class PlannerProposalComponent implements OnInit {
     private proposalService: ProposalService,
     private notificationService: NotificationService,
     private router: Router,
-    private sessionService: SessionService) { }
+    private sessionService: SessionService,
+    private commonService: CommonService) { }
 
   ngOnInit() {
     this.requestTypes = RequestTypes;
+    this.practiceTypes = Streams;
     var Id = this.activatedRoute.snapshot.params.Id;
     this.createForm();
-
+    this.getLocations();
+    this.newProposalForm.get('practiceType').setValue(Id);
+    this.streamChange(Id);
   }
 
   createForm() {
     this.newProposalForm = this.formBuilder.group({
       rfpUser: new FormControl(),
       rfpCode: new FormControl(0),
-      status: new FormControl('Submitted'),
+      status: new FormControl(0),
       practiceType: new FormControl(),
       practiceLead: new FormControl(),
       poc: new FormControl(),
@@ -49,10 +58,30 @@ export class PlannerProposalComponent implements OnInit {
       title: new FormControl(''),
       scope: new FormControl(''),
       description: new FormControl(''),
-      additionalInformation: new FormControl(''),
-      assignedTo: new FormControl(),
-      viewers: new FormControl(['']),
     });
+  }
+
+  getLocations() {
+    this.commonService.getLocationList().subscribe((response: any) => {
+      this.locations = response;
+    }, (error) => {
+        
+    })
+  }
+
+  // need to changed, based on the userlist data
+  streamChange(stream: any) {
+    this.newProposalForm.get('practiceLead').setValue('');
+    if (stream === '1') {
+      this.practiceLeads = ['Sreekanth', 'Dinesh']
+    } else if (stream === '2') {
+      this.practiceLeads = ['Dinesh', 'Shashi']
+    } else if (stream === '3') {
+      this.practiceLeads = ['Shashi', 'Narayana']
+    } else if (stream === '4') {
+      this.practiceLeads = ['Narayana', 'Sreekanth']
+    }
+    
   }
 
   submit() {

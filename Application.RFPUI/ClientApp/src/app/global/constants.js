@@ -1,13 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserData = {
-    userId: 'P0145011',
-    userName: 'Aravindu Gattu',
-    userEmail: 'aravindu.gattu@pactera.com',
-    lastLoggedIn: '19-0902019 21:34 PM',
-    role: 'SalesLead',
-    token: 'XDRTYIE$RTTYIDLEO'
-};
 exports.Roles = {
     1: 'Sales Lead',
     2: 'Practice Lead',
@@ -24,6 +16,25 @@ exports.RequestTypes = [
         requestTypeName: 'Resource'
     }
 ];
+exports.Streams = [
+    {
+        streamId: 1,
+        streamName: 'Engineering'
+    },
+    {
+        streamId: 2,
+        streamName: 'Digitalization'
+    },
+    {
+        streamId: 3,
+        streamName: 'Globalization'
+    },
+    {
+        streamId: 4,
+        streamName: 'Emerging Tech'
+    }
+];
+//Sample Data
 exports.RFPSampleData = {
     "RFPUser": null,
     "rfpCode": 'PCT001IKEA',

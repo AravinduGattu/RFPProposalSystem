@@ -1,13 +1,19 @@
 <div class="multiColorLine"></div>
 
 <div class="page">
-  <div class="banner">
+  <!--<div class="banner">
     <div class="bannerTitle1">
       <b>New Proposal</b>
     </div>
     <div class="bannerTitle2">
       <b>Please fill the form and submit to proceed !!</b>
     </div>
+  </div>-->
+  <div class="header">
+    <h4>New Proposal, Please fill the details and submit to proceed !</h4>
+  </div>
+  <div class="alert alert-info">
+    <strong>Info!</strong> RFP Code will be generated based on the Opportunity Name, Customer, Location details.
   </div>
   <div class="newProposal">
     <form id="newProposal" [formGroup]="newProposalForm">
@@ -28,11 +34,7 @@
           <mat-label>Location <label>*</label></mat-label>
           <mat-form-field appearance="outline">
             <mat-select matinput formControlName="location" required>
-              <mat-option value="1">INDIA</mat-option>
-              <mat-option value="2">CHINA</mat-option>
-              <mat-option value="3">USA</mat-option>
-              <mat-option value="4">CANADA</mat-option>
-              <!--<mat-option *ngFor="let data of requestTypes" value="{{data.requestTypeName}}">{{data.requestTypeName}}</mat-option>-->
+              <mat-option *ngFor="let data of locations" value="{{data.id}}">{{data.locationName}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -54,10 +56,6 @@
           <mat-label>Request Type <label>*</label></mat-label>
           <mat-form-field appearance="outline">
             <mat-select matinput formControlName="requestType" required>
-              <!--<mat-option value="Request Type 1">Request Type 1</mat-option>
-              <mat-option value="Request Type 2">Request Type 2</mat-option>
-              <mat-option value="Request Type 3">Request Type 3</mat-option>
-              <mat-option value="Request Type 4">Request Type 4</mat-option>-->
               <mat-option *ngFor="let data of requestTypes" value="{{data.requestTypeName}}">{{data.requestTypeName}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -65,12 +63,8 @@
         <div class="col-lg-3">
           <mat-label> Practice Type <label>*</label></mat-label>
           <mat-form-field appearance="outline">
-            <mat-select matinput formControlName="practiceType" required>
-              <mat-option value="Engineering">Engineering</mat-option>
-              <mat-option value="Digitalization">Digitalization</mat-option>
-              <mat-option value="Globalization">Globalization</mat-option>
-              <mat-option value="Emerging Tools">Emerging Tech</mat-option>
-              <!--<mat-option *ngFor="let data of requestTypes" value="{{data.requestTypeId}}">{{data.requestTypeName}}</mat-option>-->
+            <mat-select matinput formControlName="practiceType" required (selectionChange)="streamChange($event.value)">
+              <mat-option *ngFor="let data of practiceTypes" value="{{data.streamId}}">{{data.streamName}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -78,18 +72,14 @@
           <mat-label> Practice Lead <label>*</label></mat-label>
           <mat-form-field appearance="outline">
             <mat-select matinput formControlName="practiceLead" required>
-              <mat-option value="Practice Lead 1">Practice Lead 1</mat-option>
-              <mat-option value="Practice Lead 2">Practice Lead 2</mat-option>
-              <mat-option value="Practice Lead 3">Practice Lead 3</mat-option>
-              <mat-option value="Practice Lead 4">Practice Lead 4</mat-option>
-              <!--<mat-option *ngFor="let data of requestTypes" value="{{data.requestTypeId}}">{{data.requestTypeName}}</mat-option>-->
+              <mat-option *ngFor="let data of practiceLeads" value="{{data}}">{{data}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-lg-3">
           <mat-label>Point Of Contact</mat-label>
           <mat-form-field appearance="outline">
-            <input matInput formControlName="poc" maxlength="50">
+            <input matInput formControlName="poc" maxlength="5">
           </mat-form-field>
         </div>
       </div>
@@ -119,6 +109,7 @@
       </div>
     </form>
   </div>
+  
   <div class="margin15">
     <button class="btn btn-success pull-right" type="submit" (click)="submit()">Submit</button>
     <button class="btn btn-danger pull-left" (click)="back()">Back</button>
