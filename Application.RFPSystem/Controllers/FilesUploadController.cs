@@ -1,7 +1,6 @@
 ﻿using App.RFPSystem.Services;
 using Applications.Operations;
 using Common.DataObjects;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using System.Collections.Generic;
@@ -10,21 +9,20 @@ using System.Threading.Tasks;
 
 namespace Application.RFPSystem.Controllers
 {
-    //[Authorize]
     [ApiController]
-    public class LocationsController : ControllerBase
+    public class FilesUploadController : ControllerBase
     {
-        [Route("api/V1/Locations/GetList")]
+        [Route("api/V1/FilesUpload/GetList")]
         [HttpGet]
-        public async Task<IActionResult> GetList(string location, string code)
+        public async Task<IActionResult> GetList(string name, string category, int proposalId)
         {
             try
             {
-                IEnumerable<Location> list = new List<Location>();
+                IEnumerable<FileUpload> list  = new List<FileUpload>();
 
-                using (ISyncLocation service = new LocationService())
+                using (ISyncFileUpload service = new FileUploadService())
                 {
-                    list = await service.GetList(location, code);
+                    list = await service.GetList(name, category, proposalId);
                 }
 
                 return Ok(list);
@@ -35,14 +33,14 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
-        [Route("api/V1/Locations/Save")]
+        [Route("api/V1/FilesUpload/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save([FromForm]Location item)
+        public async Task<IActionResult> Save([FromForm]FileUpload item)
         {
             try
             {
                 bool status = false;
-                using (ISyncLocation service = new LocationService())
+                using (ISyncFileUpload service = new FileUploadService())
                 {
                     status = await service.Save(item) > 0;
                 }
@@ -55,14 +53,14 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
-        [Route("api/V1/Locations/Delete")]
+        [Route("api/V1/FilesUpload/Delete")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 bool status = false;
-                using (ISyncLocation service = new LocationService())
+                using (ISyncFileUpload service = new FileUploadService())
                 {
                     status = await service.Delete(id) > 0;
                 }

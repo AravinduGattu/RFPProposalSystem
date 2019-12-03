@@ -33,9 +33,9 @@ namespace Application.RFPSystem.Controllers
             {
                 using (var dbComponent = new LiteDatabase(Constants.DBPath))
                 {
-                    List<RFPRequestDataModel> rFPRequestDataModels = new List<RFPRequestDataModel>();
-                    LiteCollection<RFPRequestDataModel> getRequestModels =
-                        dbComponent.GetCollection<RFPRequestDataModel>("RequestProposals");
+                    List<Proposal> rFPRequestDataModels = new List<Proposal>();
+                    LiteCollection<Proposal> getRequestModels =
+                        dbComponent.GetCollection<Proposal>("RequestProposals");
 
                     if (string.IsNullOrEmpty(requestID))
                     {
@@ -76,13 +76,13 @@ namespace Application.RFPSystem.Controllers
 
         [Route("api/V1/CreateProposal")]
         [HttpPost]
-        public async Task<IActionResult> CreateRequest([FromForm]RFPRequestDataModel proposalDataModel)
+        public async Task<IActionResult> CreateRequest([FromForm]Proposal proposalDataModel)
         {
             try
             {
 
-                RFPRequestDataModel rFPRequestDataModel =
-                    JsonConvert.DeserializeObject<RFPRequestDataModel>(Request.Form["proposalData"]);
+                Proposal rFPRequestDataModel =
+                    JsonConvert.DeserializeObject<Proposal>(Request.Form["proposalData"]);
 
                 using (IAsyncValidations asyncValidations = new ValdiateRules())
                 {
@@ -94,8 +94,8 @@ namespace Application.RFPSystem.Controllers
                     {
                         using (var dbComponent = new LiteDatabase(Constants.DBPath))
                         {
-                            LiteCollection<RFPRequestDataModel> createRequestModel =
-                                dbComponent.GetCollection<RFPRequestDataModel>("RequestProposals");
+                            LiteCollection<Proposal> createRequestModel =
+                                dbComponent.GetCollection<Proposal>("RequestProposals");
 
                             var matchResponse =
                                 createRequestModel.Find(rFPRequest => rFPRequest.RFPCode.Equals(rFPRequestDataModel.RFPCode)).Any();

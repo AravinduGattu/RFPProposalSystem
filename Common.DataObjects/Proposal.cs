@@ -13,29 +13,8 @@ namespace Common.DataObjects
         public string remarks { get; set; }
     }
 
-    public class Question
-    {
-        public string question { get; set; }
-        public string answer { get; set; }
-    }
-
-    public class Questionnaire
-    {
-        public string questionnaireArea { get; set; }
-        public List<Question> questions { get; set; }
-    }
-
-    public class ProposalStatus
-    {
-        public int Id { get; set; }
-        public int RFPRequestID { get; set; }
-        public string Date { get; set; }
-        public string Status { get; set; }
-        public string Accceptance { get; set; }
-        public string RFPUserID { get; set; }
-    }
-
-    public class RFPRequestDataModel
+   
+    public class Proposal
     {
         public int Id { get; set; }
         public string RFPUser { get; set; }
@@ -68,7 +47,7 @@ namespace Common.DataObjects
         public string ModifiedDate { get; set; }
     }
 
-    public class RFPRequestDataGridModel
+    public class ProposalGrid
     {
         public int Id { get; set; }
         public string RFPUser { get; set; }

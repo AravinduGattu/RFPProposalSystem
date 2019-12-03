@@ -14,7 +14,7 @@ namespace Application.RFPSystem.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        [Route("api/V1/Authentication/Authenticate")]
+        [Route("api/V1/Authenticate")]
         [HttpPost]
         public async Task<IActionResult> Authenticate([FromForm]userInfo userInfo)
         {
@@ -27,9 +27,9 @@ namespace Application.RFPSystem.Controllers
 
                 IEnumerable<UserInfo> allUsers = new List<UserInfo>();
 
-                using (ISyncUserInfo getAllUsers = new UserService())
+                using (ISyncUserInfo service = new UserService())
                 {
-                    allUsers = await getAllUsers.rFPUsersInformation();
+                    allUsers = await service.rFPUsersInformation();
                 }
 
                 UserInfo user =
@@ -38,7 +38,39 @@ namespace Application.RFPSystem.Controllers
                 string str = user.ID + "~" + DateTime.Now.ToString("yyyyMMddHHmmss");
                 var strEncryptred = await Task.Run(() => Cipher.Encrypt(str, Constants.Token));
                 user.AccessKey = strEncryptred;
+
+                using (ISyncUserInfo service = new UserService())
+                {
+                    //update asynchronously
+                    service.UpdateLoginTime(user.ID);
+                }
+
                 return Ok(user);                
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
+        [Route("api/V1/Logout")]
+        [HttpGet]
+        public async Task<IActionResult> Logout(int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return Unauthorized();
+                }
+
+                using (ISyncUserInfo service = new UserService())
+                {
+                    //update asynchronously
+                    await service.UpdateLogoutTime(id);
+                }
+
+                return Ok();
             }
             catch (System.Exception ex)
             {

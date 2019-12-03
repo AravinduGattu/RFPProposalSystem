@@ -44,9 +44,9 @@ namespace Application.RFPSystem.Controllers
             {
                 using (var dbComponent = new LiteDatabase(Constants.DBPath))
                 {
-                    List<RFPRequestDataGridModel> rFPRequestDataModels = new List<RFPRequestDataGridModel>();
-                    LiteCollection<RFPRequestDataGridModel> getRequestModels =
-                        dbComponent.GetCollection<RFPRequestDataGridModel>("RequestProposals");
+                    List<ProposalGrid> rFPRequestDataModels = new List<ProposalGrid>();
+                    LiteCollection<ProposalGrid> getRequestModels =
+                        dbComponent.GetCollection<ProposalGrid>("RequestProposals");
 
                     //role and status/user filters cannot be used together
                     if (role.HasValue && role.Value > 0)

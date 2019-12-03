@@ -18,7 +18,7 @@ namespace Application.RulesSetup
         }
 
 
-        public async Task<ValidateResponse> validateProposalRequest(RFPRequestDataModel rFPRequestDataModel)
+        public async Task<ValidateResponse> validateProposalRequest(Proposal rFPRequestDataModel)
         {
 
             ValidateResponse validateResponse = new ValidateResponse();

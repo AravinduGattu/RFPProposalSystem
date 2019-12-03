@@ -95,11 +95,11 @@ namespace Application.RFPSystem.Controllers
                 }
                 else
                 {
-                    var matchResponse = getRequestModels.Find(x => x.RFPRequestID.Equals(requestID)).Any();
+                    var matchResponse = getRequestModels.Find(x => x.ProposalID.Equals(requestID)).Any();
 
                     if (matchResponse)
                     {
-                        var results = getRequestModels.Find(x => x.RFPRequestID.Equals(requestID)).ToList();
+                        var results = getRequestModels.Find(x => x.ProposalID.Equals(requestID)).ToList();
 
                         results.ForEach(x => proposalStatuses.Add(x));
 

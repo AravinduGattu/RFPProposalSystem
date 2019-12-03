@@ -12,7 +12,7 @@ namespace Applications.Operations
 
         Task<IActionResult> CustomActionResult(Exception exception, HttpStatusCode statusCodeResult);
 
-        Task<ValidateResponse> validateProposalRequest(RFPRequestDataModel rFPRequestDataModel);
+        Task<ValidateResponse> validateProposalRequest(Proposal rFPRequestDataModel);
 
         Task<ValidateResponse> validateProposalStatus(ProposalStatus proposalStatus);
     }

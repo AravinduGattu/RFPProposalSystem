@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace App.RFPSystem.Services
 {
-    public class MilestoneService : BaseService, ISyncMilestone
+    public class QuestionnaireService : BaseService, ISyncQuestionnaire
     {
         string strConString = Constants.DBConnection;
         
@@ -19,38 +19,38 @@ namespace App.RFPSystem.Services
             //throw new NotImplementedException();
         }
 
-        public async Task<List<Milestone>> GetList(int proposalId, int milestoneId)
+        public async Task<List<Questionnaire>> GetList(string area, string question, int proposalId)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_GETMilestoneDetails", con);
+                SqlCommand cmd = new SqlCommand("sp_GETQuestionnaireDetails", con);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Area", area);
+                cmd.Parameters.AddWithValue("@Question", question);
                 if (proposalId > 0)
                     cmd.Parameters.AddWithValue("@ProposalID", proposalId);
-                if (milestoneId > 0)
-                    cmd.Parameters.AddWithValue("@MilestoneID", milestoneId);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
-            return ConvertDataTable<Milestone>(dt);
+            return ConvertDataTable<Questionnaire>(dt);
         }
 
-        public async Task<int> Save(Milestone item)
+        public async Task<int> Save(Questionnaire item)
         {
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_Milestone", con);
+                SqlCommand cmd = new SqlCommand("sp_Questionnaire", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ID", item.ID);
-                cmd.Parameters.AddWithValue("@MilestoneID", item.MilestoneID);
-                cmd.Parameters.AddWithValue("@MilestoneStartDate", item.MilestoneStartDate);
-                cmd.Parameters.AddWithValue("@MilestoneEndDate", item.MilestoneEndDate);
-                cmd.Parameters.AddWithValue("@Remarks", item.Remarks);
+                cmd.Parameters.AddWithValue("@QuestionnaireID", item.QuestionnaireID);
                 cmd.Parameters.AddWithValue("@ProposalID", item.ProposalID);
-                cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@Area", item.Area);
+                cmd.Parameters.AddWithValue("@Question", item.Question);
+                cmd.Parameters.AddWithValue("@Answer", item.Answer);
+                cmd.Parameters.AddWithValue("@Remarks", item.Remarks);
+                cmd.Parameters.AddWithValue("@Status", item.QuestionnaireID == 0 ? 1 : 2);
                 return await cmd.ExecuteNonQueryAsync();
             }
         }
@@ -63,7 +63,7 @@ namespace App.RFPSystem.Services
                 SqlCommand cmd = new SqlCommand("sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
-                cmd.Parameters.AddWithValue("@Table", "Milestone");
+                cmd.Parameters.AddWithValue("@Table", "Questionnaire");
                 return await cmd.ExecuteNonQueryAsync();
             }
         }
