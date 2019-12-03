@@ -29,7 +29,7 @@ namespace Application.RFPSystem.Controllers
 
                 using (ISyncUserInfo service = new UserService())
                 {
-                    allUsers = await service.rFPUsersInformation();
+                   // allUsers = await service.rFPUsersInformation();
                 }
 
                 UserInfo user =

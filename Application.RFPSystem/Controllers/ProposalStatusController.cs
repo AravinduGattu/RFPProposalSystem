@@ -18,99 +18,67 @@ using Newtonsoft.Json;
 
 namespace Application.RFPSystem.Controllers
 {
-    //[Route("api/V1/[controller]")]
     [ApiController]
     public class ProposalStatusController : ControllerBase
     {
-        [Route("api/V1/CreateProposalStatus")]
-        [HttpPost]
-        public async Task<IActionResult> CreateRequest([FromForm]ProposalStatus proposalStatus)
+        [Route("api/V1/ProposalStatus/GetList")]
+        [HttpGet]
+        public async Task<IActionResult> GetList(int status, int proposalId)
         {
             try
             {
-                ProposalStatus proposal =
-                    JsonConvert.DeserializeObject<ProposalStatus>(Request.Form["proposalStatus"]);
+                IEnumerable<ProposalStatus> list = new List<ProposalStatus>();
 
-                using (IAsyncValidations asyncValidations = new ValdiateRules())
+                using (ISyncProposalStatus service = new ProposalStatusService())
                 {
-
-                    ValidateResponse validateResponse =
-                        await asyncValidations.validateProposalStatus(proposalStatus);
-
-                    if (validateResponse.NoErrors)
-                    {
-                        using (var dbComponent = new LiteDatabase(Constants.DBPath))
-                        {
-                            LiteCollection<ProposalStatus> createRequestModel =
-                                dbComponent.GetCollection<ProposalStatus>("ProposalStatuses");
-
-                            var matchResponse = createRequestModel.Find(proposalStat =>
-                                proposalStat.RFPUserID.Equals(proposalStatus.RFPUserID)).Any();
-
-
-                            if (!matchResponse)
-                            {
-                                createRequestModel.Insert(proposalStatus);
-                                createRequestModel.EnsureIndex(propStat => propStat.RFPUserID);
-                            }
-                            else
-                            {
-                                return Ok(new { Reason = "Duplicate Request by ID" + proposalStatus.RFPUserID, InvalidRequest = Request.Form["proposalStatus"].ToString() });
-                            }
-                        }
-
-                        return Ok(new { Reason = "Success", Response = Request.Form["proposalStatus"].ToString() });
-                    }
-                    else
-                    {
-                        return Ok(validateResponse);
-                    }
+                    list = await service.GetList(status, proposalId);
                 }
+
+                return Ok(list);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                return Ok(ex);
+                return Ok(ex.Message);
             }
-
-
         }
-        [Route("api/V1/GetProposalStatus")]
-        [HttpGet]
-        public async Task<IActionResult> GetProposalStatus(string requestID)
+
+        [Route("api/V1/ProposalStatus/Save")]
+        [HttpPost]
+        public async Task<IActionResult> Save([FromForm]ProposalStatus item)
         {
-            using (var dbComponent = new LiteDatabase(Constants.DBPath))
+            try
             {
-                List<ProposalStatus>  proposalStatuses = new List<ProposalStatus>();
-                LiteCollection<ProposalStatus> getRequestModels =
-                    dbComponent.GetCollection<ProposalStatus>("ProposalStatuses");
-
-                if (string.IsNullOrEmpty(requestID))
+                bool status = false;
+                using (ISyncProposalStatus service = new ProposalStatusService())
                 {
-                    var listAll = getRequestModels.FindAll().ToList();
-
-                    listAll.ForEach(x => proposalStatuses.Add(x));
-
-                    return Ok(listAll);
-
+                    status = await service.Save(item) > 0;
                 }
-                else
+
+                return Ok(status);
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
+        [Route("api/V1/ProposalStatus/Delete")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                bool status = false;
+                using (ISyncProposalStatus service = new ProposalStatusService())
                 {
-                    var matchResponse = getRequestModels.Find(x => x.ProposalID.Equals(requestID)).Any();
-
-                    if (matchResponse)
-                    {
-                        var results = getRequestModels.Find(x => x.ProposalID.Equals(requestID)).ToList();
-
-                        results.ForEach(x => proposalStatuses.Add(x));
-
-                        return Ok(results);
-                    }
-                    else
-                    {
-                        return Ok(new { Reason = "Not Found", Response = "No Record on " + requestID });
-                    }
-
+                    status = await service.Delete(id) > 0;
                 }
+
+                return Ok(status);
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
             }
         }
 

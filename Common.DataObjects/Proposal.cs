@@ -16,46 +16,39 @@ namespace Common.DataObjects
    
     public class Proposal
     {
-        public int Id { get; set; }
-        public string RFPUser { get; set; }
-        //Auto generated
+        public int ID { get; set; }
+        public string ProposalID { get; set; }
+        public string RequestType { get; set; }
         public string RFPCode { get; set; }
-        public string status { get; set; }
-        public string requestType { get; set; }
-        public string practiceType { get; set; }
-        public string practiceLead { get; set; }
-        public string customer { get; set; }
-        public string location { get; set; }
-        public DateTime requestedDate { get; set; }
-        public string title { get; set; }
-        public string scope { get; set; }
-        public string description { get; set; }
-        public string additionalInformation { get; set; }
-        public List<Schedule> schedule { get; set; }
-        public List<Questionnaire> questionnaire { get; set; }
-        //Satya:Added on 28-Nov-19
-        public string RFPSubmissionDate { get; set; }
-        //Satya:Added on 28-Nov-19
-        public string POC { get; set; }
-        //Satya:Added on 28-Nov-19
+        public string OpportunityName { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public string PracticeID { get; set; }
+        public string PracticeLead { get; set; }
+        public string Customer { get; set; }
+        public int LocationID { get; set; }
+        public string Scope { get; set; }
+        public string Description { get; set; }
+        public string SubmittedBy { get; set; }
         public string CreatedBy { get; set; }
-        //Satya:Added on 28-Nov-19
-        public string CreatedDate { get; set; }
-        //Satya:Added on 28-Nov-19
         public string ModifiedBy { get; set; }
-        //Satya:Added on 28-Nov-19
-        public string ModifiedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public DateTime RFPSubmissionDate { get; set; }
+        public string POC { get; set; }
+        public string AdditionalRemarks { get; set; }
+        public ProposalRequestType ProposalStatus { get; set; }
     }
 
     public class ProposalGrid
     {
-        public int Id { get; set; }
-        public string RFPUser { get; set; }
+        public int ID { get; set; }
+        public string CreatedBy { get; set; }
+        public string ProposalID { get; set; }
         public string RFPCode { get; set; }
-        public string status { get; set; }
-        public string requestType { get; set; }       
-        public DateTime requestedDate { get; set; }
-        public string title { get; set; }
-        public string scope { get; set; }
+        public ProposalRequestType ProposalStatus { get; set; }
+        public string RequestType { get; set; }       
+        public DateTime ReleaseDate { get; set; }
+        public string OpportunityName { get; set; }
+        public string Scope { get; set; }
     }
 }

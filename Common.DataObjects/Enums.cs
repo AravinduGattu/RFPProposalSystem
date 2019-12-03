@@ -4,12 +4,21 @@ using System.Text;
 
 namespace Common.DataObjects
 {
-    //public enum ProposalRequestType
-    //{
-    //    Project = 1,
-    //    Resource = 2
-    //}
+    public enum ProposalUsers
+    {
+        SalesLead = 1,
+        PracticeLead = 2,
+        PursuitTeamLead = 3,
+        DeliveryTeamLead = 4
+    }
 
+    public enum Stream
+    {
+        Engineering = 1,
+        Digitalization = 2,
+        Globalization = 3,
+        EmergingTech = 4
+    }
     public enum ProposalRequestType
     {
         Drafted = 1,
@@ -35,6 +44,4 @@ namespace Common.DataObjects
         //DL
         Accept = 12
     }
-
-    
 }

@@ -26,10 +26,10 @@ namespace Application.RulesSetup
 
             IEnumerable<UserInfo> allUsers = new List<UserInfo>();
 
-            allUsers = await new UserService().rFPUsersInformation();
+           // allUsers = await new UserService().rFPUsersInformation();
 
             UserInfo rFPUsersInformation =
-                    allUsers.ToList().Find(x => x.EmployeeName == rFPRequestDataModel.RFPUser.ToString());
+                    allUsers.ToList().Find(x => x.EmployeeName == rFPRequestDataModel.SubmittedBy.ToString());
 
             if(rFPUsersInformation != null)
             {
@@ -64,10 +64,10 @@ namespace Application.RulesSetup
 
             IEnumerable<UserInfo> allUsers = new List<UserInfo>();
 
-            allUsers = await new UserService().rFPUsersInformation();
+            //allUsers = await new UserService().rFPUsersInformation();
 
             UserInfo rFPUsersInformation =
-                    allUsers.ToList().Find(x => x.EmployeeID == proposalStatus.RFPUserID);
+                    allUsers.ToList().Find(x => x.EmployeeID == proposalStatus.UserID.ToString());
 
             return await Task.Run(() => validateResponse);
         }
