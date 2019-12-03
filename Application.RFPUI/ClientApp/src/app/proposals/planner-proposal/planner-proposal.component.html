@@ -27,13 +27,25 @@
         <div class="col-lg-3">
           <mat-label>Location <label>*</label></mat-label>
           <mat-form-field appearance="outline">
-            <input matInput formControlName="location" required maxlength="50">
+            <mat-select matinput formControlName="location" required>
+              <mat-option value="1">INDIA</mat-option>
+              <mat-option value="2">CHINA</mat-option>
+              <mat-option value="3">USA</mat-option>
+              <mat-option value="4">CANADA</mat-option>
+              <!--<mat-option *ngFor="let data of requestTypes" value="{{data.requestTypeName}}">{{data.requestTypeName}}</mat-option>-->
+            </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-lg-3">
+        <!--<div class="col-lg-3">
           <mat-label>RFP Code</mat-label>
           <mat-form-field appearance="outline" disabled>
             <input matInput formControlName="rfpCode" readonly maxlength="50">
+          </mat-form-field>
+        </div>-->
+        <div class="col-lg-3">
+          <mat-label>Scope</mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="scope" maxlength="250">
           </mat-form-field>
         </div>
       </div>
@@ -98,13 +110,7 @@
             <mat-datepicker #submissionPicker></mat-datepicker>
           </mat-form-field>
         </div>
-        <div class="col-lg-3">
-          <mat-label>Scope</mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput formControlName="scope" maxlength="250">
-          </mat-form-field>
-        </div>
-        <div class="col-lg-3">
+        <div class="col-lg-6">
           <mat-label>Description</mat-label>
           <mat-form-field appearance="outline">
             <textarea rows="1" matInput multiline formControlName="description" maxlength="250"></textarea>

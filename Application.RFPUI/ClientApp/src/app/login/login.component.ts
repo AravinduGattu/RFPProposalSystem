@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(loginData).subscribe((response: any) => {
       if (response) {
         this.userData = response;
-        this.sessionService.setSession(Session.token, 'TOKEN');
+        this.sessionService.setSession(Session.token, this.userData.accessKey);
         this.sessionService.setSession(Session.userId, this.userData.id);
         this.sessionService.setSession(Session.userName, this.userData.employeeName);
         this.sessionService.setSession(Session.userEmail, this.userData.emailID);

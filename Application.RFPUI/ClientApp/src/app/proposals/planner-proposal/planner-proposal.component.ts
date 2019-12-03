@@ -36,7 +36,7 @@ export class PlannerProposalComponent implements OnInit {
   createForm() {
     this.newProposalForm = this.formBuilder.group({
       rfpUser: new FormControl(),
-      rfpCode: new FormControl(),
+      rfpCode: new FormControl(0),
       status: new FormControl('Submitted'),
       practiceType: new FormControl(),
       practiceLead: new FormControl(),

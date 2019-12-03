@@ -378,4 +378,17 @@ export class ViewProposalComponent implements OnInit {
     // FileSaver.saveAs(file);
   }
 
+  top() {
+    
+    //window.scroll({
+    //  top: 0,
+    //  left: 0,
+    //  behavior: 'smooth'
+    //});
+
+    var scrollElem = document.querySelector('#proposalPage');
+    scrollElem.scrollIntoView();
+  }
+
+
 }
