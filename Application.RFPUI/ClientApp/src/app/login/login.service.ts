@@ -18,7 +18,7 @@ export class LoginService {
   public API_URL = environment.API_URL;
 
   public login(data: FormData): Observable<any> {
-    return this.httpService.makePostRequestforFormData('Authenticate', data);
+    return this.httpService.makePostRequestforFormData('Authentication/Authenticate', data);
   }
 
   public logout() {

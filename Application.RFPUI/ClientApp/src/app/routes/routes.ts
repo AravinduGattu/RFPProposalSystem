@@ -59,6 +59,18 @@ export const childRoutes: Routes = [
     }
   },
   {
+    path: 'new',
+    //canActivate: [RouteGuardService],
+    //component: NewComponent,
+    children: newProposalRoutes,
+    data: {
+      title: 'New Proposal',
+      class: 'glyphicon-copy',
+      menu: true,
+      users: [ProposalUsers.All]
+    }
+  },
+  {
     path: 'proposals',
     component: ProposalsComponent,
     canActivate: [RouteGuardService],
@@ -69,17 +81,17 @@ export const childRoutes: Routes = [
       users: [ProposalUsers.All]
     }
   },
-  {
-    path: 'newProposal',
-    component: NewProposalComponent,
-    canActivate: [RouteGuardService],
-    data: {
-      title: 'New Proposal',
-      class: 'glyphicon-copy',
-      menu: true,
-      users: [ProposalUsers.SalesLead]
-    }
-  },
+  //{
+  //  path: 'newProposal',
+  //  component: NewProposalComponent,
+  //  canActivate: [RouteGuardService],
+  //  data: {
+  //    title: 'New Proposal',
+  //    class: 'glyphicon-copy',
+  //    menu: true,
+  //    users: [ProposalUsers.SalesLead]
+  //  }
+  //},
   {
     path: 'administration',
     component: AdministrationComponent,
@@ -89,40 +101,6 @@ export const childRoutes: Routes = [
       class: 'glyphicon-wrench',
       menu: true,
       users: [ProposalUsers.SalesLead]
-    }
-  },
-  //{
-  //  path: 'plannerProposal',
-  //  component: PlannerProposalComponent,
-  //  canActivate: [RouteGuardService],
-  //  data: {
-  //    title: 'Planner Proposal',
-  //    class: 'glyphicon-copy',
-  //    menu: false,
-  //    users: [ProposalUsers.SalesLead]
-  //  }
-  //},
-  //{
-  //  path: 'plannerName',
-  //  component: PlannerNameComponent,
-  //  canActivate: [RouteGuardService],
-  //  data: {
-  //    title: 'Planner Proposal',
-  //    class: 'glyphicon-copy',
-  //    menu: false,
-  //    users: [ProposalUsers.SalesLead]
-  //  }
-  //},
-  {
-    path: 'new',
-    //canActivate: [RouteGuardService],
-    //component: NewComponent,
-    children: newProposalRoutes,
-    data: {
-      title: 'New Proposal',
-      class: 'glyphicon-copy',
-      menu: true,
-      users: [ProposalUsers.All]
     }
   },
   {

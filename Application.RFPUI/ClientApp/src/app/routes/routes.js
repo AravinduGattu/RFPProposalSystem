@@ -4,7 +4,6 @@ var dashboard_component_1 = require("../dashboard/dashboard.component");
 var login_component_1 = require("../login/login.component");
 var app_layout_component_1 = require("../app-layout/app-layout.component");
 var proposals_component_1 = require("../proposals/proposals.component");
-var new_proposal_component_1 = require("../proposals/new-proposal/new-proposal.component");
 var view_proposal_component_1 = require("../proposals/view-proposal/view-proposal.component");
 var administration_component_1 = require("../administration/administration.component");
 //import { NewComponent } from '../proposals/new/new.component';
@@ -55,6 +54,18 @@ exports.childRoutes = [
         }
     },
     {
+        path: 'new',
+        //canActivate: [RouteGuardService],
+        //component: NewComponent,
+        children: exports.newProposalRoutes,
+        data: {
+            title: 'New Proposal',
+            class: 'glyphicon-copy',
+            menu: true,
+            users: [enum_1.ProposalUsers.All]
+        }
+    },
+    {
         path: 'proposals',
         component: proposals_component_1.ProposalsComponent,
         canActivate: [route_guard_service_1.RouteGuardService],
@@ -65,17 +76,17 @@ exports.childRoutes = [
             users: [enum_1.ProposalUsers.All]
         }
     },
-    {
-        path: 'newProposal',
-        component: new_proposal_component_1.NewProposalComponent,
-        canActivate: [route_guard_service_1.RouteGuardService],
-        data: {
-            title: 'New Proposal',
-            class: 'glyphicon-copy',
-            menu: true,
-            users: [enum_1.ProposalUsers.SalesLead]
-        }
-    },
+    //{
+    //  path: 'newProposal',
+    //  component: NewProposalComponent,
+    //  canActivate: [RouteGuardService],
+    //  data: {
+    //    title: 'New Proposal',
+    //    class: 'glyphicon-copy',
+    //    menu: true,
+    //    users: [ProposalUsers.SalesLead]
+    //  }
+    //},
     {
         path: 'administration',
         component: administration_component_1.AdministrationComponent,
@@ -85,40 +96,6 @@ exports.childRoutes = [
             class: 'glyphicon-wrench',
             menu: true,
             users: [enum_1.ProposalUsers.SalesLead]
-        }
-    },
-    //{
-    //  path: 'plannerProposal',
-    //  component: PlannerProposalComponent,
-    //  canActivate: [RouteGuardService],
-    //  data: {
-    //    title: 'Planner Proposal',
-    //    class: 'glyphicon-copy',
-    //    menu: false,
-    //    users: [ProposalUsers.SalesLead]
-    //  }
-    //},
-    //{
-    //  path: 'plannerName',
-    //  component: PlannerNameComponent,
-    //  canActivate: [RouteGuardService],
-    //  data: {
-    //    title: 'Planner Proposal',
-    //    class: 'glyphicon-copy',
-    //    menu: false,
-    //    users: [ProposalUsers.SalesLead]
-    //  }
-    //},
-    {
-        path: 'new',
-        //canActivate: [RouteGuardService],
-        //component: NewComponent,
-        children: exports.newProposalRoutes,
-        data: {
-            title: 'New Proposal',
-            class: 'glyphicon-copy',
-            menu: true,
-            users: [enum_1.ProposalUsers.All]
         }
     },
     {

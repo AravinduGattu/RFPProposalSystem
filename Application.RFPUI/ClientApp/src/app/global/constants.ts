@@ -1,13 +1,3 @@
-export const UserData =
-{
-  userId: 'P0145011',
-  userName: 'Aravindu Gattu',
-  userEmail: 'aravindu.gattu@pactera.com',
-  lastLoggedIn: '19-0902019 21:34 PM',
-  role: 'SalesLead',
-  token: 'XDRTYIE$RTTYIDLEO'
-};
-
 export const Roles = {
   1: 'Sales Lead',
   2: 'Practice Lead',
@@ -26,6 +16,27 @@ export const RequestTypes = [
   }
 ]
 
+export const Streams = [
+  {
+    streamId: 1,
+    streamName: 'Engineering'
+  },
+  {
+    streamId: 2,
+    streamName: 'Digitalization'
+  },
+  {
+    streamId: 3,
+    streamName: 'Globalization'
+  },
+  {
+    streamId: 4,
+    streamName: 'Emerging Tech'
+  }
+]
+
+
+//Sample Data
 export const RFPSampleData =
   {
     "RFPUser": null,
