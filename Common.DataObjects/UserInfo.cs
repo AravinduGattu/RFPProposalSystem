@@ -8,8 +8,6 @@ namespace Common.DataObjects
     {
         public int ID { get; set; }
 
-        public string UserName { get; set; }
-
         public string AccessKey { get; set; }
 
         public string Environment { get; set; }

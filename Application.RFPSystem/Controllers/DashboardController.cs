@@ -79,13 +79,13 @@ namespace Application.RFPSystem.Controllers
                                 break;
                         }
                         rFPRequestDataModels = getRequestModels.Find(x =>
-                                arr.Any(p => p.ToString() == x.status)).ToList();
+                                arr.Any(p => p.ToString() == x.ProposalStatus.ToString())).ToList();
                     }
                     else
                     {
                         rFPRequestDataModels = getRequestModels.Find(x =>
                         (string.IsNullOrEmpty(rfpUser) || x.RFPCode.Equals(rfpUser, StringComparison.InvariantCultureIgnoreCase))
-                        && (status.HasValue || status.Value == 0 || x.status == status.ToString())).ToList();
+                        && (status.HasValue || status.Value == 0 || x.ProposalStatus.ToString() == status.ToString())).ToList();
                     }
                     if (rFPRequestDataModels != null && rFPRequestDataModels.Count > 0)
                     {

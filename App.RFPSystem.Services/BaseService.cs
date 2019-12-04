@@ -28,7 +28,7 @@ namespace App.RFPSystem.Services
             {
                 foreach (PropertyInfo pro in temp.GetProperties())
                 {
-                    if (pro.Name == column.ColumnName)
+                    if (pro.Name == column.ColumnName && dr[column.ColumnName] != DBNull.Value)
                         pro.SetValue(obj, dr[column.ColumnName], null);
                     else
                         continue;

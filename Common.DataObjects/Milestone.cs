@@ -10,7 +10,7 @@ namespace Common.DataObjects
         /// AUto generated
         /// </summary>
         public int ID { get; set; }
-       //Foreign Key
+        //Foreign Key
         public int MilestoneID { get; set; }
         public int ProposalID { get; set; }
         public MilestoneMaster MilestoneMaster { get; set; }

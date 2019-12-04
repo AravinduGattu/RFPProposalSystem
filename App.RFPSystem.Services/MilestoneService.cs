@@ -34,7 +34,23 @@ namespace App.RFPSystem.Services
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
-            return ConvertDataTable<Milestone>(dt);
+            //return ConvertDataTable<Milestone>(dt);
+            return (from DataRow dr in dt.Rows
+                    select new Milestone()
+                    {
+                        ID = Convert.ToInt32(dr["ID"]),
+                        MilestoneID = Convert.ToInt32(dr["MilestoneID"]),
+                        MilestoneMaster = new MilestoneMaster
+                        {
+                            MilestoneID = Convert.ToInt32(dr["MilestoneID"]),
+                            Description = dr["Description"].ToString(),
+                            Milestone = dr["Milestone"].ToString()
+                        },
+                        ProposalID = Convert.ToInt32(dr["ProposalID"]),
+                        MilestoneStartDate = Convert.ToDateTime(dr["MilestoneStartDate"]),
+                        MilestoneEndDate = Convert.ToDateTime(dr["MilestoneEndDate"]),
+                        Remarks = dr["Remarks"].ToString()
+                    }).ToList();
         }
 
         public async Task<int> Save(Milestone item)

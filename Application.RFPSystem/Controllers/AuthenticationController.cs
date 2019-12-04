@@ -25,25 +25,21 @@ namespace Application.RFPSystem.Controllers
                     return Unauthorized();                    
                 }
 
-                IEnumerable<UserInfo> allUsers = new List<UserInfo>();
+                UserInfo user = null;
 
                 using (ISyncUserInfo service = new UserService())
                 {
-                    allUsers = await service.rFPUsersInformation();
+                    user = await service.Authenticate(userInfo.userName, userInfo.accessKey);
                 }
 
-                UserInfo user =
-                        allUsers.ToList().Find(c => (c.EmailID == userInfo.userName) && (c.AccessKey == userInfo.accessKey));
+                if (user == null)
+                {
+                    return Unauthorized();
+                }
 
                 string str = user.ID + "~" + DateTime.Now.ToString("yyyyMMddHHmmss");
                 var strEncryptred = await Task.Run(() => Cipher.Encrypt(str, Constants.Token));
                 user.AccessKey = strEncryptred;
-
-                using (ISyncUserInfo service = new UserService())
-                {
-                    //update asynchronously
-                    service.UpdateLoginTime(user.ID);
-                }
 
                 return Ok(user);                
             }
@@ -66,7 +62,6 @@ namespace Application.RFPSystem.Controllers
 
                 using (ISyncUserInfo service = new UserService())
                 {
-                    //update asynchronously
                     await service.UpdateLogoutTime(id);
                 }
 
