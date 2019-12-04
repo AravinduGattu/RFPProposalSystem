@@ -16,7 +16,7 @@ namespace Application.RFPSystem.Controllers
     {
         [Route("api/V1/Proposals/GetList")]
         [HttpGet]
-        public async Task<IActionResult> GetList(int status, int proposalId, int userId)
+        public async Task<IActionResult> GetList(int status, int proposalId, int userId, int role)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace Application.RFPSystem.Controllers
 
                 using (ISyncProposal service = new ProposalService())
                 {
-                    list = await service.GetList(status, proposalId, userId);
+                    list = await service.GetList(status, proposalId, userId, role);
                 }
 
                 return Ok(list);
@@ -37,7 +37,7 @@ namespace Application.RFPSystem.Controllers
 
         [Route("api/V1/Proposals/GetGrid")]
         [HttpGet]
-        public async Task<IActionResult> GetGrid(int status, int proposalId, int userId)
+        public async Task<IActionResult> GetGrid(int status, int proposalId, int userId, int role)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Application.RFPSystem.Controllers
 
                 using (ISyncProposal service = new ProposalService())
                 {
-                    list = await service.GetGrid(status, proposalId, userId);
+                    list = await service.GetGrid(status, proposalId, userId, role);
                 }
 
                 return Ok(list);

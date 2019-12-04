@@ -12,8 +12,8 @@ namespace Applications.Operations
 {
     public interface ISyncProposal : IDisposable
     {
-        Task<List<Proposal>> GetList(int status, int proposalId, int userId);
-        Task<List<ProposalGrid>> GetGrid(int status, int proposalId, int userId);
+        Task<List<Proposal>> GetList(int status, int proposalId, int userId, int role);
+        Task<List<ProposalGrid>> GetGrid(int status, int proposalId, int userId, int role);
         Task<int> Save(Proposal item);
         Task<int> Delete(int id);
     }

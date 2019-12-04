@@ -19,7 +19,7 @@ namespace App.RFPSystem.Services
             //throw new NotImplementedException();
         }
 
-        public async Task<List<Proposal>> GetList(int status, int proposalId, int userId)
+        public async Task<List<Proposal>> GetList(int status, int proposalId, int userId, int role)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
@@ -33,13 +33,15 @@ namespace App.RFPSystem.Services
                     cmd.Parameters.AddWithValue("@ProposalStatus", status);
                 if (userId > 0)
                     cmd.Parameters.AddWithValue("@UserID", userId);
+                if (role > 0)
+                    cmd.Parameters.AddWithValue("@Role", role);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
             return ConvertDataTable<Proposal>(dt);
         }
 
-        public async Task<List<ProposalGrid>> GetGrid(int status, int proposalId, int userId)
+        public async Task<List<ProposalGrid>> GetGrid(int status, int proposalId, int userId, int role)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
@@ -53,6 +55,8 @@ namespace App.RFPSystem.Services
                     cmd.Parameters.AddWithValue("@ProposalStatus", status);
                 if (userId > 0)
                     cmd.Parameters.AddWithValue("@UserID", userId);
+                if (role > 0)
+                    cmd.Parameters.AddWithValue("@Role", role);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
