@@ -13,7 +13,7 @@ namespace App.RFPSystem.Services
     public class UserService : BaseService, ISyncUserInfo
     {
         string strConString = Constants.DBConnection;
-       
+
         public void Dispose()
         {
             //throw new NotImplementedException();
@@ -36,8 +36,8 @@ namespace App.RFPSystem.Services
 
         //    return await Task.Run(() => rFPUsersInformation);
         //}
- 
-        public async Task<List<UserInfo>> GetList(string userId, int role, int stream)
+
+        public async Task<List<UserInfo>> GetList(int userId, int role, int stream, string empId, string email, string name)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
@@ -45,15 +45,50 @@ namespace App.RFPSystem.Services
                 await con.OpenAsync();
                 SqlCommand cmd = new SqlCommand("sp_GETUserInformationDetails", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@UserID", userId);
-                if(role > 0)
-                cmd.Parameters.AddWithValue("@Role", role);
-                if(stream > 0)
-                cmd.Parameters.AddWithValue("@Stream", stream);
+
+                cmd.Parameters.AddWithValue("@EmployeeID", empId);
+                cmd.Parameters.AddWithValue("@EmailID", email);
+                cmd.Parameters.AddWithValue("@EmployeeName", name);
+                if (userId > 0)
+                    cmd.Parameters.AddWithValue("@ID", userId);
+                if (role > 0)
+                    cmd.Parameters.AddWithValue("@Role", role);
+                if (stream > 0)
+                    cmd.Parameters.AddWithValue("@Stream", stream);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
             return ConvertDataTable<UserInfo>(dt);
+        }
+
+        public async Task<UserInfo> Authenticate(string email, string accessKey)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(strConString))
+            {
+                await con.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_Authenticate", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@EmailID", email);
+                cmd.Parameters.AddWithValue("@AccessKey", accessKey);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return (from DataRow dr in dt.Rows
+                    select new UserInfo()
+                    {
+                        ID = Convert.ToInt32(dr["ID"]),
+                        AccessKey = null,
+                        EmailID = dr["EmailID"].ToString(),
+                        EmployeeID = dr["EmployeeID"].ToString(),
+                        EmployeeName = dr["EmployeeName"].ToString(),
+                        Environment = dr["Environment"].ToString(),
+                        LastLoginTime = Convert.ToDateTime(dr["LastLoginTime"].ToString()),
+                        LastLogoutTime = Convert.ToDateTime(dr["LastLogoutTime"].ToString()),
+                        Role = (ProposalUsers)Convert.ToInt32(dr["Role"]),
+                        Stream = (Stream)Convert.ToInt32(dr["Stream"])
+                    }).FirstOrDefault();
         }
 
         public async Task<int> Save(UserInfo item)
@@ -76,19 +111,19 @@ namespace App.RFPSystem.Services
             }
         }
 
-        public async Task<int> UpdateLoginTime(int id)
-        {
-            using (SqlConnection con = new SqlConnection(strConString))
-            {
-                await con.OpenAsync();
-                string query = "Update UserInfo SET LastLoginTime = @logintime where ID = @userid";
-                    ;
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@logintime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                cmd.Parameters.AddWithValue("@userid", id);
-                return await cmd.ExecuteNonQueryAsync();
-            }
-        }
+        //public async Task<int> UpdateLoginTime(int id)
+        //{
+        //    using (SqlConnection con = new SqlConnection(strConString))
+        //    {
+        //        await con.OpenAsync();
+        //        string query = "Update UserInfo SET LastLoginTime = @logintime where ID = @userid";
+        //        ;
+        //        SqlCommand cmd = new SqlCommand(query, con);
+        //        cmd.Parameters.AddWithValue("@logintime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+        //        cmd.Parameters.AddWithValue("@userid", id);
+        //        return await cmd.ExecuteNonQueryAsync();
+        //    }
+        //}
 
         public async Task<int> UpdateLogoutTime(int id)
         {

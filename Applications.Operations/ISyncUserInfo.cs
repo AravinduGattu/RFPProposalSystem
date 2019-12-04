@@ -9,9 +9,10 @@ namespace Applications.Operations
     public interface ISyncUserInfo : IDisposable
     {
         //Task<IEnumerable<UserInfo>> rFPUsersInformation();
-        Task<List<UserInfo>> GetList(string userId, int role, int stream);
+        Task<List<UserInfo>> GetList(int userId, int role, int stream, string empId, string email, string name);
+        Task<UserInfo> Authenticate(string email, string accessKey);
         Task<int> Save(UserInfo item);
-        Task<int> UpdateLoginTime(int id);
+        //Task<int> UpdateLoginTime(int id);
         Task<int> UpdateLogoutTime(int id);
         Task<int> Delete(int id);
     }

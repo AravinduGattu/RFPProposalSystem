@@ -48,7 +48,7 @@ namespace Application.RFPSystem.Controllers
 
         [Route("api/V1/Users/GetList")]
         [HttpGet]
-        public async Task<IActionResult> GetList(string userId, int role, int stream)
+        public async Task<IActionResult> GetList(int userId, int role, int stream)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace Application.RFPSystem.Controllers
 
                 using (ISyncUserInfo service = new UserService())
                 {
-                    list = await service.GetList(userId, role, stream);
+                    list = await service.GetList(userId, role, stream, null, null, null);
                 }
 
                 return Ok(list);
