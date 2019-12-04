@@ -9,6 +9,7 @@ using Application.RulesSetup;
 using Applications.Operations;
 using Common.DataObjects;
 using LiteDB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -18,6 +19,7 @@ using Newtonsoft.Json;
 
 namespace Application.RFPSystem.Controllers
 {
+    [Authorize]
     [ApiController]
     public class ProposalStatusController : ControllerBase
     {
@@ -44,7 +46,7 @@ namespace Application.RFPSystem.Controllers
 
         [Route("api/V1/ProposalStatus/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save([FromForm]ProposalStatus item)
+        public async Task<IActionResult> Save(ProposalStatus item)
         {
             try
             {
