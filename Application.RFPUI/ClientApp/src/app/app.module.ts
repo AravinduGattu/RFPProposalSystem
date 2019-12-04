@@ -35,6 +35,9 @@ import { AdministrationComponent } from './administration/administration.compone
 import { PlannerProposalComponent } from './proposals/planner-proposal/planner-proposal.component';
 import { PlannerNameComponent } from './proposals/planner-name/planner-name.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { PlannerViewComponent } from './proposals/planner-view/planner-view.component';
+import { LocationsComponent } from './administration/locations/locations.component';
+import { MilestonesComponent } from './administration/milestones/milestones.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,10 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     AdministrationComponent,
     PlannerProposalComponent,
     PlannerNameComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    PlannerViewComponent,
+    LocationsComponent,
+    MilestonesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

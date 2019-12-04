@@ -1,0 +1,37 @@
+<div class="multiColorLine"></div>
+<div class="page">
+  <div>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header [collapsedHeight]="'25px'" [expandedHeight]="'25px'">
+          <mat-panel-title>Journey of Proposal</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="journeysection">
+          <div class="timeline">
+            <div class="dottedTimeline" *ngFor="let step of steps; let L = last;">
+              <div class="timelineCard">
+                <p class="italic">{{step.dateLabel}}</p>
+                <div class="statusback" [ngClass]="{'rejectM': step.acceptance === 'No', 'pendingM': step.acceptance === 'Pending' }">
+                  <!--<img class="timeLineImg" src="../../../assets/images/correct.svg" alt="Image Here">-->
+                  <div class="timeLineImg"></div>
+                  <br />
+                </div>
+                <p class="italic bold">{{step.title}}</p>
+              </div>
+              <!--<div *ngIf="!L" class="journeyLine"></div>-->
+            </div>
+
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-tab-group>
+      <mat-tab label="Basic Info"> Content 1 </mat-tab>
+      <mat-tab label="Schedule"> Content 2 </mat-tab>
+      <mat-tab label="Documents"> Content 3 </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

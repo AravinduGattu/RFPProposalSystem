@@ -34,7 +34,7 @@
         <ng-container matColumnDef="action" class="container">
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Action </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button class="btn btnMd" [routerLink]="['/app/viewProposal',element.id]">View</button>
+            <button class="btn btnMd" [routerLink]="['/app/proposals/view',element.id]">View</button>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="id" class="container">
@@ -53,7 +53,7 @@
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> RFP Code </mat-header-cell>
           <mat-cell *matCellDef="let element" class="cell">
             <!--<span class="sort-header">{{element.rfpCode}}</span>-->
-            <a fxFlexFill [routerLink]="['/app/viewProposal',element.rfpCode]" class="mat-row-link cell">
+            <a fxFlexFill [routerLink]="['/app/proposals/view',element.rfpCode]" class="mat-row-link cell">
               {{element.rfpCode}}
             </a>
           </mat-cell>

@@ -6,10 +6,12 @@ var app_layout_component_1 = require("../app-layout/app-layout.component");
 var proposals_component_1 = require("../proposals/proposals.component");
 var view_proposal_component_1 = require("../proposals/view-proposal/view-proposal.component");
 var administration_component_1 = require("../administration/administration.component");
-//import { NewComponent } from '../proposals/new/new.component';
+var planner_view_component_1 = require("../proposals/planner-view/planner-view.component");
 var planner_proposal_component_1 = require("../proposals/planner-proposal/planner-proposal.component");
 var planner_name_component_1 = require("../proposals/planner-name/planner-name.component");
 var unauthorized_component_1 = require("../unauthorized/unauthorized.component");
+var locations_component_1 = require("../administration/locations/locations.component");
+var milestones_component_1 = require("../administration/milestones/milestones.component");
 var route_guard_service_1 = require("./route-guard.service");
 var enum_1 = require("../global/enum");
 exports.newProposalRoutes = [
@@ -41,6 +43,44 @@ exports.newProposalRoutes = [
         redirectTo: '/app/new/plannerName'
     }
 ];
+exports.viewProposalRoutes = [
+    {
+        path: 'view/:Id',
+        component: planner_view_component_1.PlannerViewComponent,
+        canActivate: [route_guard_service_1.RouteGuardService],
+        data: {
+            users: [enum_1.ProposalUsers.All]
+        }
+    },
+    {
+        path: 'list',
+        component: proposals_component_1.ProposalsComponent,
+        canActivate: [route_guard_service_1.RouteGuardService],
+        data: {
+            users: [enum_1.ProposalUsers.All]
+        }
+    },
+    {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/app/proposals/list'
+    }
+];
+exports.adminRoutes = [
+    {
+        path: 'locations',
+        component: locations_component_1.LocationsComponent
+    },
+    {
+        path: 'milestones',
+        component: milestones_component_1.MilestonesComponent
+    },
+    {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/app/administration/locations'
+    }
+];
 exports.childRoutes = [
     {
         path: 'dashboard',
@@ -55,7 +95,7 @@ exports.childRoutes = [
     },
     {
         path: 'new',
-        //canActivate: [RouteGuardService],
+        canActivate: [route_guard_service_1.RouteGuardService],
         //component: NewComponent,
         children: exports.newProposalRoutes,
         data: {
@@ -67,15 +107,27 @@ exports.childRoutes = [
     },
     {
         path: 'proposals',
-        component: proposals_component_1.ProposalsComponent,
         canActivate: [route_guard_service_1.RouteGuardService],
         data: {
             title: 'Proposals',
             class: 'glyphicon-list-alt',
             menu: true,
             users: [enum_1.ProposalUsers.All]
-        }
+        },
+        children: exports.viewProposalRoutes
     },
+    //{
+    //  path: 'proposals',
+    //  component: ProposalsComponent,
+    //  canActivate: [RouteGuardService],
+    //  data: {
+    //    title: 'Proposals',
+    //    class: 'glyphicon-list-alt',
+    //    menu: true,
+    //    users: [ProposalUsers.All]
+    //  },
+    //  children: viewProposalRoutes
+    //},
     //{
     //  path: 'newProposal',
     //  component: NewProposalComponent,
@@ -96,7 +148,8 @@ exports.childRoutes = [
             class: 'glyphicon-wrench',
             menu: true,
             users: [enum_1.ProposalUsers.SalesLead]
-        }
+        },
+        children: exports.adminRoutes
     },
     {
         path: 'viewProposal/:RFPCode',
