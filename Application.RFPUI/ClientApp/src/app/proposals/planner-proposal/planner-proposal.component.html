@@ -72,7 +72,7 @@
           <mat-label> Practice Lead <label>*</label></mat-label>
           <mat-form-field appearance="outline">
             <mat-select matinput formControlName="practiceLead" required>
-              <mat-option *ngFor="let data of practiceLeads" value="{{data}}">{{data}}</mat-option>
+              <mat-option *ngFor="let data of practiceLeads" value="{{data.employeeName}}">{{data.employeeName}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

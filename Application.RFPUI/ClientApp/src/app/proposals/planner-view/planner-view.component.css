@@ -1,0 +1,94 @@
+::ng-deep .mat-tab-label-active {
+  background-color: palegoldenrod;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+::ng-deep .mat-tab-label {
+  min-width: 100px !important;
+  height: 30px !important;
+}
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
+  /*background-color: red;*/
+  display: none;
+}
+
+::ng-deep .mat-tab-header {
+  /*border-bottom-color: lightskyblue;*/
+  border-bottom: 3px solid palegoldenrod;
+}
+
+/*Journey Section*/
+.journeysection {
+  width: auto;
+  /*white-space: nowrap;*/
+  overflow-x: auto;
+}
+
+.timeline {
+  text-align: center;
+  display: inline-flex;
+}
+
+.dottedTimeline {
+  display: inline-flex;
+}
+
+.timelineCard {
+  width: 200px;
+}
+
+.timelineCard p {
+  height: 40px;
+}
+
+.statusback {
+  background-color: #37bf78;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  position: relative;
+}
+
+  .statusback::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 3px;
+    background: gray;
+    width: 180px;
+    left: 100%;
+    top: calc(50% - 2px);
+  }
+
+.dottedTimeline:last-child .statusback::after {
+  display: none;
+}
+
+.rejectM {
+  background-color: orangered;
+}
+
+  .rejectM .timeLineImg {
+    mask: url('../../../assets/images/wrong.svg') center/20px 20px no-repeat;
+  }
+
+.pendingM {
+  background-color: gray;
+}
+
+  .pendingM .timeLineImg {
+    mask: url('../../../assets/images/pending.svg') center/25px 25px no-repeat;
+  }
+
+.timeLineImg {
+  height: 40px;
+  width: 40px;
+  z-index: 0;
+  opacity: 1;
+  mask: url('../../../assets/images/correct.svg') center/25px 25px no-repeat;
+  background-color: white;
+}
+/*Ends Journey1 Section*/
