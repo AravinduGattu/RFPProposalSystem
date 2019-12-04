@@ -22,6 +22,7 @@ export class PlannerProposalComponent implements OnInit {
   practiceTypes: any;
   practiceLeads: any;
   locations: any;
+  Leads: any;
 
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -38,8 +39,8 @@ export class PlannerProposalComponent implements OnInit {
     var Id = this.activatedRoute.snapshot.params.Id;
     this.createForm();
     this.getLocations();
+    this.getPracticeLeads();
     this.newProposalForm.get('practiceType').setValue(Id);
-    this.streamChange(Id);
   }
 
   createForm() {
@@ -69,19 +70,22 @@ export class PlannerProposalComponent implements OnInit {
     })
   }
 
+  getPracticeLeads() {
+    this.commonService.getPracticeLeadsList().subscribe((response: any) => {
+      this.Leads = response;
+      this.streamChange(this.activatedRoute.snapshot.params.Id);
+    }, (error) => {
+
+    })
+  }
+
   // need to changed, based on the userlist data
   streamChange(stream: any) {
     this.newProposalForm.get('practiceLead').setValue('');
-    if (stream === '1') {
-      this.practiceLeads = ['Sreekanth', 'Dinesh']
-    } else if (stream === '2') {
-      this.practiceLeads = ['Dinesh', 'Shashi']
-    } else if (stream === '3') {
-      this.practiceLeads = ['Shashi', 'Narayana']
-    } else if (stream === '4') {
-      this.practiceLeads = ['Narayana', 'Sreekanth']
-    }
-    
+
+    var LeadsList = this.Leads.filter(X => X.stream === +stream);
+
+    this.practiceLeads = LeadsList;
   }
 
   submit() {

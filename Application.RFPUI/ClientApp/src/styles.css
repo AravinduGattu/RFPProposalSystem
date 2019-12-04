@@ -133,3 +133,12 @@ mat-label label {
 .margin15 {
   margin: 15px;
 }
+
+/*Font*/
+.italic {
+  font-style: italic;
+}
+
+.bold {
+  font-weight: 600;
+}

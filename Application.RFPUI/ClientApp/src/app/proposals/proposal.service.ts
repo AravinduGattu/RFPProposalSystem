@@ -9,7 +9,7 @@ export class ProposalService {
   constructor(private httpService: HttpService) { }
 
   public getProposals(): Observable<any> {
-    return this.httpService.makeGetRequest('GetProposals');
+    return this.httpService.makeGetRequest('Proposals/GetGrid');
   }
 
   public getProposalDetails(RFPCode: any): Observable<any> {

@@ -1,2 +1,25 @@
 <!--<p>administration works!</p>-->
 <div class="multiColorLine"></div>
+<div class="page">
+  <div class="col-sm-12 col-md-2 col-lg-2 col-xs-12 padding-horizontal-0">
+  <ul class="nav nav-tabs tabs-left" style="height:800px;background-color:#ffffff;font-size:16px;">
+    <!--<li *ngFor="let routes of setupRoutes" routerLinkActive="active" [routerLink]="routes.path">
+      <a>
+        <span>{{routes.data?.title}}</span>
+      </a>
+    </li>-->
+    <li routerLinkActive="active">
+      <a>
+        <span>Locations</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span>Milestones</span>
+      </a>
+    </li>
+  </ul>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+
