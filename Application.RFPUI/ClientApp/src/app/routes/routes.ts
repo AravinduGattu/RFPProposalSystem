@@ -109,7 +109,7 @@ export const childRoutes: Routes = [
       title: 'New Proposal',
       class: 'glyphicon-copy',
       menu: true,
-      users: [ProposalUsers.All]
+      users: [ProposalUsers.SalesLead]
     }
   },
   {

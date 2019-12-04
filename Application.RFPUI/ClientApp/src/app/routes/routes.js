@@ -102,7 +102,7 @@ exports.childRoutes = [
             title: 'New Proposal',
             class: 'glyphicon-copy',
             menu: true,
-            users: [enum_1.ProposalUsers.All]
+            users: [enum_1.ProposalUsers.SalesLead]
         }
     },
     {
