@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.RFPSystem.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class LocationsController : ControllerBase
     {
@@ -37,7 +37,7 @@ namespace Application.RFPSystem.Controllers
 
         [Route("api/V1/Locations/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save([FromForm]Location item)
+        public async Task<IActionResult> Save(Location item)
         {
             try
             {

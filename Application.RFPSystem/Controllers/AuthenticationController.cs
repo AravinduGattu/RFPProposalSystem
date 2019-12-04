@@ -16,7 +16,7 @@ namespace Application.RFPSystem.Controllers
     {
         [Route("api/V1/Authenticate")]
         [HttpPost]
-        public async Task<IActionResult> Authenticate([FromForm]userInfo userInfo)
+        public async Task<IActionResult> Authenticate(userInfo userInfo)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace Application.RFPSystem.Controllers
                     await service.UpdateLogoutTime(id);
                 }
 
-                return Ok();
+                return Ok(true);
             }
             catch (System.Exception ex)
             {

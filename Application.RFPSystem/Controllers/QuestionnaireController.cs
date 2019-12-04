@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.RFPSystem.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class QuestionnaireController : ControllerBase
     {
@@ -37,7 +37,7 @@ namespace Application.RFPSystem.Controllers
 
         [Route("api/V1/Questionnaire/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save([FromForm]Questionnaire item)
+        public async Task<IActionResult> Save(Questionnaire item)
         {
             try
             {

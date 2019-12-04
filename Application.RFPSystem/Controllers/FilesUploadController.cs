@@ -1,6 +1,7 @@
 ﻿using App.RFPSystem.Services;
 using Applications.Operations;
 using Common.DataObjects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.RFPSystem.Controllers
 {
+    [Authorize]
     [ApiController]
     public class FilesUploadController : ControllerBase
     {
@@ -35,7 +37,7 @@ namespace Application.RFPSystem.Controllers
 
         [Route("api/V1/FilesUpload/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save([FromForm]FileUpload item)
+        public async Task<IActionResult> Save(FileUpload item)
         {
             try
             {

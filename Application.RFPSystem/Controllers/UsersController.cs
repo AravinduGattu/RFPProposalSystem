@@ -9,6 +9,7 @@ using Application.RulesSetup;
 using Applications.Operations;
 using Common.DataObjects;
 using LiteDB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -18,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace Application.RFPSystem.Controllers
 {
-    //[Route("api/V1/[controller]")]
+    [Authorize]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -69,7 +70,7 @@ namespace Application.RFPSystem.Controllers
 
         [Route("api/V1/Users/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save([FromForm]UserInfo item)
+        public async Task<IActionResult> Save(UserInfo item)
         {
             try
             {
