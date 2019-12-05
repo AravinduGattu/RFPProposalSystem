@@ -17,7 +17,6 @@ namespace Common.DataObjects
     public class Proposal
     {
         public int ID { get; set; }
-        public string ProposalID { get; set; }
         public string RequestType { get; set; }
         public string RFPCode { get; set; }
         public string OpportunityName { get; set; }
@@ -43,7 +42,6 @@ namespace Common.DataObjects
     {
         public int ID { get; set; }
         public string CreatedBy { get; set; }
-        public string ProposalID { get; set; }
         public string RFPCode { get; set; }
         public ProposalRequestType ProposalStatus { get; set; }
         public string RequestType { get; set; }       

@@ -71,7 +71,6 @@ namespace App.RFPSystem.Services
                 SqlCommand cmd = new SqlCommand("sp_RFPProposal", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", item.ID);
-                cmd.Parameters.AddWithValue("@ProposalID", item.ProposalID);
                 cmd.Parameters.AddWithValue("@RequestType", item.RequestType);
                 cmd.Parameters.AddWithValue("@RFPCode", item.RFPCode);
                 cmd.Parameters.AddWithValue("@OpportunityName", item.OpportunityName);
