@@ -15,5 +15,14 @@ namespace Application.RFPSystem.Controllers
         {
             
         }
+
+        public string UserID {
+            get {
+                if (string.IsNullOrEmpty(Request.Headers["AuthToken"]))
+                    return null;
+                return Cipher.Decrypt(Request.Headers["AuthToken"], Constants.Token).Split('~')[0];
+                
+            }
+        }
     }
 }
