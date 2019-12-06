@@ -30,8 +30,20 @@ namespace Common.DataObjects
         public string Scope { get; set; }
         public string Description { get; set; }
         public string SubmittedBy { get; set; }
+        /// <summary>
+        /// Used only for display purpose
+        /// </summary>
+        public string SubmittedByName { get; set; }
         public string CreatedBy { get; set; }
+        /// <summary>
+        /// Used only for display purpose
+        /// </summary>
+        public string CreatedByName { get; set; }
         public string ModifiedBy { get; set; }
+        /// <summary>
+        /// Used only for display purpose
+        /// </summary>
+        public string ModifiedByName { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public DateTime RFPSubmissionDate { get; set; }
@@ -45,8 +57,13 @@ namespace Common.DataObjects
     {
         public int ID { get; set; }
         public string CreatedBy { get; set; }
+        /// <summary>
+        /// Used only for display purpose
+        /// </summary>
+        public string CreatedByName { get; set; }
         public string RFPCode { get; set; }
         public ProposalRequestType ProposalStatus { get; set; }
+        public string ProposalStatusName { get; set; }
         public string RequestType { get; set; }       
         public DateTime ReleaseDate { get; set; }
         public string OpportunityName { get; set; }
