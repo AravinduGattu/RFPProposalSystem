@@ -25,13 +25,13 @@ namespace App.RFPSystem.Services
 
             IEnumerable<DatavizForProposalCategoryByUsers> datavizForProposalCategoryByUsers = new List<DatavizForProposalCategoryByUsers>
             {
-                new DatavizForProposalCategoryByUsers{  category = ProposalUsers.SalesLead.ToString(), status =categoryStatus.Submitted, proposalsCount="5", userName="Thomson@pactera.com" },
-                new DatavizForProposalCategoryByUsers{  category = ProposalUsers.SalesLead.ToString(), status =categoryStatus.Submitted, proposalsCount="4", userName="Thomson@pactera.com" },
-                new DatavizForProposalCategoryByUsers{  category = ProposalUsers.SalesLead.ToString(), status =categoryStatus.InProcess, proposalsCount="3", userName="Thomson@pactera.com" },
-                new DatavizForProposalCategoryByUsers{  category = ProposalUsers.PursuitTeamLead.ToString(), status =categoryStatus.Pending, proposalsCount="6", userName="maruthi@pactera.com" },
-                new DatavizForProposalCategoryByUsers{  category = ProposalUsers.PursuitTeamLead.ToString(), status =categoryStatus.Pending, proposalsCount="7", userName="maruthi@pactera.com" },
-                new DatavizForProposalCategoryByUsers{  category = ProposalUsers.PursuitTeamLead.ToString(), status =categoryStatus.Completed, proposalsCount="3", userName="Aravind.Gattu@pactera.com" },
-                new DatavizForProposalCategoryByUsers{  category = ProposalUsers.PracticeLead.ToString(), status =categoryStatus.InProcess, proposalsCount="1", userName="Phani@pactera.com" },
+                new DatavizForProposalCategoryByUsers{  category = UserRole.SalesLead.ToString(), status =categoryStatus.Submitted, proposalsCount="5", userName="Thomson@pactera.com" },
+                new DatavizForProposalCategoryByUsers{  category = UserRole.SalesLead.ToString(), status =categoryStatus.Submitted, proposalsCount="4", userName="Thomson@pactera.com" },
+                new DatavizForProposalCategoryByUsers{  category = UserRole.SalesLead.ToString(), status =categoryStatus.InProcess, proposalsCount="3", userName="Thomson@pactera.com" },
+                new DatavizForProposalCategoryByUsers{  category = UserRole.PursuitTeamLead.ToString(), status =categoryStatus.Pending, proposalsCount="6", userName="maruthi@pactera.com" },
+                new DatavizForProposalCategoryByUsers{  category = UserRole.PursuitTeamLead.ToString(), status =categoryStatus.Pending, proposalsCount="7", userName="maruthi@pactera.com" },
+                new DatavizForProposalCategoryByUsers{  category = UserRole.PursuitTeamLead.ToString(), status =categoryStatus.Completed, proposalsCount="3", userName="Aravind.Gattu@pactera.com" },
+                new DatavizForProposalCategoryByUsers{  category = UserRole.PracticeLead.ToString(), status =categoryStatus.InProcess, proposalsCount="1", userName="Phani@pactera.com" },
             };
 
 

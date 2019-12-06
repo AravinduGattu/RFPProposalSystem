@@ -21,6 +21,7 @@ namespace App.RFPSystem.Services
 
         public async Task<List<Proposal>> GetList(int status, int proposalId, int userId, int role)
         {
+            List<Proposal> list = new List<Proposal>();
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
             {
@@ -38,7 +39,11 @@ namespace App.RFPSystem.Services
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
-            return ConvertDataTable<Proposal>(dt);
+            list = ConvertDataTable<Proposal>(dt);
+            list.ForEach(x => x.PracticeName = ((Stream)x.PracticeID).ToString());
+            list.ForEach(x => x.ProposalStatusName = ((ProposalRequestType)x.ProposalStatus).ToString());
+            
+            return list;
         }
 
         public async Task<List<ProposalGrid>> GetGrid(int status, int proposalId, int userId, int role)

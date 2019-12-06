@@ -18,7 +18,7 @@ namespace Common.DataObjects
 
         public string EmailID { get; set; }
 
-        public ProposalUsers Role { get; set; }
+        public UserRole Role { get; set; }
 
         public Stream Stream { get; set; }
 

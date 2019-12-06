@@ -86,7 +86,7 @@ namespace App.RFPSystem.Services
                         Environment = dr["Environment"].ToString(),
                         LastLoginTime = Convert.ToDateTime(dr["LastLoginTime"].ToString()),
                         LastLogoutTime = Convert.ToDateTime(dr["LastLogoutTime"].ToString()),
-                        Role = (ProposalUsers)Convert.ToInt32(dr["Role"]),
+                        Role = (UserRole)Convert.ToInt32(dr["Role"]),
                         Stream = (Stream)Convert.ToInt32(dr["Stream"])
                     }).FirstOrDefault();
         }

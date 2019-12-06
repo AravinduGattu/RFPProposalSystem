@@ -8,7 +8,7 @@ namespace Applications.Operations
 {
     public interface IAsyncValidations:IDisposable
     {
-        Task<ValidateResponse> ValidateProposalUser(ProposalUsers proposalUser);
+        Task<ValidateResponse> ValidateProposalUser(UserRole proposalUser);
 
         Task<IActionResult> CustomActionResult(Exception exception, HttpStatusCode statusCodeResult);
 
