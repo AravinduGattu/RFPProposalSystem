@@ -34,9 +34,9 @@ namespace Application.RFPSystem.Helpers
             var strDecrypted = "";
             try
             {
-                var strEncryptred = Request.Headers["AuthToken"];
+                var strEncrypted = Request.Headers["AuthToken"];
                 strDecrypted =
-                    await Task.Run(() => Cipher.Decrypt(strEncryptred, Constants.Token));
+                    await Task.Run(() => Cipher.Decrypt(strEncrypted, Constants.Token));
 
                 if (string.IsNullOrEmpty(strDecrypted) || strDecrypted.IndexOf("~") == -1)
                 {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Common.DataObjects
 {
-    public enum ProposalUsers
+    public enum UserRole
     {
         SalesLead = 1,
         PracticeLead = 2,

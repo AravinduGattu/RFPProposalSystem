@@ -21,6 +21,7 @@ namespace App.RFPSystem.Services
 
         public async Task<List<Proposal>> GetList(int status, int proposalId, int userId, int role)
         {
+            List<Proposal> list = new List<Proposal>();
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
             {
@@ -38,11 +39,15 @@ namespace App.RFPSystem.Services
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
-            return ConvertDataTable<Proposal>(dt);
+            list = ConvertDataTable<Proposal>(dt);
+            list.ForEach(x => x.PracticeName = ((Stream)x.PracticeID).ToString());
+            list.ForEach(x => x.ProposalStatusName = ((ProposalRequestType)x.ProposalStatus).ToString());            
+            return list;
         }
 
         public async Task<List<ProposalGrid>> GetGrid(int status, int proposalId, int userId, int role)
         {
+            List<ProposalGrid> list = new List<ProposalGrid>();
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
             {
@@ -60,7 +65,9 @@ namespace App.RFPSystem.Services
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
-            return ConvertDataTable<ProposalGrid>(dt);
+            list = ConvertDataTable<ProposalGrid>(dt);
+            list.ForEach(x => x.ProposalStatusName = ((ProposalRequestType)x.ProposalStatus).ToString());
+            return list;
         }
 
         public async Task<int> Save(Proposal item)
@@ -71,7 +78,6 @@ namespace App.RFPSystem.Services
                 SqlCommand cmd = new SqlCommand("sp_RFPProposal", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", item.ID);
-                cmd.Parameters.AddWithValue("@ProposalID", item.ProposalID);
                 cmd.Parameters.AddWithValue("@RequestType", item.RequestType);
                 cmd.Parameters.AddWithValue("@RFPCode", item.RFPCode);
                 cmd.Parameters.AddWithValue("@OpportunityName", item.OpportunityName);

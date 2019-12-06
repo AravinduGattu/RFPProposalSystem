@@ -33,14 +33,14 @@ namespace Application.RulesSetup
 
             if(rFPUsersInformation != null)
             {
-                if(rFPUsersInformation.Role == ProposalUsers.SalesLead)
+                if(rFPUsersInformation.Role == UserRole.SalesLead)
                 {
                     return await Task.Run(() => validateResponse);
                 }
                 else
                 {
                     validateResponse.NoErrors = false;
-                    validateResponse.exception = new ArgumentException("User Must be " + ProposalUsers.SalesLead.ToString());
+                    validateResponse.exception = new ArgumentException("User Must be " + UserRole.SalesLead.ToString());
                     validateResponse.controllerBase = CustomActionResult(validateResponse.exception, HttpStatusCode.Forbidden);
                     validateResponse.RequestBody = rFPRequestDataModel;
                 }
@@ -48,7 +48,7 @@ namespace Application.RulesSetup
             else
             {
                 validateResponse.NoErrors = false;
-                validateResponse.exception = new ArgumentException("User Must be " + ProposalUsers.SalesLead.ToString());
+                validateResponse.exception = new ArgumentException("User Must be " + UserRole.SalesLead.ToString());
                 validateResponse.controllerBase = CustomActionResult(validateResponse.exception, HttpStatusCode.Forbidden);
                 validateResponse.RequestBody = rFPRequestDataModel;
             }
@@ -72,15 +72,15 @@ namespace Application.RulesSetup
             return await Task.Run(() => validateResponse);
         }
 
-        public async Task<ValidateResponse> ValidateProposalUser(ProposalUsers proposalUser)
+        public async Task<ValidateResponse> ValidateProposalUser(UserRole proposalUser)
         {
             ValidateResponse validateResponse = new ValidateResponse();
             validateResponse.NoErrors = true;
 
-            if (proposalUser != ProposalUsers.SalesLead)
+            if (proposalUser != UserRole.SalesLead)
             {
                 validateResponse.NoErrors = false;
-                validateResponse.exception = new ArgumentException("User Must be "+ ProposalUsers.SalesLead.ToString());
+                validateResponse.exception = new ArgumentException("User Must be "+ UserRole.SalesLead.ToString());
                 validateResponse.controllerBase = CustomActionResult(validateResponse.exception, HttpStatusCode.Forbidden);
             }
 

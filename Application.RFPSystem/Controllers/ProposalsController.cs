@@ -12,7 +12,7 @@ namespace Application.RFPSystem.Controllers
 {
     [Authorize]
     [ApiController]
-    public class ProposalsController : ControllerBase
+    public class ProposalsController : BaseController
     {
         [Route("api/V1/Proposals/GetList")]
         [HttpGet]
@@ -65,6 +65,11 @@ namespace Application.RFPSystem.Controllers
                 bool status = false;
                 using (ISyncProposal service = new ProposalService())
                 {
+                    if (item.ID == 0)
+                        item.CreatedBy = UserID;
+
+                    item.ModifiedBy = item.SubmittedBy = UserID;
+
                     status = await service.Save(item) > 0;
                 }
 
