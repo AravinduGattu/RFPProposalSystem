@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ProposalService } from '../proposal.service';
-
+import { stepsForDL, stepsForPRL, stepsForPUL, stepsForSL } from '../../global/MockupConstants';
+import { SessionService } from '../../global/session.service';
+import { CommonService } from '../../services/common.service';
+import { RequestTypes, Streams, MileStones } from '../../global/constants';
+import { ProposalUsers, Session } from '../../global/enum';
 
 @Component({
   selector: 'app-planner-view',
@@ -10,42 +16,78 @@ import { ProposalService } from '../proposal.service';
 export class PlannerViewComponent implements OnInit {
 
   sections: any;
+  mileStones: any;
+  requestTypes: any;
+  practiceTypes: any;
+  practiceLeads: any;
+  locations: any;
+  Leads: any;
+  
+  proposaldata: any = [];
   steps: any[];
   proposalTitle: string;
   porposalStatus: string;
   proposalBy: string;
-  proposaldata: any = [];
 
-  constructor(private proposalService: ProposalService) {
-    this.sections = [
-      {
-        sectionId: 1,
-        sectionName: 'Basic Info'
-      },
-      {
-        sectionId: 2,
-        sectionName: 'Schedule'
-      },
-      {
-        sectionId: 3,
-        sectionName: 'Documents'
-      }
-    ]
+  formBasicProposal: FormGroup;
+  formSchedule: FormGroup;
+  formDocuments: FormGroup;
+  formQuestionnaire: FormGroup;
+  formAssignment: FormGroup;
+  formPricing: FormGroup;
+
+  documentsForm: FormArray;
+  scheduleForm: FormArray;
+  pricingForm: FormArray;
+  questionnaireForm: FormArray;
+  questionForm: FormArray;
 
 
-    this.steps = [
-      { dateLabel: '10 Oct, 2019 12:10', title: 'Proposal Submit', acceptance: 'Yes' },
-      { dateLabel: '11 Oct, 2019 10:10', title: 'Rejected by PL', acceptance: 'No' },
-      { dateLabel: 'Date', title: 'Resubmit', acceptance: 'Pending' },
-      { dateLabel: 'Date', title: 'Approved by Practice Lead', acceptance: 'Pending' },
-      { dateLabel: 'Date', title: 'Approved by Pursuit Lead', acceptance: 'Pending' },
-      { dateLabel: 'Date', title: 'Accepted by Delivery Lead', acceptance: 'Pending' }
-    ];
+  constructor(private proposalService: ProposalService,
+    private sessionService: SessionService,
+    private formBuilder: FormBuilder,
+    private commonService: CommonService) {
+    
   }
 
   ngOnInit() {
+    this.requestTypes = RequestTypes;
+    this.practiceTypes = Streams;
+    this.mileStones = MileStones;
+    this.getProposalTracking();
+    this.createForms();
+    //this.getLocations();
+    //this.getPracticeLeads();
+    this.formBasicProposal.get('practiceType').setValue(2);
   }
 
+  tabSelection(event: any) {
+    //console.log(event);
+  }
+
+  getLocations() {
+    this.commonService.getLocationList().subscribe((response: any) => {
+      this.locations = response;
+    }, (error) => {
+
+    })
+  }
+
+  //stream value from dummy proposal data
+  getPracticeLeads() {
+    this.commonService.getPracticeLeadsList().subscribe((response: any) => {
+      this.Leads = response;
+      this.streamChange(2);
+    }, (error) => {
+
+    })
+  }
+
+  streamChange(stream: any) {
+    this.formBasicProposal.get('practiceLead').setValue('');
+    var LeadsList = this.Leads.filter(X => X.stream === +stream);
+    this.practiceLeads = LeadsList;
+  }
 
   getProposaldata(RFPCode: any) {
     this.proposalService.getProposalDetails(RFPCode).subscribe((response: any) => {
@@ -60,4 +102,223 @@ export class PlannerViewComponent implements OnInit {
 
     })
   }
+
+  getProposalTracking() {
+    var role = this.sessionService.getSession(Session.userRole);
+
+    if (+role === ProposalUsers.SalesLead) {
+      this.steps = stepsForSL;
+    } else if (+role === ProposalUsers.PracticeLead) {
+      this.steps = stepsForPRL;
+    } else if (+role === ProposalUsers.PursuitTeamLead) {
+      this.steps = stepsForPUL;
+    } else if (+role === ProposalUsers.DeliveryTeamLead) {
+      this.steps = stepsForDL;
+    }
+  }
+
+  createForms() {
+    this.genearteBasicForm();
+    this.genearteScheduleForm();
+    this.genearteDocumentsForm();
+    this.genearteQuestionnaireForm();
+    //this.genearteAssignmentForm();
+    this.geneartePricingForm();
+  }
+
+  genearteBasicForm() {
+    this.formBasicProposal = this.formBuilder.group({
+      id: new FormControl(0),
+      rfpUser: new FormControl(),
+      rfpCode: new FormControl(),
+      status: new FormControl(0),
+      practiceType: new FormControl(),
+      practiceLead: new FormControl(),
+      poc: new FormControl(),
+      requestType: new FormControl(''),
+      customer: new FormControl(''),
+      location: new FormControl(''),
+      requestedDate: new FormControl(''),
+      submissionDate: new FormControl(''),
+      title: new FormControl(''),
+      scope: new FormControl(''),
+      description: new FormControl(''),
+    });
+  }
+
+  genearteScheduleForm() {
+    this.formSchedule = this.formBuilder.group({
+      schedule: this.formBuilder.array([this.createScheduleForm()])
+    })
+  }
+
+  createScheduleForm(): FormGroup {
+    return this.formBuilder.group({
+      scheduleID: new FormControl(0),
+      milestone: new FormControl(''),
+      status: new FormControl(''),
+      scheduleStartDate: new FormControl(''),
+      scheduleEndDate: new FormControl(''),
+      remarks: new FormControl('')
+    });
+  }
+
+  addNewSchedule() {
+    this.scheduleForm = this.formSchedule.get('schedule') as FormArray;
+    this.scheduleForm.push(this.createScheduleForm());
+  }
+
+  removeSchedule(index: number) {
+    this.scheduleForm = this.formSchedule.get('schedule') as FormArray;
+    this.scheduleForm.removeAt(index);
+  }
+
+  genearteDocumentsForm() {
+    this.formDocuments = this.formBuilder.group({
+      documents: this.formBuilder.array([this.createDocumentForm()])
+    })
+  }
+
+  createDocumentForm(): FormGroup {
+    return this.formBuilder.group({
+      documentId: new FormControl(0),
+      documentName: new FormControl(''),
+      documentExt: new FormControl(''),
+      documentType: new FormControl(''),
+      document: new FormControl('')
+    });
+  }
+
+  addNewDocument() {
+    this.documentsForm = this.formDocuments.get('documents') as FormArray;
+    this.documentsForm.push(this.createDocumentForm());
+  }
+
+  removeDocument(index: number) {
+    this.documentsForm = this.formDocuments.get('documents') as FormArray;
+    this.documentsForm.removeAt(index);
+  }
+
+  genearteQuestionnaireForm() {
+    this.formQuestionnaire = this.formBuilder.group({
+      questionnaire: this.formBuilder.array([this.createQuestionnaireForm()])
+    })
+  }
+
+  createQuestionnaireForm(): FormGroup {
+    return this.formBuilder.group({
+      questionnaireID: new FormControl(0),
+      questionnaireArea: new FormControl(''),
+      questions: this.formBuilder.array([this.createQuestionsForm()])
+    });
+  }
+
+  createQuestionsForm(): FormGroup {
+    return this.formBuilder.group({
+      questionID: new FormControl(0),
+      question: new FormControl(''),
+      answer: new FormControl('')
+    });
+  }
+
+  addNewQuestionnaire() {
+    this.questionnaireForm = this.formQuestionnaire.get('questionnaire') as FormArray;
+    this.questionnaireForm.push(this.createQuestionnaireForm());
+  }
+
+  removeQuestionnaire(index: number) {
+    this.questionnaireForm = this.formQuestionnaire.get('questionnaire') as FormArray;
+    this.questionnaireForm.removeAt(index);
+  }
+
+  addNewQuestion(parentIndex: number) {
+    const questionnaireArray = this.formQuestionnaire.get('questionnaire') as FormArray;
+    const questionsArray = questionnaireArray.at(parentIndex).get('questions') as FormArray;
+    questionsArray.push(this.createQuestionsForm());
+  }
+
+  removeQuestion(parentIndex: number, index: number) {
+    const questionnaireArray = this.formQuestionnaire.get('questionnaire') as FormArray;
+    const questionsArray = questionnaireArray.at(parentIndex).get('questions') as FormArray;
+    questionsArray.removeAt(index);
+  }
+
+  geneartePricingForm() {
+    this.formPricing = this.formBuilder.group({
+      pricing: this.formBuilder.array([this.createPricingForm()])
+    })
+  }
+
+  createPricingForm(): FormGroup {
+    return this.formBuilder.group({
+      role: new FormControl(),
+      description: new FormControl(),
+      count: new FormControl(),
+      allocation: new FormControl(),
+      location: new FormControl(),
+      //cost: new FormControl(),
+      //rate: new FormControl(),
+      totalHours: new FormControl(),
+      totalCost: new FormControl(),
+    });
+  }
+
+  addNewPricing() {
+    this.pricingForm = this.formPricing.get('pricing') as FormArray;
+    this.pricingForm.push(this.createPricingForm());
+  }
+
+  removePricing(index: number) {
+    this.pricingForm = this.formPricing.get('pricing') as FormArray;
+    this.pricingForm.removeAt(index);
+  }
+
+  fileInput(event: any, index: number) {
+    const file = event.target.files[0];
+    const fileName = file.name;
+    const fileExt = fileName.split('.').pop();
+    const fileType = file.type;
+
+    const control = (<FormArray>this.formDocuments.controls['documents']).at(index);
+    control['controls'].documentName.setValue(fileName);
+    control['controls'].documentExt.setValue(fileExt);
+    control['controls'].documentType.setValue(fileType);
+    control['controls'].document.setValue(file);
+  }
+
+  getDocumentImage(extension: string) {
+    extension = extension.toLowerCase();
+    if (extension === 'jpg' || extension === 'jpeg') {
+      return '../../assets/images/FileFormats/JPG.svg';
+    } else if (extension === 'pptx' || extension === 'ppt') {
+      return '../../assets/images/FileFormats/PPT.svg';
+    } else if (extension === 'doc' || extension === 'docx') {
+      return '../../assets/images/FileFormats/DOC.svg';
+    } else if (extension === 'csv') {
+      return '../../assets/images/FileFormats/CSV.svg';
+    } else if (extension === 'exe') {
+      return '../../assets/images/FileFormats/EXE.svg';
+    } else if (extension === 'mp3') {
+      return '../../assets/images/FileFormats/MP3.svg';
+    } else if (extension === 'mp4') {
+      return '../../assets/images/FileFormats/MP4.svg';
+    } else if (extension === 'pdf') {
+      return '../../assets/images/FileFormats/PDF.svg';
+    } else if (extension === 'png') {
+      return '../../assets/images/FileFormats/PNG.svg';
+    } else if (extension === 'svg') {
+      return '../../assets/images/FileFormats/SVG.svg';
+    } else if (extension === 'txt') {
+      return '../../assets/images/FileFormats/TXT.svg';
+    } else if (extension === 'xls' || extension === 'xlsx') {
+      return '../../assets/images/FileFormats/XLS.svg';
+    } else if (extension === 'zip') {
+      return '../../assets/images/FileFormats/ZIP.svg';
+    } else if (extension === 'new') {
+      return '../../assets/images/FileFormats/FILE_ADD.svg';
+    } else {
+      return '../../assets/images/FileFormats/FILE.svg';
+    }
+  }
+  
 }

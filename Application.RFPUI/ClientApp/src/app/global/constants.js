@@ -34,6 +34,44 @@ exports.Streams = [
         streamName: 'Emerging Tech'
     }
 ];
+exports.MileStones = [
+    {
+        mileStoneId: 1,
+        mileStoneName: 'Q&A Session with vendors'
+    },
+    {
+        mileStoneId: 1,
+        mileStoneName: 'Proposal Submission'
+    },
+    {
+        mileStoneId: 1,
+        mileStoneName: 'Proposal review and clarification'
+    },
+    {
+        mileStoneId: 2,
+        mileStoneName: 'Oral explanation Proposal by preselected vendors at ISEAMX office'
+    },
+    {
+        mileStoneId: 3,
+        mileStoneName: 'Reference calls or visits'
+    },
+    {
+        mileStoneId: 4,
+        mileStoneName: 'Final Submission'
+    },
+    {
+        mileStoneId: 5,
+        mileStoneName: 'Vendor evaluation exercise'
+    },
+    {
+        mileStoneId: 6,
+        mileStoneName: 'Award the project'
+    },
+    {
+        mileStoneId: 7,
+        mileStoneName: 'Project start date'
+    }
+];
 //Sample Data
 exports.RFPSampleData = {
     "RFPUser": null,

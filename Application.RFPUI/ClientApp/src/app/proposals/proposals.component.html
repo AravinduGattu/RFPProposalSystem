@@ -59,15 +59,15 @@
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="title" class="container">
-          <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Title </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Opportunity Name </mat-header-cell>
           <mat-cell *matCellDef="let element" class="cell">
-            <span class="sort-header">{{element.title}}</span>
+            <span class="sort-header">{{element.opportunityName}}</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="status" class="container">
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Status </mat-header-cell>
           <mat-cell *matCellDef="let element" class="cell">
-            <span class="sort-header">{{element.status}}</span>
+            <span class="sort-header">{{element.proposalStatus}}</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="scope" class="container">
@@ -79,7 +79,7 @@
         <ng-container matColumnDef="rfpUser" class="container">
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Created By </mat-header-cell>
           <mat-cell *matCellDef="let element" class="cell">
-            <span class="sort-header">{{element.rfpUser}}</span>
+            <span class="sort-header">{{element.createdBy}}</span>
           </mat-cell>
         </ng-container>
         <!--<ng-container matColumnDef="createDate" class="container">

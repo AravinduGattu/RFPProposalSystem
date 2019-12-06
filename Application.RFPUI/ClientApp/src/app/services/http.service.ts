@@ -13,6 +13,19 @@ export class HttpService {
   }
 
   /**
+ * Make a POST request
+ * @param url
+ * @param body
+ * @returns {Observable<any>}
+ */
+  makeLoginwithFormData(url: string, body?: any): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Access-Control-Allow-Origin', '*');
+    headers = headers.append('noToken', 'noToken');
+    return this._http.post(this.API_URL + url, body, { headers: headers });
+  }
+
+  /**
    * Make a GET request
    * @param url
    * @param params

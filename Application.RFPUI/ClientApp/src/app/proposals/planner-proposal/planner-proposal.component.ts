@@ -45,8 +45,9 @@ export class PlannerProposalComponent implements OnInit {
 
   createForm() {
     this.newProposalForm = this.formBuilder.group({
+      id: new FormControl(0),
       rfpUser: new FormControl(),
-      rfpCode: new FormControl(0),
+      rfpCode: new FormControl(),
       status: new FormControl(0),
       practiceType: new FormControl(),
       practiceLead: new FormControl(),
@@ -79,12 +80,9 @@ export class PlannerProposalComponent implements OnInit {
     })
   }
 
-  // need to changed, based on the userlist data
   streamChange(stream: any) {
     this.newProposalForm.get('practiceLead').setValue('');
-
     var LeadsList = this.Leads.filter(X => X.stream === +stream);
-
     this.practiceLeads = LeadsList;
   }
 
@@ -93,34 +91,40 @@ export class PlannerProposalComponent implements OnInit {
     console.log(this.newProposalForm);
     if (this.newProposalForm.valid) {
 
-      const newProposalData = (<any>Object).assign({}, this.newProposalForm.value);
-      console.log(newProposalData);
+      //const newProposalData = (<any>Object).assign({}, this.newProposalForm.value);
+      //console.log(newProposalData);
 
-      newProposalData.rfpUser = this.sessionService.getSession(Session.userName);
+      //newProposalData.rfpUser = this.sessionService.getSession(Session.userName);
 
-      const newProposalFormData: FormData = new FormData();
-      newProposalFormData.append('proposalData', JSON.stringify(newProposalData));
+      ////const newProposalFormData: FormData = new FormData();
+      ////newProposalFormData.append('proposalData', JSON.stringify(newProposalData));
 
-      this.proposalService.addProposal(newProposalFormData).subscribe((response: any) => {
-        console.log(response);
+      //this.proposalService.addProposal(newProposalData).subscribe((response: any) => {
+      //  console.log(response);
 
-        if (response && response.reason === "Success") {
-          this.notificationService.showSuccess("New Proposal submitted successfully.", "Success !");
-          this.router.navigate(['/app/proposals']);
-        } else {
-          this.notificationService.showError(JSON.stringify(response), 'Error');
-        }
-      }, (error: any) => {
+      //  if (response && response.reason === "Success") {
+      //    this.notificationService.showSuccess("New Proposal submitted successfully.", "Success !");
+      //    this.router.navigate(['/app/proposals']);
+      //  } else {
+      //    this.notificationService.showError(JSON.stringify(response), 'Error');
+      //  }
+      //}, (error: any) => {
 
-        console.log(error);
+      //  console.log(error);
 
-        if (error.status === 200) {
-          this.notificationService.showError(JSON.stringify(error.error.text), "Error !");
-        } else {
-          this.notificationService.showError(error.status + error.statusText, "Error !");
-        }
+      //  if (error.status === 200) {
+      //    this.notificationService.showError(JSON.stringify(error.error.text), "Error !");
+      //  } else {
+      //    this.notificationService.showError(error.status + error.statusText, "Error !");
+      //  }
 
-      });
+
+      //});
+
+      this.notificationService.showSuccess("New Proposal submitted successfully.", "Success !");
+
+      this.router.navigate(['/app/proposals/view/1']);
+
     } else {
       this.notificationService.showAlert("Please fill all the required details to submit the proposal.", "Alert !");
     }

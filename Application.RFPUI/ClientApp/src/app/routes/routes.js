@@ -68,17 +68,23 @@ exports.viewProposalRoutes = [
 ];
 exports.adminRoutes = [
     {
+        path: '',
+        redirectTo: 'locations',
+        pathMatch: 'full'
+    },
+    {
         path: 'locations',
-        component: locations_component_1.LocationsComponent
+        component: locations_component_1.LocationsComponent,
+        data: {
+            title: 'Locations',
+        }
     },
     {
         path: 'milestones',
-        component: milestones_component_1.MilestonesComponent
-    },
-    {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: '/app/administration/locations'
+        component: milestones_component_1.MilestonesComponent,
+        data: {
+            title: 'Milestones',
+        }
     }
 ];
 exports.childRoutes = [

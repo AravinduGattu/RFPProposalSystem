@@ -72,19 +72,25 @@ export const viewProposalRoutes = [
   }
 ]
 
-export const adminRoutes = [
+export const adminRoutes: Routes = [
+  {
+    path: '',
+    redirectTo: 'locations',
+    pathMatch: 'full'
+  },
   {
     path: 'locations',
-    component: LocationsComponent
+    component: LocationsComponent,
+    data: {
+      title: 'Locations',
+    }
   },
   {
     path: 'milestones',
-    component: MilestonesComponent
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: '/app/administration/locations'
+    component: MilestonesComponent,
+    data: {
+      title: 'Milestones',
+    }
   }
 ]
 

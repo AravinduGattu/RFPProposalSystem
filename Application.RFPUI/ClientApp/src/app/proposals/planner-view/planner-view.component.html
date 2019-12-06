@@ -1,37 +1,400 @@
 <div class="multiColorLine"></div>
-<div class="page">
-  <div>
-    <mat-accordion>
-      <mat-expansion-panel [expanded]="true">
-        <mat-expansion-panel-header [collapsedHeight]="'25px'" [expandedHeight]="'25px'">
-          <mat-panel-title>Journey of Proposal</mat-panel-title>
-          <mat-panel-description></mat-panel-description>
-        </mat-expansion-panel-header>
+<div class="viewPage">
+  <div class="modal-body row">
+    <div class="col-lg-2 col-md-2">
+      <div *ngFor="let step of steps; let L = last;">
+        <div class="tile" [ngClass]="{'reject': step.acceptance === 'no', 'pending': step.acceptance === 'pending' }">
+          <label class="tiletag">
+            <i *ngIf="step.acceptance === 'yes'" class="material-icons">
+              done
+            </i>
+            <i *ngIf="step.acceptance === 'no'" class="material-icons">
+              clear
+            </i>
+            <i *ngIf="step.acceptance === 'pending'" class="material-icons">
+              query_builder
+            </i>
+          </label>
+          <p class="italic bold">{{step.title}}</p>
+          <p class="italic">{{step.dateLabel}}</p>
+        </div>
+        <div class="bar" *ngIf="!L"> | </div>
+      </div>
+    </div>
+    <div class="col-lg-10 col-md-10">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
+            <mat-panel-title>Proposal : </mat-panel-title>
+            <mat-panel-description></mat-panel-description>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <br/>
+      <mat-tab-group (selectedTabChange)="tabSelection($event)">
+        <mat-tab label="Basic Info">
+          <div class="proposalTab">
+            <form id="proposalBasic" [formGroup]="formBasicProposal">
+              <div class="row">
+                <div class="col-lg-3">
+                  <mat-label>Opportunity Name <label>*</label></mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="title" required readonly maxlength="50">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <mat-label>Customer <label>*</label></mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="customer" required readonly maxlength="50">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <mat-label>Location <label>*</label></mat-label>
+                  <mat-form-field appearance="outline">
+                    <mat-select matinput formControlName="location" required readonly>
+                      <mat-option *ngFor="let data of locations" value="{{data.id}}">{{data.locationName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <mat-label>RFP Code</mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput placeholder="RFP Code" formControlName="rfpCode" readonly maxlength="50">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3">
+                  <mat-label>Request Type <label>*</label></mat-label>
+                  <mat-form-field appearance="outline">
+                    <mat-select matinput formControlName="requestType" required readonly>
+                      <mat-option *ngFor="let data of requestTypes" value="{{data.requestTypeName}}">{{data.requestTypeName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <mat-label> Practice Type <label>*</label></mat-label>
+                  <mat-form-field appearance="outline">
+                    <mat-select matinput formControlName="practiceType" required readonly (selectionChange)="streamChange($event.value)">
+                      <mat-option *ngFor="let data of practiceTypes" value="{{data.streamId}}">{{data.streamName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <mat-label> Practice Lead <label>*</label></mat-label>
+                  <mat-form-field appearance="outline">
+                    <mat-select matinput formControlName="practiceLead" required>
+                      <mat-option *ngFor="let data of practiceLeads" value="{{data.employeeName}}">{{data.employeeName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <mat-label>Point Of Contact</mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="poc" maxlength="5">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3">
+                  <mat-label>Released Date <label>*</label></mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput [matDatepicker]="releasePicker" required readonly formControlName="requestedDate" [max]="formBasicProposal.controls['submissionDate'].value">
+                    <mat-datepicker-toggle matSuffix [for]="releasePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #releasePicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <mat-label>Submission Date <label>*</label></mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput [matDatepicker]="submissionPicker" required readonly formControlName="submissionDate" [min]="formBasicProposal.controls['requestedDate'].value">
+                    <mat-datepicker-toggle matSuffix [for]="submissionPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #submissionPicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                  <mat-label>Scope</mat-label>
+                  <mat-form-field appearance="outline">
+                    <textarea rows="1" matInput multiline formControlName="scope" maxlength="250"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <mat-label>Description</mat-label>
+                  <mat-form-field appearance="outline">
+                    <textarea rows="1" matInput multiline formControlName="description" maxlength="250"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+            <div>
+              <button class="btn btn-info pull-right" (click)="next()">Next</button>
+              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Schedule">
+          <div class="proposalTab">
+            <div class="scheduleSection">
+            <form id="proposalSchedule" [formGroup]="formSchedule">
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Milestone</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Status</th>
+                      <th>Remarks</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="schedule" *ngFor="let X of formSchedule.get('schedule')['controls']; let i = index;">
+                    <tr [formGroupName]="i">
+                      <td>
+                        <mat-form-field>
+                          <!--<input matInput formControlName="milestone" required maxlength="100">-->
+                          <mat-select matinput formControlName="milestone" required>
+                            <mat-option *ngFor="let data of mileStones" title="{{data.mileStoneName}}" value="{{data.mileStoneId}}">{{data.mileStoneName}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <input matInput [matDatepicker]="picker2" required formControlName="scheduleStartDate" readonly [max]="X.controls['scheduleEndDate'].value">
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <input matInput [matDatepicker]="picker3" required formControlName="scheduleEndDate" readonly [min]="X.controls['scheduleStartDate'].value">
+                          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                          <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <mat-select matinput formControlName="status" required>
+                            <mat-option value="Yes">Yes</mat-option>
+                            <mat-option value="Inprogress">Inprogress</mat-option>
+                            <mat-option value="No">No</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <input matInput formControlName="remarks" name="txtRemarks" required maxlength="100">
+                        </mat-form-field>
+                      </td>
+                      <td *ngIf="formSchedule.get('schedule').controls.length > 1">
+                        <mat-icon class="matIconButton" (click)="removeSchedule(i)">remove_circle</mat-icon>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <div class="btn" (click)="addNewSchedule()">
+                  <mat-icon>add_circle</mat-icon>
+                </div>
+              </div>
+            </form>
+            </div>
+            <div>
+              <button class="btn btn-info pull-right" (click)="next()">Next</button>
+              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Documents">
+          <div class="proposalTab">
+            <div class="documentSection">
+              <form id="proposalDocuments" [formGroup]="formDocuments">
+                <div class="row">
+                  <div formArrayName="documents" *ngFor="let X of formDocuments.get('documents')['controls']; let i = index;">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-5 documentDiv" [formGroupName]="i">
+                      <div class="docRemove">
+                        <mat-icon (click)="removeDocument(i)">highlight_off</mat-icon>
+                      </div>
+                      <div class="docLabel">
+                        <input matInput placeholder="Upload Document" formControlName="documentName" required readonly maxlength="50" class="hidden">
+                        <label>{{ X.get('documentName').value || 'No file choosen' }}</label>
+                        <input type="file" (change)="fileInput($event, i)" id="file+{{i}}" class="hidden" />
+                      </div>
+                      <div class="documentImg">
+                        <label for="file+{{i}}"><img src="{{getDocumentImage(X.get('documentExt').value || 'new')}}" alt="Document Here"></label>
+                      </div>
+                      <div class="docDownload">
+                        <button *ngIf="X.get('documentId').value > 0" class="btn btn-default btn-sm" type="button" (click)="downloadFile(X.value)">Download</button>
+                        <div *ngIf="X.get('documentId').value <= 0"><p><i>Click on image to upload the document</i></p></div>
+                      </div>
+                    </div>
 
-        <div class="journeysection">
-          <div class="timeline">
-            <div class="dottedTimeline" *ngFor="let step of steps; let L = last;">
-              <div class="timelineCard">
-                <p class="italic">{{step.dateLabel}}</p>
-                <div class="statusback" [ngClass]="{'rejectM': step.acceptance === 'No', 'pendingM': step.acceptance === 'Pending' }">
-                  <!--<img class="timeLineImg" src="../../../assets/images/correct.svg" alt="Image Here">-->
-                  <div class="timeLineImg"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-1">
+                    <div class="btn" (click)="addNewDocument()">
+                      <mat-icon>add_circle</mat-icon>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div>
+              <button class="btn btn-info pull-right" (click)="next()">Next</button>
+              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Questionnaire">
+          <div class="proposalTab">
+            <div class="questionnaireSection">
+              <form id="proposalAssignment" [formGroup]="formQuestionnaire">
+                <div formArrayName="questionnaire" *ngFor="let X of formQuestionnaire.get('questionnaire')['controls']; let i = index;">
+                  <div class="questionnaire" [formGroupName]="i">
+                    <div class="pull-right btn crossbtn" *ngIf="formQuestionnaire.get('questionnaire').controls.length > 1" (click)="removeQuestionnaire(i)">
+                      <mat-icon>highlight_off</mat-icon>
+                    </div>
+                    <br />
+                    <div>
+                      <mat-label>Area <label>*</label></mat-label>
+                      <mat-form-field>
+                        <input matInput formControlName="questionnaireArea" required maxlength="50">
+                      </mat-form-field>
+                    </div>
+                    <div formArrayName="questions" *ngFor="let Y of X.get('questions')['controls']; let j = index;">
+                      <div class="question" [formGroupName]="j">
+                        <div class="pull-right btn crossbtn" *ngIf="X.get('questions').controls.length > 1" (click)="removeQuestion(i,j)">
+                          <mat-icon>highlight_off</mat-icon>
+                        </div>
+                        <br />
+                        <div>
+                          <mat-label>Question <label>*</label></mat-label>
+                          <mat-form-field>
+                            <textarea rows="1" matInput multiline formControlName="question" required maxlength="150"></textarea>
+                          </mat-form-field>
+                        </div>
+                        <div>
+                          <mat-label>Answer <label>*</label></mat-label>
+                          <mat-form-field>
+                            <textarea rows="1" matInput multiline formControlName="answer" required maxlength="300"></textarea>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <br />
+                    </div>
+                    <div>
+                      <button type="button" class="btn btn-sm btn-info" (click)="addNewQuestion(i)">New Question</button>
+                    </div>
+                  </div>
                   <br />
                 </div>
-                <p class="italic bold">{{step.title}}</p>
-              </div>
-              <!--<div *ngIf="!L" class="journeyLine"></div>-->
+                <div>
+                  <button type="button" class="btn btn-sm btn-info" (click)="addNewQuestionnaire()">New Area</button>
+                </div>
+              </form>
             </div>
-
+            <div>
+              <button class="btn btn-info pull-right" (click)="next()">Next</button>
+              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+            </div>
           </div>
-        </div>
-
-      </mat-expansion-panel>
-    </mat-accordion>
-    <mat-tab-group>
-      <mat-tab label="Basic Info"> Content 1 </mat-tab>
-      <mat-tab label="Schedule"> Content 2 </mat-tab>
-      <mat-tab label="Documents"> Content 3 </mat-tab>
-    </mat-tab-group>
+        </mat-tab>
+        <mat-tab label="Assignment">
+          <div class="proposalTab">
+            <!--<form id="proposalPricing" [formGroup]="basicProposalForm"></form>-->
+            <div>
+              <button class="btn btn-info pull-right" (click)="next()">Next</button>
+              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Pricing">
+          <div class="proposalTab">
+            <div class="pricingSection">
+              <form id="proposalPricing" [formGroup]="formPricing">
+                <div>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>S.No</th>
+                        <th>Role</th>
+                        <th>Description</th>
+                        <th>Count</th>
+                        <th>Allocation</th>
+                        <th>Location</th>
+                        <th>Total Hours</th>
+                        <th>Total Cost</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="pricing" *ngFor="let X of formPricing.get('pricing')['controls']; let i = index;">
+                      <tr [formGroupName]="i">
+                        <td>
+                          <label>{{i+1}}</label>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="role" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="description" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="count" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="allocation" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="location" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="totalHours" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="totalCost" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td *ngIf="formPricing.get('pricing').controls.length > 1">
+                          <mat-icon class="matIconButton" (click)="removePricing(i)">remove_circle</mat-icon>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div>
+                  <div class="btn" (click)="addNewPricing()">
+                    <mat-icon>add_circle</mat-icon>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div>
+              <!--<button class="btn btn-info pull-right" (click)="next()">Next</button>-->
+              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
   </div>
+  <!--<div>
+    
+  </div>-->
 </div>

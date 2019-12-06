@@ -1,5 +1,5 @@
 ::ng-deep .mat-tab-label-active {
-  background-color: palegoldenrod;
+  background-color: palegoldenrod !important;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
 }
@@ -7,6 +7,10 @@
 ::ng-deep .mat-tab-label {
   min-width: 100px !important;
   height: 30px !important;
+  background-color: lightgray;
+  border: 2px solid palegoldenrod;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 }
 
 ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
@@ -19,6 +23,122 @@
   border-bottom: 3px solid palegoldenrod;
 }
 
+.proposalTab {
+  overflow: auto;
+  height: 380px;
+  padding: 15px;
+}
+
+::ng-deep mat-tab {
+  width: 90% !important;
+}
+
+
+/* Mat expansion CSS*/
+mat-expansion-panel-header {
+  background-color: lightgray;
+}
+
+  mat-expansion-panel-header:hover {
+    background-color: lightgray !important;
+  }
+
+.mat-expanded mat-expansion-panel-header {
+  background-color: lightgray !important;
+  border-radius: 0px !important;
+}
+
+mat-panel-title {
+  color: black;
+  font-weight: bold;
+  font-style: italic;
+}
+
+::ng-deep .mat-expansion-panel-body { /*ng-deep for ovverriding mat css*/
+  padding: 20px !important;
+}
+
+::ng-deep .mat-expansion-indicator::after {
+  color: white !important;
+}
+
+/*Bootstrap Columns*/
+.col-lg-10 {
+  padding-right: 0px !important;
+}
+
+.col-md-10 {
+  padding-right: 0px !important;
+}
+
+.col-lg-2 {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+.col-md-2 {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+/*Vertical Journey*/
+.tile {
+  top: 8px;
+  left: 25px;
+  background: rgba(68,167,85, 0.2);
+  height: 50px;
+  border-radius: 40px;
+  padding: 4px 6px;
+  width: 100%;
+}
+
+.tile .material-icons {
+  font-size: 18px;
+}
+
+.tiletag {
+  margin: 5px 0 0 5px;
+  color: white;
+  float: left;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #44a755;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: auto;
+  outline: none;
+}
+
+.reject {
+  background: rgba(213,26,26, 0.2);
+}
+
+.pending {
+  background: #F2F2F2;
+}
+
+.reject .tiletag {
+  background: #d51a1a;
+}
+
+.pending .tiletag {
+  background: gray;
+}
+
+.tile p {
+  margin: 2px 0px 0px 5px;
+  padding-left: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar {
+  margin-left: 25px;
+  font-size: 16px;
+}
 /*Journey Section*/
 .journeysection {
   width: auto;
@@ -92,3 +212,170 @@
   background-color: white;
 }
 /*Ends Journey1 Section*/
+
+/*Schedule Section*/
+.scheduleSection th:nth-child(6) {
+  border: none;
+  background-color: transparent;
+}
+
+.scheduleSection td:nth-child(6) {
+  border: none;
+}
+
+.scheduleSection th:nth-child(1) {
+  width: 350px;
+}
+
+.scheduleSection td:nth-child(1) {
+  width: 350px;
+}
+
+.scheduleSection th:nth-child(5) {
+  width: 350px;
+}
+
+.scheduleSection td:nth-child(5) {
+  width: 350px;
+}
+
+.scheduleSection th:nth-child(2) {
+  width: 50px;
+}
+
+.scheduleSection td:nth-child(2) {
+  width: 50px;
+}
+
+.scheduleSection
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.scheduleSection
+::ng-deep .mat-form-field-wrapper {
+  padding: 0px;
+}
+/*Schedule Section*/
+
+/* Document Section */
+.documentSection .mat-icon {
+  font-size: 30px;
+}
+
+.documentDiv {
+  text-align: center;
+  border: 1px dashed lightgray;
+  margin: 5px 15px;
+}
+
+.documentImg {
+  display: block;
+  margin: auto;
+}
+
+  .documentImg img {
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+  }
+
+.docLabel {
+  height: 25px;
+  width: 100%;
+  text-align: center;
+}
+
+  .docLabel label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+.docRemove {
+  width: 100%;
+  height: 20px;
+  text-align: right;
+}
+
+  .docRemove mat-icon {
+    font-size: 25px !important;
+    cursor: pointer;
+  }
+
+.docDownload {
+  margin: 10px 0px 10px 0px;
+  height: 40px;
+  text-align: center;
+}
+/* Document Section */
+
+/*questionnaire section*/
+
+.questionnaire {
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  padding: 0px 20px 20px;
+}
+
+.question {
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  padding: 0px 20px 20px;
+}
+
+/*questionnaire section*/
+
+/* Pricing Section */
+
+.pricingSection
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.pricingSection
+::ng-deep .mat-form-field-wrapper {
+  padding: 0px;
+}
+
+.pricingSection th:nth-child(9) {
+  border: none;
+  background-color: transparent;
+}
+
+.pricingSection td:nth-child(9) {
+  border: none;
+}
+/* Pricing Section */
+
+/*Table with Mat-Fields*/
+
+table mat-form-field {
+  padding: 5px;
+}
+
+th {
+  height: 30px;
+  color: white;
+  background-color: #00163b;
+  text-align: center;
+}
+
+th, td {
+  border: 1px solid black;
+}
+
+td {
+  height: 30px;
+  padding: 0px 10px;
+}
+/*Table with Mat-Fields*/
+
+/*Buttons*/
+.btn {
+  margin-left: 10px;
+}
+
+.mat-icon {
+  font-size: 24px;
+}

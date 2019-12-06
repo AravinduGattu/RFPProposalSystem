@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Routes, Router } from '@angular/router';
+
+import { LocationsComponent } from '../administration/locations/locations.component';
+import { MilestonesComponent } from '../administration/milestones/milestones.component';
 
 @Component({
   selector: 'app-administration',
@@ -7,9 +11,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdministrationComponent implements OnInit {
 
-  constructor() { }
+  routes: Routes;
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    this.routes = [
+      {
+        path: 'locations',
+        data: {
+          title: 'Locations',
+        }
+      },
+      {
+        path: 'milestones',
+        data: {
+          title: 'Milestones',
+        }
+      }
+    ];
   }
 
 }

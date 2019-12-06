@@ -31,6 +31,9 @@ import { DashboardService } from './dashboard/dashboard.service';
 import { SessionService } from './global/session.service';
 
 import { LoaderInterceptor } from './loader/loaderIntercepter';
+import { AuthInterceptor } from '../app/core/Interceptor/AuthInterceptor';
+import { TokenInterceptor } from '../app/core/Interceptor/TokenInterceptor';
+
 import { AdministrationComponent } from './administration/administration.component';
 import { PlannerProposalComponent } from './proposals/planner-proposal/planner-proposal.component';
 import { PlannerNameComponent } from './proposals/planner-name/planner-name.component';
@@ -77,6 +80,16 @@ import { MilestonesComponent } from './administration/milestones/milestones.comp
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
       multi: true
     }
   ],

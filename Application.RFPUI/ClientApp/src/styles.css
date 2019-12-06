@@ -52,6 +52,15 @@ body {
   padding-right: 5px;
 }
 
+.viewPage {
+  width: 100%;
+  height: calc( 100vh - 75px );
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .multiColorLine {
   text-align: center;
   position: relative;
@@ -104,6 +113,7 @@ mat-label {
 
 mat-label label {
   color: red;
+  margin-bottom: 0 !important;
 }
 
 .mat-form-field-infix {
