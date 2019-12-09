@@ -41,35 +41,35 @@ export const MileStones = [
     mileStoneName: 'Q&A Session with vendors'
   },
   {
-    mileStoneId: 1,
+    mileStoneId: 2,
     mileStoneName: 'Proposal Submission'
   },
   {
-    mileStoneId: 1,
+    mileStoneId: 3,
     mileStoneName: 'Proposal review and clarification'
   },
   {
-    mileStoneId: 2,
+    mileStoneId: 4,
     mileStoneName: 'Oral explanation Proposal by preselected vendors at ISEAMX office'
   },
   {
-    mileStoneId: 3,
+    mileStoneId: 5,
     mileStoneName: 'Reference calls or visits'
   },
   {
-    mileStoneId: 4,
+    mileStoneId: 6,
     mileStoneName: 'Final Submission'
   },
   {
-    mileStoneId: 5,
+    mileStoneId: 7,
     mileStoneName: 'Vendor evaluation exercise'
   },
   {
-    mileStoneId: 6,
+    mileStoneId: 8,
     mileStoneName: 'Award the project'
   },
   {
-    mileStoneId: 7,
+    mileStoneId: 9,
     mileStoneName: 'Project start date'
   }
 ]
@@ -92,16 +92,36 @@ export const RFPSampleData =
     "additionalInformation": "Additional Information",
     "schedule": [
       {
-        "milestone": "Q & A",
+        "scheduleID": 1,
+        "status": "Yes",
+        "milestone": 1,
         "scheduleStartDate": "2019-10-18T18:30:00.000Z",
         "scheduleEndDate": "2019-10-20T18:30:00.000Z",
         "remarks": "Q&A conversation"
       },
       {
-        "milestone": "Proposal Submit",
+        "scheduleID": 2,
+        "status": "Yes",
+        "milestone": "2",
         "scheduleStartDate": "2019-10-21T18:30:00.000Z",
         "scheduleEndDate": "2019-10-23T18:30:00.000Z",
-        "remarks": "Complete Proposal submit"
+        "remarks": "Before 17:00 hrs"
+      },
+      {
+        "scheduleID": 3,
+        "status": "Inprogress",
+        "milestone": "5",
+        "scheduleStartDate": "2019-10-21T18:30:00.000Z",
+        "scheduleEndDate": "2019-10-23T18:30:00.000Z",
+        "remarks": "Face to face session"
+      },
+      {
+        "scheduleID": 4,
+        "status": "No",
+        "milestone": "6",
+        "scheduleStartDate": "2019-10-21T18:30:00.000Z",
+        "scheduleEndDate": "2019-10-23T18:30:00.000Z",
+        "remarks": "Vendors submit final proposal based on feedback from the calls"
       }
     ],
     "questionnaire": [

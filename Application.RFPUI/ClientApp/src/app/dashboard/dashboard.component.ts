@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit {
   public chartColors: Array<any> = [{ backgroundColor: ["#e84351", "#434a54", "#3ebf9b", "#4d86dc", "#f3af37"] }];
 
   public lineChartData = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Success Proposals' },
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Proposals Count' },
   ];
   public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions: ChartOptions = {
@@ -143,11 +143,10 @@ export class DashboardComponent implements OnInit {
 
         this.pieChartLabels = pieLabels;
         this.pieChartData = pieData;
-
-
-
       }
     });
+    this.pieChartLabels = ['Aravind', 'Phani', 'Satya', 'Bhaskar', 'Rajesh'];
+    this.pieChartData = [5, 12, 5, 8, 4];
   }
 
 }

@@ -24,8 +24,9 @@
 }
 
 .proposalTab {
-  overflow: auto;
-  height: 380px;
+  /*overflow: auto;*/
+  overflow-x: auto;
+  /*height: 380px;*/
   padding: 15px;
 }
 
@@ -52,6 +53,11 @@ mat-panel-title {
   color: black;
   font-weight: bold;
   font-style: italic;
+}
+
+mat-panel-description {
+  color: red;
+  font-weight: bold;
 }
 
 ::ng-deep .mat-expansion-panel-body { /*ng-deep for ovverriding mat css*/
@@ -223,28 +229,28 @@ mat-panel-title {
   border: none;
 }
 
-.scheduleSection th:nth-child(1) {
-  width: 350px;
-}
-
-.scheduleSection td:nth-child(1) {
-  width: 350px;
-}
-
-.scheduleSection th:nth-child(5) {
-  width: 350px;
-}
-
-.scheduleSection td:nth-child(5) {
-  width: 350px;
-}
-
 .scheduleSection th:nth-child(2) {
-  width: 50px;
+  width: 100px;
 }
 
 .scheduleSection td:nth-child(2) {
-  width: 50px;
+  width: 100px;
+}
+
+.scheduleSection th:nth-child(3) {
+  width: 100px;
+}
+
+.scheduleSection td:nth-child(3) {
+  width: 100px;
+}
+
+.scheduleSection th:nth-child(4) {
+  width: 100px;
+}
+
+.scheduleSection td:nth-child(4) {
+  width: 100px;
 }
 
 .scheduleSection
@@ -259,14 +265,46 @@ mat-panel-title {
 /*Schedule Section*/
 
 /* Document Section */
+/*.panel {
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  border: 0px solid transparent;
+  border-radius: 0px !important;
+  box-shadow: 0 0px 0px rgba(0,0,0,.05);
+}
+
+.panel-default > .panel-heading {
+  color: #414141;
+  background-color: #dcdcdc;
+  border-color: transparent;
+}
+
+.panel-heading {
+  padding: 10px 15px;
+  border-bottom: 0px solid transparent;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.panel-title {
+  font-size: 20px;
+}*/
+
+h4 .material-icons {
+  font-size: 18px;
+}
+
 .documentSection .mat-icon {
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .documentDiv {
   text-align: center;
+}
+
+.docOutline {
   border: 1px dashed lightgray;
-  margin: 5px 15px;
+  margin: 5px 10px;
 }
 
 .documentImg {
@@ -274,11 +312,11 @@ mat-panel-title {
   margin: auto;
 }
 
-  .documentImg img {
-    height: 100px;
-    width: 100px;
-    cursor: pointer;
-  }
+.documentImg img {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
 
 .docLabel {
   height: 25px;
@@ -286,11 +324,11 @@ mat-panel-title {
   text-align: center;
 }
 
-  .docLabel label {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+.docLabel label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .docRemove {
   width: 100%;
@@ -298,10 +336,10 @@ mat-panel-title {
   text-align: right;
 }
 
-  .docRemove mat-icon {
-    font-size: 25px !important;
-    cursor: pointer;
-  }
+.docRemove mat-icon {
+  font-size: 24px !important;
+  cursor: pointer;
+}
 
 .docDownload {
   margin: 10px 0px 10px 0px;
@@ -379,3 +417,86 @@ td {
 .mat-icon {
   font-size: 24px;
 }
+
+/*New Horizontal Process*/
+
+.timelinehr {
+  padding-bottom: 30px;
+  padding-top: 10px;
+  list-style-type: none;
+  display: flex;
+  text-align: center;
+  overflow-x: auto;
+}
+
+  .timelinehr li {
+    transition: all 200ms ease-in;
+  }
+
+.timestamp {
+  width: 200px;
+  margin-bottom: 20px;
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 100;
+}
+
+.status {
+  padding: 0px 40px;
+  display: flex;
+  justify-content: center;
+  border-top: 2px solid gray;
+  position: relative;
+  transition: all 200ms ease-in;
+}
+
+  .status span {
+    font-weight: 600;
+    font-size: 14px;
+    padding-top: 20px;
+  }
+
+.status span:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: #37bf78;
+  border-radius: 25px;
+  /*border: 2px solid gray;*/
+  /*mask: url('../../../assets/images/correct.svg') center/25px 25px no-repeat;*/
+  background-image: url('../../../assets/images/correct.svg');
+  position: absolute;
+  top: -12px;
+  left:42%;
+  transition: all 200ms ease-in;
+}
+
+
+.no span:before {
+  background-color: orangered;
+}
+
+.inProgress span:before {
+  background-color: yellow;
+}
+
+.swiper-control {
+  text-align: right;
+}
+
+.swiper-slide {
+  width: 200px;
+  text-align: center;
+  font-size: 14px;
+  font-style: italic;
+}
+
+/*.swiper-slide:nth-child(2n) {
+    width: 40%;
+  }
+
+  .swiper-slide:nth-child(3n) {
+    width: 40%;
+  }*/

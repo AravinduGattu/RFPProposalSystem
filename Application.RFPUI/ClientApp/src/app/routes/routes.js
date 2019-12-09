@@ -45,7 +45,7 @@ exports.newProposalRoutes = [
 ];
 exports.viewProposalRoutes = [
     {
-        path: 'view/:Id',
+        path: 'view/:RfpCode',
         component: planner_view_component_1.PlannerViewComponent,
         canActivate: [route_guard_service_1.RouteGuardService],
         data: {

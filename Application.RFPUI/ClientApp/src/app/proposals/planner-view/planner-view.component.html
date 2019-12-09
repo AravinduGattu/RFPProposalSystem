@@ -1,5 +1,5 @@
 <div class="multiColorLine"></div>
-<div class="viewPage">
+<div class="page">
   <div class="modal-body row">
     <div class="col-lg-2 col-md-2">
       <div *ngFor="let step of steps; let L = last;">
@@ -23,15 +23,43 @@
     </div>
     <div class="col-lg-10 col-md-10">
       <mat-accordion>
-        <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel>
           <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
-            <mat-panel-title>Proposal : </mat-panel-title>
-            <mat-panel-description></mat-panel-description>
+            <mat-panel-title>Proposal : {{proposaldata.opportunityName}} ({{proposaldata.rfpCode}})</mat-panel-title>
+            <mat-panel-description>Submission Date : {{proposaldata.rfpSubmissionDate | date: 'dd/MM/yyyy'}}</mat-panel-description>
           </mat-expansion-panel-header>
+          <div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>Customer : {{proposaldata.customer}}</label>
+              </div>
+              <div class="col-lg-3">
+                <label>Location : {{proposaldata.locationName}}</label>
+              </div>
+              <div class="col-lg-3">
+                <label>Practice Type : {{proposaldata.practiceName}}</label>
+              </div>
+              <div class="col-lg-3">
+                <label>Practice Lead : {{proposaldata.practiceLead}}</label>
+              </div>
+              <div class="col-lg-3">
+                <label>Created By : {{proposaldata.createdByName}}</label>
+              </div>
+              <div class="col-lg-3">
+                <label>Created Date : {{proposaldata.createdDate | date: 'dd/MM/yyyy'}}</label>
+              </div>
+              <div class="col-lg-3">
+                <label>Modified By : {{proposaldata.modifiedByName}}</label>
+              </div>
+              <div class="col-lg-3">
+                <label>Modified Date : {{proposaldata.modifiedDate | date: 'dd/MM/yyyy'}}</label>
+              </div>
+            </div>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
       <br/>
-      <mat-tab-group (selectedTabChange)="tabSelection($event)">
+      <mat-tab-group (selectedTabChange)="tabSelection($event)" mat-stretch-tabs [selectedIndex]="selectedTab">
         <mat-tab label="Basic Info">
           <div class="proposalTab">
             <form id="proposalBasic" [formGroup]="formBasicProposal">
@@ -39,7 +67,7 @@
                 <div class="col-lg-3">
                   <mat-label>Opportunity Name <label>*</label></mat-label>
                   <mat-form-field appearance="outline">
-                    <input matInput formControlName="title" required readonly maxlength="50">
+                    <input matInput formControlName="opportunityName" required readonly maxlength="50">
                   </mat-form-field>
                 </div>
                 <div class="col-lg-3">
@@ -51,7 +79,7 @@
                 <div class="col-lg-3">
                   <mat-label>Location <label>*</label></mat-label>
                   <mat-form-field appearance="outline">
-                    <mat-select matinput formControlName="location" required readonly>
+                    <mat-select matinput formControlName="locationID" required readonly>
                       <mat-option *ngFor="let data of locations" value="{{data.id}}">{{data.locationName}}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -75,7 +103,7 @@
                 <div class="col-lg-3">
                   <mat-label> Practice Type <label>*</label></mat-label>
                   <mat-form-field appearance="outline">
-                    <mat-select matinput formControlName="practiceType" required readonly (selectionChange)="streamChange($event.value)">
+                    <mat-select matinput formControlName="practiceID" required readonly (selectionChange)="streamChange($event.value)">
                       <mat-option *ngFor="let data of practiceTypes" value="{{data.streamId}}">{{data.streamName}}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -99,7 +127,7 @@
                 <div class="col-lg-3">
                   <mat-label>Released Date <label>*</label></mat-label>
                   <mat-form-field appearance="outline">
-                    <input matInput [matDatepicker]="releasePicker" required readonly formControlName="requestedDate" [max]="formBasicProposal.controls['submissionDate'].value">
+                    <input matInput [matDatepicker]="releasePicker" required readonly formControlName="releaseDate" [max]="formBasicProposal.controls['rfpSubmissionDate'].value">
                     <mat-datepicker-toggle matSuffix [for]="releasePicker"></mat-datepicker-toggle>
                     <mat-datepicker #releasePicker></mat-datepicker>
                   </mat-form-field>
@@ -107,7 +135,7 @@
                 <div class="col-lg-3">
                   <mat-label>Submission Date <label>*</label></mat-label>
                   <mat-form-field appearance="outline">
-                    <input matInput [matDatepicker]="submissionPicker" required readonly formControlName="submissionDate" [min]="formBasicProposal.controls['requestedDate'].value">
+                    <input matInput [matDatepicker]="submissionPicker" required readonly formControlName="rfpSubmissionDate" [min]="formBasicProposal.controls['releaseDate'].value">
                     <mat-datepicker-toggle matSuffix [for]="submissionPicker"></mat-datepicker-toggle>
                     <mat-datepicker #submissionPicker></mat-datepicker>
                   </mat-form-field>
@@ -135,110 +163,83 @@
           </div>
         </mat-tab>
         <mat-tab label="Schedule">
-          <div class="proposalTab">
-            <div class="scheduleSection">
-            <form id="proposalSchedule" [formGroup]="formSchedule">
-              <div>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Milestone</th>
-                      <th>Start Date</th>
-                      <th>End Date</th>
-                      <th>Status</th>
-                      <th>Remarks</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody formArrayName="schedule" *ngFor="let X of formSchedule.get('schedule')['controls']; let i = index;">
-                    <tr [formGroupName]="i">
-                      <td>
-                        <mat-form-field>
-                          <!--<input matInput formControlName="milestone" required maxlength="100">-->
-                          <mat-select matinput formControlName="milestone" required>
-                            <mat-option *ngFor="let data of mileStones" title="{{data.mileStoneName}}" value="{{data.mileStoneId}}">{{data.mileStoneName}}</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </td>
-                      <td>
-                        <mat-form-field>
-                          <input matInput [matDatepicker]="picker2" required formControlName="scheduleStartDate" readonly [max]="X.controls['scheduleEndDate'].value">
-                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                          <mat-datepicker #picker2></mat-datepicker>
-                        </mat-form-field>
-                      </td>
-                      <td>
-                        <mat-form-field>
-                          <input matInput [matDatepicker]="picker3" required formControlName="scheduleEndDate" readonly [min]="X.controls['scheduleStartDate'].value">
-                          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                          <mat-datepicker #picker3></mat-datepicker>
-                        </mat-form-field>
-                      </td>
-                      <td>
-                        <mat-form-field>
-                          <mat-select matinput formControlName="status" required>
-                            <mat-option value="Yes">Yes</mat-option>
-                            <mat-option value="Inprogress">Inprogress</mat-option>
-                            <mat-option value="No">No</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </td>
-                      <td>
-                        <mat-form-field>
-                          <input matInput formControlName="remarks" name="txtRemarks" required maxlength="100">
-                        </mat-form-field>
-                      </td>
-                      <td *ngIf="formSchedule.get('schedule').controls.length > 1">
-                        <mat-icon class="matIconButton" (click)="removeSchedule(i)">remove_circle</mat-icon>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div>
-                <div class="btn" (click)="addNewSchedule()">
-                  <mat-icon>add_circle</mat-icon>
+          <div class="journeyDiv">
+            <div class="timelinehr">
+              <div class="swiper-slide" *ngFor="let item of scheduleData">
+                <div class="timestamp">
+                  <span class="date">{{item.scheduleEndDate  | date: 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="status" [ngClass]="{'no': item.status === 'No', 'inProgress': item.status === 'Inprogress' }">
+                  <span>{{getMilestoneName(item.milestone)}}</span>
                 </div>
               </div>
-            </form>
             </div>
-            <div>
-              <button class="btn btn-info pull-right" (click)="next()">Next</button>
-              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
-            </div>
+            <div class="swiper-pagination"></div>
           </div>
-        </mat-tab>
-        <mat-tab label="Documents">
           <div class="proposalTab">
-            <div class="documentSection">
-              <form id="proposalDocuments" [formGroup]="formDocuments">
-                <div class="row">
-                  <div formArrayName="documents" *ngFor="let X of formDocuments.get('documents')['controls']; let i = index;">
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-5 documentDiv" [formGroupName]="i">
-                      <div class="docRemove">
-                        <mat-icon (click)="removeDocument(i)">highlight_off</mat-icon>
-                      </div>
-                      <div class="docLabel">
-                        <input matInput placeholder="Upload Document" formControlName="documentName" required readonly maxlength="50" class="hidden">
-                        <label>{{ X.get('documentName').value || 'No file choosen' }}</label>
-                        <input type="file" (change)="fileInput($event, i)" id="file+{{i}}" class="hidden" />
-                      </div>
-                      <div class="documentImg">
-                        <label for="file+{{i}}"><img src="{{getDocumentImage(X.get('documentExt').value || 'new')}}" alt="Document Here"></label>
-                      </div>
-                      <div class="docDownload">
-                        <button *ngIf="X.get('documentId').value > 0" class="btn btn-default btn-sm" type="button" (click)="downloadFile(X.value)">Download</button>
-                        <div *ngIf="X.get('documentId').value <= 0"><p><i>Click on image to upload the document</i></p></div>
-                      </div>
-                    </div>
 
-                  </div>
+            <div>
+              <form id="proposalSchedule" [formGroup]="formSchedule">
+                <div class="scheduleSection">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Milestone</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th>Remarks</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="schedule" *ngFor="let X of formSchedule.get('schedule')['controls']; let i = index;">
+                      <tr [formGroupName]="i">
+                        <td>
+                          <mat-form-field>
+                            <!--<input matInput formControlName="milestone" required maxlength="100">-->
+                            <mat-select matinput formControlName="milestone" required>
+                              <mat-option *ngFor="let data of mileStones" title="{{data.mileStoneName}}" value="{{data.mileStoneId}}">{{data.mileStoneName}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput [matDatepicker]="picker2" required formControlName="scheduleStartDate" readonly [max]="X.controls['scheduleEndDate'].value">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput [matDatepicker]="picker3" required formControlName="scheduleEndDate" readonly [min]="X.controls['scheduleStartDate'].value">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <mat-select matinput formControlName="status" required>
+                              <mat-option value="Yes">Yes</mat-option>
+                              <mat-option value="Inprogress">Inprogress</mat-option>
+                              <mat-option value="No">No</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="remarks" name="txtRemarks" required maxlength="100">
+                          </mat-form-field>
+                        </td>
+                        <td *ngIf="formSchedule.get('schedule').controls.length > 1">
+                          <mat-icon class="matIconButton" (click)="removeSchedule(i)">remove_circle</mat-icon>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <div class="row">
-                  <div class="col-lg-1">
-                    <div class="btn" (click)="addNewDocument()">
-                      <mat-icon>add_circle</mat-icon>
-                    </div>
+                <div>
+                  <div class="btn" (click)="addNewSchedule()">
+                    <mat-icon>add_circle</mat-icon>
                   </div>
                 </div>
               </form>
@@ -246,11 +247,77 @@
             <div>
               <button class="btn btn-info pull-right" (click)="next()">Next</button>
               <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+              <button class="btn btn-info pull-right" (click)="back()">Back</button>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Documents">
+          <div class="proposalTab">
+            <div class="documentSection">
+              <form id="proposalDocuments" [formGroup]="formDocuments">
+                <div *ngFor="let doc of docSections; let z = index">
+                  <div role="tab" id="headingOne">
+                    <h4>
+                      <i class="material-icons">folder</i>
+                      <span class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" [attr.data-target]="'#' + doc.docSectionId" aria-expanded="false" aria-controls="collapseOne">
+                        {{doc.docSectionName}}
+                      </span>
+                    </h4>
+                  </div>
+              
+                <div id={{doc.docSectionId}} class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="row">
+                    <div formArrayName="{{doc.docForm}}" *ngFor="let X of formDocuments.get(doc.docForm)['controls']; let i = index;">
+                      <div class="col-lg-2 col-md-3 col-sm-4 col-xs-5 documentDiv" [formGroupName]="i">
+                        <div class="docOutline">
+                          <div class="docRemove">
+                            <mat-icon (click)="removeDocument(doc.docForm, i)">highlight_off</mat-icon>
+                          </div>
+                          <div class="docLabel">
+                            <input matInput placeholder="Upload Document" formControlName="documentName" required readonly maxlength="50" class="hidden">
+                            <label>{{ X.get('documentName').value || 'No file choosen' }}</label>
+                            <input type="file" (change)="fileInput($event, i)" id="file+{{i}}" class="hidden" />
+                          </div>
+                          <div class="documentImg">
+                            <label for="file+{{i}}"><img src="{{getDocumentImage(X.get('documentExt').value || 'new')}}" alt="Document Here"></label>
+                          </div>
+                          <div class="docDownload">
+                            <button *ngIf="X.get('documentId').value > 0" class="btn btn-default btn-sm" type="button" (click)="downloadFile(X.value)">Download</button>
+                            <div *ngIf="X.get('documentId').value <= 0"><p><i>Click on image to upload the document</i></p></div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-1">
+                      <div class="btn" (click)="addNewDocument(doc.docForm)">
+                        <mat-icon>add_circle</mat-icon>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                  </div>
+              </form>
+            </div>
+            <div>
+              <button class="btn btn-info pull-right" (click)="next()">Next</button>
+              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+              <button class="btn btn-info pull-right" (click)="back()">Back</button>
             </div>
           </div>
         </mat-tab>
         <mat-tab label="Questionnaire">
           <div class="proposalTab">
+            <div>
+              <button class="btn btn-sm btn-default" (click)="downloadTemplate()">Download Template</button>
+              <button class="btn btn-sm btn-info" (click)="uploadQuesions()">Upload</button>
+              <button class="btn btn-sm btn-info" (click)="ExportQuesions()">Export</button>
+            </div>
+            <br/>
             <div class="questionnaireSection">
               <form id="proposalAssignment" [formGroup]="formQuestionnaire">
                 <div formArrayName="questionnaire" *ngFor="let X of formQuestionnaire.get('questionnaire')['controls']; let i = index;">
@@ -283,6 +350,12 @@
                             <textarea rows="1" matInput multiline formControlName="answer" required maxlength="300"></textarea>
                           </mat-form-field>
                         </div>
+                        <div>
+                          <mat-label>Response</mat-label>
+                          <mat-form-field>
+                            <textarea rows="1" matInput multiline formControlName="response" maxlength="300"></textarea>
+                          </mat-form-field>
+                        </div>
                       </div>
                       <br />
                     </div>
@@ -300,6 +373,7 @@
             <div>
               <button class="btn btn-info pull-right" (click)="next()">Next</button>
               <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+              <button class="btn btn-info pull-right" (click)="back()">Back</button>
             </div>
           </div>
         </mat-tab>
@@ -309,6 +383,7 @@
             <div>
               <button class="btn btn-info pull-right" (click)="next()">Next</button>
               <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+              <button class="btn btn-info pull-right" (click)="back()">Back</button>
             </div>
           </div>
         </mat-tab>
@@ -386,8 +461,8 @@
               </form>
             </div>
             <div>
-              <!--<button class="btn btn-info pull-right" (click)="next()">Next</button>-->
               <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+              <button class="btn btn-info pull-right" (click)="back()">Back</button>
             </div>
           </div>
         </mat-tab>

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ProposalService } from '../proposal.service';
-import { stepsForDL, stepsForPRL, stepsForPUL, stepsForSL } from '../../global/MockupConstants';
+import { stepsForDL, stepsForPRL, stepsForPUL, stepsForSL, RFPMockupData, scheduleDetails } from '../../global/MockupConstants';
 import { SessionService } from '../../global/session.service';
 import { CommonService } from '../../services/common.service';
 import { RequestTypes, Streams, MileStones } from '../../global/constants';
 import { ProposalUsers, Session } from '../../global/enum';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-planner-view',
@@ -16,6 +17,7 @@ import { ProposalUsers, Session } from '../../global/enum';
 export class PlannerViewComponent implements OnInit {
 
   sections: any;
+  docSections: any;
   mileStones: any;
   requestTypes: any;
   practiceTypes: any;
@@ -23,7 +25,8 @@ export class PlannerViewComponent implements OnInit {
   locations: any;
   Leads: any;
   
-  proposaldata: any = [];
+  proposaldata: any;
+  scheduleData: any;
   steps: any[];
   proposalTitle: string;
   porposalStatus: string;
@@ -42,27 +45,52 @@ export class PlannerViewComponent implements OnInit {
   questionnaireForm: FormArray;
   questionForm: FormArray;
 
+  selectedTab: any;
 
   constructor(private proposalService: ProposalService,
     private sessionService: SessionService,
     private formBuilder: FormBuilder,
-    private commonService: CommonService) {
+    private commonService: CommonService,
+    private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService) {
+
+    this.docSections = [
+      {
+        docSectionId: 'initialDocs',
+        docSectionName: 'Initial Documents',
+        docForm: 'documents1'
+      },
+      {
+        docSectionId: 'preparedDocs',
+        docSectionName: 'Prepared Documents',
+        docForm: 'documents2'
+      },
+      {
+        docSectionId: 'glosssary',
+        docSectionName: 'Glossary',
+        docForm: 'documents3'
+      }
+    ]
     
   }
 
   ngOnInit() {
+
+    this.selectedTab = 0;
+    var rfpCode = this.activatedRoute.snapshot.params.RfpCode;
+    this.proposaldata = RFPMockupData.filter(data => data.rfpCode === rfpCode)[0];
+    this.scheduleData = scheduleDetails;
+
     this.requestTypes = RequestTypes;
     this.practiceTypes = Streams;
     this.mileStones = MileStones;
     this.getProposalTracking();
     this.createForms();
-    //this.getLocations();
-    //this.getPracticeLeads();
-    this.formBasicProposal.get('practiceType').setValue(2);
-  }
+    this.getLocations();
+    //this.formBasicProposal.get('practiceType').setValue(2);
 
-  tabSelection(event: any) {
-    //console.log(event);
+    this.getPracticeLeads();
+
   }
 
   getLocations() {
@@ -77,7 +105,9 @@ export class PlannerViewComponent implements OnInit {
   getPracticeLeads() {
     this.commonService.getPracticeLeadsList().subscribe((response: any) => {
       this.Leads = response;
-      this.streamChange(2);
+    this.dataLoad(); //data load for all forms
+
+
     }, (error) => {
 
     })
@@ -132,15 +162,15 @@ export class PlannerViewComponent implements OnInit {
       rfpUser: new FormControl(),
       rfpCode: new FormControl(),
       status: new FormControl(0),
-      practiceType: new FormControl(),
+      practiceID: new FormControl(),
       practiceLead: new FormControl(),
       poc: new FormControl(),
       requestType: new FormControl(''),
       customer: new FormControl(''),
-      location: new FormControl(''),
-      requestedDate: new FormControl(''),
-      submissionDate: new FormControl(''),
-      title: new FormControl(''),
+      locationID: new FormControl(''),
+      releaseDate: new FormControl(''),
+      rfpSubmissionDate: new FormControl(''),
+      opportunityName: new FormControl(''),
       scope: new FormControl(''),
       description: new FormControl(''),
     });
@@ -175,7 +205,9 @@ export class PlannerViewComponent implements OnInit {
 
   genearteDocumentsForm() {
     this.formDocuments = this.formBuilder.group({
-      documents: this.formBuilder.array([this.createDocumentForm()])
+      documents1: this.formBuilder.array([this.createDocumentForm()]),
+      documents2: this.formBuilder.array([this.createDocumentForm()]),
+      documents3: this.formBuilder.array([this.createDocumentForm()])
     })
   }
 
@@ -189,13 +221,13 @@ export class PlannerViewComponent implements OnInit {
     });
   }
 
-  addNewDocument() {
-    this.documentsForm = this.formDocuments.get('documents') as FormArray;
+  addNewDocument(form: any) {
+    this.documentsForm = this.formDocuments.get(form) as FormArray;
     this.documentsForm.push(this.createDocumentForm());
   }
 
-  removeDocument(index: number) {
-    this.documentsForm = this.formDocuments.get('documents') as FormArray;
+  removeDocument(form: any, index: number) {
+    this.documentsForm = this.formDocuments.get(form) as FormArray;
     this.documentsForm.removeAt(index);
   }
 
@@ -217,7 +249,8 @@ export class PlannerViewComponent implements OnInit {
     return this.formBuilder.group({
       questionID: new FormControl(0),
       question: new FormControl(''),
-      answer: new FormControl('')
+      answer: new FormControl(''),
+      response: new FormControl('')
     });
   }
 
@@ -320,5 +353,61 @@ export class PlannerViewComponent implements OnInit {
       return '../../assets/images/FileFormats/FILE.svg';
     }
   }
-  
+
+  tabSelection(event: any) {
+    this.selectedTab = event.index;
+  }
+
+  save() {
+    this.notificationService.showSuccess("Data saved succesfully.", "Success !");
+  }
+
+  next() {
+    this.selectedTab += 1;
+    if (this.selectedTab > 5) this.selectedTab = 0;
+  }
+
+  back() {
+    this.selectedTab -= 1;
+    if (this.selectedTab < 0) this.selectedTab = 0;
+  }
+
+  dataLoad() {
+    this.formBasicProposal.patchValue(this.proposaldata);
+    this.formBasicProposal.get('practiceID').setValue((this.proposaldata.practiceID).toString());
+    this.formBasicProposal.get('locationID').setValue((this.proposaldata.locationID).toString());
+    this.streamChange(this.proposaldata.practiceID);
+    this.formBasicProposal.get('practiceLead').setValue(this.proposaldata.practiceLead);
+
+
+    if (this.scheduleData.length > 0) {
+      this.removeSchedule(0);
+      for (let i = 0; i < this.scheduleData.length; i++) {
+        this.addNewSchedule();
+      }
+
+      this.formSchedule.get('schedule').patchValue(this.scheduleData);
+    }
+
+
+  }
+
+  getMilestoneName(id: any) {
+    var data = MileStones.filter(data => data.mileStoneId === +id);
+    if (data.length > 0) {
+      return data[0].mileStoneName;
+    }
+  }
+
+  ExportQuesions() {
+
+  }
+
+  uploadQuesions() {
+
+  }
+
+  downloadTemplate() {
+
+  }
 }

@@ -89,7 +89,8 @@ export class PlannerProposalComponent implements OnInit {
   submit() {
 
     console.log(this.newProposalForm);
-    if (this.newProposalForm.valid) {
+    // Temprarly removing form validation
+    //if (this.newProposalForm.valid) {
 
       //const newProposalData = (<any>Object).assign({}, this.newProposalForm.value);
       //console.log(newProposalData);
@@ -123,11 +124,13 @@ export class PlannerProposalComponent implements OnInit {
 
       this.notificationService.showSuccess("New Proposal submitted successfully.", "Success !");
 
-      this.router.navigate(['/app/proposals/view/1']);
+      this.router.navigate(['/app/proposals/view/IKEA']);
 
-    } else {
-      this.notificationService.showAlert("Please fill all the required details to submit the proposal.", "Alert !");
-    }
+    //} else {
+
+
+    //  this.notificationService.showAlert("Please fill all the required details to submit the proposal.", "Alert !");
+    //}
 
 
   }
