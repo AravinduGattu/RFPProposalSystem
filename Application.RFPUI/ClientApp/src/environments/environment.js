@@ -4,8 +4,8 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.environment = {
+/*exports.environment = {
     production: false,
-    API_URL: 'https://localhost:44314/api/V1/'
-};
+    API_URL: 'http://10.130.4.144:6065/api/V1/'
+};*/
 //# sourceMappingURL=environment.js.map

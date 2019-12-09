@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /Application.RFPUI/ClientApp/dist
+Application.RFPSystem/Properties/PublishProfiles/FolderProfile.pubxml
