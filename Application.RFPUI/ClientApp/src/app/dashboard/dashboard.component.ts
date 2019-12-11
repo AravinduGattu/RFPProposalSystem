@@ -130,21 +130,21 @@ export class DashboardComponent implements OnInit {
   }
 
   getChartData() {
-    this.dashboardService.getChartData().subscribe((response: any) => {
-      if (response && response.result) {
-        var chartData: any[] = response.result.data;
-        var pieLabels = [];
-        var pieData = [];
-        //for (let i = 0; i <= chartData.length; i++) {
-        for (let i = 0; i <= 5; i++) {
-          pieLabels.push(chartData[i].userName.split('@', 1)[0]);
-          pieData.push(chartData[i].proposalsCount);
-        }
+    //this.dashboardService.getChartData().subscribe((response: any) => {
+    //  if (response && response.result) {
+    //    var chartData: any[] = response.result.data;
+    //    var pieLabels = [];
+    //    var pieData = [];
+    //    //for (let i = 0; i <= chartData.length; i++) {
+    //    for (let i = 0; i <= 5; i++) {
+    //      pieLabels.push(chartData[i].userName.split('@', 1)[0]);
+    //      pieData.push(chartData[i].proposalsCount);
+    //    }
 
-        this.pieChartLabels = pieLabels;
-        this.pieChartData = pieData;
-      }
-    });
+    //    this.pieChartLabels = pieLabels;
+    //    this.pieChartData = pieData;
+    //  }
+    //});
     this.pieChartLabels = ['Aravind', 'Phani', 'Satya', 'Bhaskar', 'Rajesh'];
     this.pieChartData = [5, 12, 5, 8, 4];
   }

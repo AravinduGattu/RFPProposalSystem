@@ -32,6 +32,14 @@ exports.stepsForDL = [
     { dateLabel: '18 Oct, 2019 3:10', title: 'Approved by Pursuit Lead', acceptance: 'yes' },
     { dateLabel: 'Date', title: 'Accepted by Delivery Lead', acceptance: 'pending' }
 ];
+exports.stepsForDLComplete = [
+    { dateLabel: '10 Oct, 2019 12:10', title: 'Proposal Started', acceptance: 'yes' },
+    //{ dateLabel: '11 Oct, 2019 10:10', title: 'Rejected by PL', acceptance: 'no' },
+    //{ dateLabel: '13 Oct, 2019 10:10', title: 'Resubmit', acceptance: 'yes' },
+    { dateLabel: '15 Oct, 2019 3:10', title: 'Approved by Practice Lead', acceptance: 'yes' },
+    { dateLabel: '18 Oct, 2019 3:10', title: 'Approved by Pursuit Lead', acceptance: 'yes' },
+    { dateLabel: 'Date', title: 'Accepted by Delivery Lead', acceptance: 'yes' }
+];
 exports.RFPMockupData = [
     {
         "id": 1,
