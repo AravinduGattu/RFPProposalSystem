@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ProposalService } from '../proposal.service';
-import { stepsForDL, stepsForPRL, stepsForPUL, stepsForSL, RFPMockupData, scheduleDetails } from '../../global/MockupConstants';
+import { stepsForDL, stepsForPRL, stepsForPUL, stepsForSL, RFPMockupData, scheduleDetails, stepsForDLComplete } from '../../global/MockupConstants';
 import { SessionService } from '../../global/session.service';
 import { CommonService } from '../../services/common.service';
 import { RequestTypes, Streams, MileStones } from '../../global/constants';
@@ -15,6 +15,9 @@ import { NotificationService } from '../../services/notification.service';
   styleUrls: ['./planner-view.component.css']
 })
 export class PlannerViewComponent implements OnInit {
+
+  role: any;
+  roles: any;
 
   sections: any;
   docSections: any;
@@ -42,6 +45,7 @@ export class PlannerViewComponent implements OnInit {
   documentsForm: FormArray;
   scheduleForm: FormArray;
   pricingForm: FormArray;
+  assignmentForm: FormArray;
   questionnaireForm: FormArray;
   questionForm: FormArray;
 
@@ -57,17 +61,17 @@ export class PlannerViewComponent implements OnInit {
     this.docSections = [
       {
         docSectionId: 'initialDocs',
-        docSectionName: 'Initial Documents',
+        docSectionName: 'Received Documents',
         docForm: 'documents1'
       },
       {
         docSectionId: 'preparedDocs',
-        docSectionName: 'Prepared Documents',
+        docSectionName: 'Response Documents',
         docForm: 'documents2'
       },
       {
         docSectionId: 'glosssary',
-        docSectionName: 'Glossary',
+        docSectionName: 'Final Documents',
         docForm: 'documents3'
       }
     ]
@@ -75,6 +79,9 @@ export class PlannerViewComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.roles = ProposalUsers;
+    this.role = +this.sessionService.getSession(Session.userRole);
 
     this.selectedTab = 0;
     var rfpCode = this.activatedRoute.snapshot.params.RfpCode;
@@ -134,15 +141,13 @@ export class PlannerViewComponent implements OnInit {
   }
 
   getProposalTracking() {
-    var role = this.sessionService.getSession(Session.userRole);
-
-    if (+role === ProposalUsers.SalesLead) {
+    if (this.role === ProposalUsers.SalesLead) {
       this.steps = stepsForSL;
-    } else if (+role === ProposalUsers.PracticeLead) {
+    } else if (this.role === ProposalUsers.PracticeLead) {
       this.steps = stepsForPRL;
-    } else if (+role === ProposalUsers.PursuitTeamLead) {
+    } else if (this.role === ProposalUsers.PursuitTeamLead) {
       this.steps = stepsForPUL;
-    } else if (+role === ProposalUsers.DeliveryTeamLead) {
+    } else if (this.role === ProposalUsers.DeliveryTeamLead) {
       this.steps = stepsForDL;
     }
   }
@@ -152,7 +157,7 @@ export class PlannerViewComponent implements OnInit {
     this.genearteScheduleForm();
     this.genearteDocumentsForm();
     this.genearteQuestionnaireForm();
-    //this.genearteAssignmentForm();
+    this.genearteAssignmentForm();
     this.geneartePricingForm();
   }
 
@@ -276,10 +281,47 @@ export class PlannerViewComponent implements OnInit {
     questionsArray.removeAt(index);
   }
 
+  genearteAssignmentForm() {
+    this.formAssignment = this.formBuilder.group({
+      assignment: this.formBuilder.array([this.craeteAssignmentForm()])
+    })
+
+    //Temporary
+    this.addNewAssignment();
+    this.addNewAssignment();
+    this.addNewAssignment();
+  }
+
+  craeteAssignmentForm(): FormGroup {
+  return this.formBuilder.group({
+    assignmentID: new FormControl(),
+    task: new FormControl(),
+    assignedTo: new FormControl(),
+    date: new FormControl(),
+    status: new FormControl()
+  });
+  }
+
+  addNewAssignment() {
+    this.assignmentForm = this.formAssignment.get('assignment') as FormArray;
+    this.assignmentForm.push(this.craeteAssignmentForm());
+  }
+
+  removeAssignment(index: number) {
+    this.assignmentForm = this.formAssignment.get('assignment') as FormArray;
+    this.assignmentForm.removeAt(index);
+  }
+
   geneartePricingForm() {
     this.formPricing = this.formBuilder.group({
       pricing: this.formBuilder.array([this.createPricingForm()])
     })
+
+
+    //Temporary
+    this.addNewPricing();
+    this.addNewPricing();
+    this.addNewPricing();
   }
 
   createPricingForm(): FormGroup {
@@ -359,7 +401,19 @@ export class PlannerViewComponent implements OnInit {
   }
 
   save() {
+    
+    if (this.role === ProposalUsers.SalesLead) {
+      this.steps = stepsForPRL;
+    } else if (this.role === ProposalUsers.PracticeLead) {
+      this.steps = stepsForPUL;
+    } else if (this.role === ProposalUsers.PursuitTeamLead) {
+      this.steps = stepsForDL;
+    } else if (this.role === ProposalUsers.DeliveryTeamLead) {
+      this.steps = stepsForDLComplete;
+    }
+
     this.notificationService.showSuccess("Data saved succesfully.", "Success !");
+
   }
 
   next() {
@@ -409,5 +463,13 @@ export class PlannerViewComponent implements OnInit {
 
   downloadTemplate() {
 
+  }
+
+  approve() {
+    this.notificationService.showSuccess("Approved.", "Success !");
+  }
+
+  reject() {
+    this.notificationService.showAlert("Sent for Review", "Success !");
   }
 }

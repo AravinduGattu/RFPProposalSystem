@@ -1,16 +1,22 @@
 ::ng-deep .mat-tab-label-active {
-  background-color: palegoldenrod !important;
+  background-color: #00163b !important;
+  border: 2px solid #00163b !important;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
+  color: white !important;
+  font-weight: 700;
 }
 
 ::ng-deep .mat-tab-label {
   min-width: 100px !important;
   height: 30px !important;
-  background-color: lightgray;
+  background-color: palegoldenrod;
   border: 2px solid palegoldenrod;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
+  opacity: 1 !important;
+  color: black;
+  font-weight: 500;
 }
 
 ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
@@ -20,7 +26,7 @@
 
 ::ng-deep .mat-tab-header {
   /*border-bottom-color: lightskyblue;*/
-  border-bottom: 3px solid palegoldenrod;
+  border-bottom: 3px solid #00163b;
 }
 
 .proposalTab {
@@ -37,27 +43,27 @@
 
 /* Mat expansion CSS*/
 mat-expansion-panel-header {
-  background-color: lightgray;
+  background-color: #00163b;
 }
 
   mat-expansion-panel-header:hover {
-    background-color: lightgray !important;
+    background-color: #00163b !important;
   }
 
 .mat-expanded mat-expansion-panel-header {
-  background-color: lightgray !important;
+  background-color: #00163b !important;
   border-radius: 0px !important;
 }
 
 mat-panel-title {
-  color: black;
+  color: white;
   font-weight: bold;
   font-style: italic;
 }
 
 mat-panel-description {
   color: red;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 ::ng-deep .mat-expansion-panel-body { /*ng-deep for ovverriding mat css*/
@@ -290,12 +296,13 @@ mat-panel-description {
   font-size: 20px;
 }*/
 
-h4 .material-icons {
-  font-size: 18px;
+h5 .material-icons {
+  font-size: 20px;
+  color: goldenrod;
 }
 
 .documentSection .mat-icon {
-  font-size: 24px;
+  font-size: 26px;
 }
 
 .documentDiv {
@@ -500,3 +507,26 @@ td {
   .swiper-slide:nth-child(3n) {
     width: 40%;
   }*/
+
+.assignmentSection
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.assignmentSection
+::ng-deep .mat-form-field-wrapper {
+  padding: 0px;
+}
+
+.assignmentSection th:nth-child(6) {
+  border: none;
+  background-color: transparent;
+}
+
+.assignmentSection td:nth-child(6) {
+  border: none;
+}
+
+td mat-icon{
+  cursor: pointer;
+}

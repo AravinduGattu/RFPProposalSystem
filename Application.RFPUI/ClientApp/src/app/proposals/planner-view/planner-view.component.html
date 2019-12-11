@@ -31,34 +31,40 @@
           <div>
             <div class="row">
               <div class="col-lg-3">
-                <label>Customer : {{proposaldata.customer}}</label>
+                <label>Customer : </label><i> {{proposaldata.customer}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Location : {{proposaldata.locationName}}</label>
+                <label>Location : </label><i> {{proposaldata.locationName}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Practice Type : {{proposaldata.practiceName}}</label>
+                <label>Practice Type : </label><i> {{proposaldata.practiceName}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Practice Lead : {{proposaldata.practiceLead}}</label>
+                <label>Practice Lead : </label><i> {{proposaldata.practiceLead}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Created By : {{proposaldata.createdByName}}</label>
+                <label>Created By : </label><i> {{proposaldata.createdByName}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Created Date : {{proposaldata.createdDate | date: 'dd/MM/yyyy'}}</label>
+                <label>Created Date : </label><i> {{proposaldata.createdDate | date: 'dd/MM/yyyy'}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Modified By : {{proposaldata.modifiedByName}}</label>
+                <label>Modified By : </label><i> {{proposaldata.modifiedByName}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Modified Date : {{proposaldata.modifiedDate | date: 'dd/MM/yyyy'}}</label>
+                <label>Modified Date : </label><i> {{proposaldata.modifiedDate | date: 'dd/MM/yyyy'}}</i>
               </div>
             </div>
           </div>
         </mat-expansion-panel>
       </mat-accordion>
       <br/>
+      <div *ngIf="role!==roles.SalesLead" style="width:100%;">
+        <button class="btn btn-success" (click)="approve()">Approve</button>
+        <button class="btn btn-danger" (click)="reject()">Send for Review</button>
+      </div>
+      <br/>
+      <div>
       <mat-tab-group (selectedTabChange)="tabSelection($event)" mat-stretch-tabs [selectedIndex]="selectedTab">
         <mat-tab label="Basic Info">
           <div class="proposalTab">
@@ -251,65 +257,6 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="Documents">
-          <div class="proposalTab">
-            <div class="documentSection">
-              <form id="proposalDocuments" [formGroup]="formDocuments">
-                <div *ngFor="let doc of docSections; let z = index">
-                  <div role="tab" id="headingOne">
-                    <h4>
-                      <i class="material-icons">folder</i>
-                      <span class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" [attr.data-target]="'#' + doc.docSectionId" aria-expanded="false" aria-controls="collapseOne">
-                        {{doc.docSectionName}}
-                      </span>
-                    </h4>
-                  </div>
-              
-                <div id={{doc.docSectionId}} class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                  <div class="row">
-                    <div formArrayName="{{doc.docForm}}" *ngFor="let X of formDocuments.get(doc.docForm)['controls']; let i = index;">
-                      <div class="col-lg-2 col-md-3 col-sm-4 col-xs-5 documentDiv" [formGroupName]="i">
-                        <div class="docOutline">
-                          <div class="docRemove">
-                            <mat-icon (click)="removeDocument(doc.docForm, i)">highlight_off</mat-icon>
-                          </div>
-                          <div class="docLabel">
-                            <input matInput placeholder="Upload Document" formControlName="documentName" required readonly maxlength="50" class="hidden">
-                            <label>{{ X.get('documentName').value || 'No file choosen' }}</label>
-                            <input type="file" (change)="fileInput($event, i)" id="file+{{i}}" class="hidden" />
-                          </div>
-                          <div class="documentImg">
-                            <label for="file+{{i}}"><img src="{{getDocumentImage(X.get('documentExt').value || 'new')}}" alt="Document Here"></label>
-                          </div>
-                          <div class="docDownload">
-                            <button *ngIf="X.get('documentId').value > 0" class="btn btn-default btn-sm" type="button" (click)="downloadFile(X.value)">Download</button>
-                            <div *ngIf="X.get('documentId').value <= 0"><p><i>Click on image to upload the document</i></p></div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-1">
-                      <div class="btn" (click)="addNewDocument(doc.docForm)">
-                        <mat-icon>add_circle</mat-icon>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-                  </div>
-              </form>
-            </div>
-            <div>
-              <button class="btn btn-info pull-right" (click)="next()">Next</button>
-              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
-              <button class="btn btn-info pull-right" (click)="back()">Back</button>
-            </div>
-          </div>
-        </mat-tab>
         <mat-tab label="Questionnaire">
           <div class="proposalTab">
             <div>
@@ -317,7 +264,7 @@
               <button class="btn btn-sm btn-info" (click)="uploadQuesions()">Upload</button>
               <button class="btn btn-sm btn-info" (click)="ExportQuesions()">Export</button>
             </div>
-            <br/>
+            <br />
             <div class="questionnaireSection">
               <form id="proposalAssignment" [formGroup]="formQuestionnaire">
                 <div formArrayName="questionnaire" *ngFor="let X of formQuestionnaire.get('questionnaire')['controls']; let i = index;">
@@ -377,9 +324,121 @@
             </div>
           </div>
         </mat-tab>
+        <mat-tab label="Documents">
+          <div class="proposalTab">
+            <div class="documentSection">
+              <form id="proposalDocuments" [formGroup]="formDocuments">
+                <div *ngFor="let doc of docSections; let z = index">
+                  <div role="tab" id="headingOne">
+                    <h5>
+                      <i class="material-icons">folder</i>
+                      <span class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" [attr.data-target]="'#' + doc.docSectionId" aria-expanded="false" aria-controls="collapseOne">
+                        {{doc.docSectionName}}
+                      </span>
+                    </h5>
+                  </div>
+
+                  <div id={{doc.docSectionId}} class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="row">
+                      <div formArrayName="{{doc.docForm}}" *ngFor="let X of formDocuments.get(doc.docForm)['controls']; let i = index;">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-5 documentDiv" [formGroupName]="i">
+                          <div class="docOutline">
+                            <div class="docRemove">
+                              <mat-icon (click)="removeDocument(doc.docForm, i)">highlight_off</mat-icon>
+                            </div>
+                            <div class="docLabel">
+                              <input matInput placeholder="Upload Document" formControlName="documentName" required readonly maxlength="50" class="hidden">
+                              <label>{{ X.get('documentName').value || 'No file choosen' }}</label>
+                              <input type="file" (change)="fileInput($event, i)" id="file+{{i}}" class="hidden" />
+                            </div>
+                            <div class="documentImg">
+                              <label for="file+{{i}}"><img src="{{getDocumentImage(X.get('documentExt').value || 'new')}}" alt="Document Here"></label>
+                            </div>
+                            <div class="docDownload">
+                              <button *ngIf="X.get('documentId').value > 0" class="btn btn-default btn-sm" type="button" (click)="downloadFile(X.value)">Download</button>
+                              <div *ngIf="X.get('documentId').value <= 0"><p><i>Click on image to upload the document</i></p></div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-1">
+                        <div class="btn" (click)="addNewDocument(doc.docForm)">
+                          <mat-icon>add_circle</mat-icon>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </form>
+            </div>
+            <div>
+              <button class="btn btn-info pull-right" (click)="next()">Next</button>
+              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+              <button class="btn btn-info pull-right" (click)="back()">Back</button>
+            </div>
+          </div>
+        </mat-tab>
+
         <mat-tab label="Assignment">
           <div class="proposalTab">
-            <!--<form id="proposalPricing" [formGroup]="basicProposalForm"></form>-->
+            <div class="assignmentSection">
+              <form id="proposalAssignment" [formGroup]="formAssignment">
+                <div>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>S.No</th>
+                        <th>Task</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="assignment" *ngFor="let X of formAssignment.get('assignment')['controls']; let i = index;">
+                      <tr [formGroupName]="i">
+                        <td>
+                          <label>{{i+1}}</label>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="task" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="assignedTo" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="date" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field>
+                            <input matInput formControlName="status" required maxlength="50">
+                          </mat-form-field>
+                        </td>
+                        <td *ngIf="formAssignment.get('assignment').controls.length > 1">
+                          <mat-icon class="matIconButton" (click)="removeAssignment(i)">remove_circle</mat-icon>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div>
+                  <div class="btn" (click)="addNewAssignment()">
+                    <mat-icon>add_circle</mat-icon>
+                  </div>
+                </div>
+              </form>
+            </div>
             <div>
               <button class="btn btn-info pull-right" (click)="next()">Next</button>
               <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
@@ -467,6 +526,7 @@
           </div>
         </mat-tab>
       </mat-tab-group>
+      </div>
     </div>
   </div>
   <!--<div>
