@@ -15,6 +15,14 @@ namespace Common.DataObjects
         public string category { get; set; }
 
     }
+        
+    public enum TaskStatus
+    {
+        Submitted = 1,
+        InProcess = 2,
+        Completed = 3,
+        Pending = 4
+    }
 
     public enum  categoryStatus
     {
