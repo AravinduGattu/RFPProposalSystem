@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace Application.RFPSystem.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
-    public class AssignmentsController : ControllerBase
+    public class PricingController : ControllerBase
     {
-        [Route("api/V1/Assignments/GetList")]
+        [Route("api/V1/Pricing/GetList")]
         [HttpGet]
-        public async Task<IActionResult> GetList(int proposalId, int assignmentId)
+        public async Task<IActionResult> GetList(int proposalId, int pricingId)
         {
             try
             {
-                IEnumerable<Assignment> list  = new List<Assignment>();
+                IEnumerable<Pricing> list  = new List<Pricing>();
 
-                using (ISyncAssignment service = new AssignmentService())
+                using (ISyncPricing service = new PricingService())
                 {
-                    list = await service.GetList(proposalId, assignmentId);
+                    list = await service.GetList(proposalId, pricingId);
                 }
 
                 return Ok(list);
@@ -35,14 +35,14 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
-        [Route("api/V1/Assignments/Save")]
+        [Route("api/V1/Pricing/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save(Assignment item)
+        public async Task<IActionResult> Save(Pricing item)
         {
             try
             {
                 bool status = false;
-                using (ISyncAssignment service = new AssignmentService())
+                using (ISyncPricing service = new PricingService())
                 {
                     status = await service.Save(item) > 0;
                 }
@@ -55,14 +55,14 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
-        [Route("api/V1/Assignments/Delete")]
+        [Route("api/V1/Pricing/Delete")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 bool status = false;
-                using (ISyncAssignment service = new AssignmentService())
+                using (ISyncPricing service = new PricingService())
                 {
                     status = await service.Delete(id) > 0;
                 }
