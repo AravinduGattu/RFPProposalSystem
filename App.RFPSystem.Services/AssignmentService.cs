@@ -53,8 +53,9 @@ namespace App.RFPSystem.Services
                 cmd.Parameters.AddWithValue("@AssignmentDate", item.AssignmentDate);
                 cmd.Parameters.AddWithValue("@Task", item.Task);
                 cmd.Parameters.AddWithValue("@Name", item.Name);
-                cmd.Parameters.AddWithValue("@AssignmentStatus", item.Status);                
+                cmd.Parameters.AddWithValue("@AssignmentStatus", item.Status);
                 cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Common.DataObjects
 {
-    public class Assignment
+    public class Assignment : AuditFields
     {
         public int ID { get; set; }
         public int ProposalID { get; set; }
@@ -13,6 +13,5 @@ namespace Common.DataObjects
         public DateTime AssignmentDate { get; set; }
         public TaskStatus Status { get; set; }
         public string StatusName { get; set; }
-
     }
 }

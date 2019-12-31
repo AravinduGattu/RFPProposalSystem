@@ -12,7 +12,7 @@ namespace Application.RFPSystem.Controllers
 {
     [Authorize]
     [ApiController]
-    public class MilestonesMasterController : ControllerBase
+    public class MilestonesMasterController : BaseController
     {
         [Route("api/V1/MilestonesMaster/GetList")]
         [HttpGet]
@@ -44,6 +44,7 @@ namespace Application.RFPSystem.Controllers
                 bool status = false;
                 using (ISyncMilestoneMaster service = new MilestoneMasterService())
                 {
+                    item.CreatedBy = item.ModifiedBy = UserID;
                     status = await service.Save(item) > 0;
                 }
 

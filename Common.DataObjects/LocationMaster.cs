@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Common.DataObjects
 {
-    public class Location
+    public class Location : AuditFields
     {
         public int ID { get; set; }
 

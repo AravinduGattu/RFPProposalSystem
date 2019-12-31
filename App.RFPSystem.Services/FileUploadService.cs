@@ -44,13 +44,14 @@ namespace App.RFPSystem.Services
                 await con.OpenAsync();
                 SqlCommand cmd = new SqlCommand("sp_FileUpload", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@FileUploadID", item.FileUploadID);
+                cmd.Parameters.AddWithValue("@ID", item.ID);
                 cmd.Parameters.AddWithValue("@FilePath", item.FilePath);
                 cmd.Parameters.AddWithValue("@FileName", item.FileName);
                 cmd.Parameters.AddWithValue("@FileType", item.FileType);
                 cmd.Parameters.AddWithValue("@Category", item.Category);
                 cmd.Parameters.AddWithValue("@ProposalID", item.ProposalID);
-                cmd.Parameters.AddWithValue("@Status", item.FileUploadID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

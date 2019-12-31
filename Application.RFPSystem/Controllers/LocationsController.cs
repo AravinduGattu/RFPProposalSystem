@@ -12,7 +12,7 @@ namespace Application.RFPSystem.Controllers
 {
     [Authorize]
     [ApiController]
-    public class LocationsController : ControllerBase
+    public class LocationsController : BaseController
     {
         [Route("api/V1/Locations/GetList")]
         [HttpGet]
@@ -44,6 +44,7 @@ namespace Application.RFPSystem.Controllers
                 bool status = false;
                 using (ISyncLocation service = new LocationService())
                 {
+                    item.CreatedBy = item.ModifiedBy = UserID;
                     status = await service.Save(item) > 0;
                 }
 

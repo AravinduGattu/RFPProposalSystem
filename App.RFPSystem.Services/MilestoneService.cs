@@ -42,7 +42,7 @@ namespace App.RFPSystem.Services
                         MilestoneID = Convert.ToInt32(dr["MilestoneID"]),
                         MilestoneMaster = new MilestoneMaster
                         {
-                            MilestoneID = Convert.ToInt32(dr["MilestoneID"]),
+                            ID = Convert.ToInt32(dr["MilestoneID"]),
                             Description = dr["Description"].ToString(),
                             Milestone = dr["Milestone"].ToString()
                         },
@@ -67,6 +67,7 @@ namespace App.RFPSystem.Services
                 cmd.Parameters.AddWithValue("@Remarks", item.Remarks);
                 cmd.Parameters.AddWithValue("@ProposalID", item.ProposalID);
                 cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

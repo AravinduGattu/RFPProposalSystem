@@ -12,7 +12,7 @@ namespace Application.RFPSystem.Controllers
 {
     [Authorize]
     [ApiController]
-    public class FilesUploadController : ControllerBase
+    public class FilesUploadController : BaseController
     {
         [Route("api/V1/FilesUpload/GetList")]
         [HttpGet]
@@ -44,6 +44,7 @@ namespace Application.RFPSystem.Controllers
                 bool status = false;
                 using (ISyncFileUpload service = new FileUploadService())
                 {
+                    item.CreatedBy = item.ModifiedBy = UserID;
                     status = await service.Save(item) > 0;
                 }
 

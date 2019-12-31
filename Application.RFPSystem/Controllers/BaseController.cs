@@ -16,11 +16,11 @@ namespace Application.RFPSystem.Controllers
             
         }
 
-        public string UserID {
+        public int UserID {
             get {
                 if (string.IsNullOrEmpty(Request.Headers["AuthToken"]))
-                    return null;
-                return Cipher.Decrypt(Request.Headers["AuthToken"], Constants.Token).Split('~')[0];
+                    return 0;
+                return int.Parse(Cipher.Decrypt(Request.Headers["AuthToken"], Constants.Token).Split('~')[0]);
                 
             }
         }
