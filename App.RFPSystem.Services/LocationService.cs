@@ -46,6 +46,7 @@ namespace App.RFPSystem.Services
                 cmd.Parameters.AddWithValue("@LocationName", item.LocationName);
                 cmd.Parameters.AddWithValue("@LocationCode", item.LocationCode);
                 cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

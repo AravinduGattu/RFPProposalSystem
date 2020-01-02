@@ -12,19 +12,19 @@ namespace Application.RFPSystem.Controllers
 {
     [Authorize]
     [ApiController]
-    public class MilestonesMasterController : BaseController
+    public class AssignmentsController : BaseController
     {
-        [Route("api/V1/MilestonesMaster/GetList")]
+        [Route("api/V1/Assignments/GetList")]
         [HttpGet]
-        public async Task<IActionResult> GetList(string name)
+        public async Task<IActionResult> GetList(int proposalId, int assignmentId)
         {
             try
             {
-                IEnumerable<MilestoneMaster> list = new List<MilestoneMaster>();
+                IEnumerable<Assignment> list  = new List<Assignment>();
 
-                using (ISyncMilestoneMaster service = new MilestoneMasterService())
+                using (ISyncAssignment service = new AssignmentService())
                 {
-                    list = await service.GetList(name);
+                    list = await service.GetList(proposalId, assignmentId);
                 }
 
                 return Ok(list);
@@ -35,14 +35,14 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
-        [Route("api/V1/MilestonesMaster/Save")]
+        [Route("api/V1/Assignments/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save(MilestoneMaster item)
+        public async Task<IActionResult> Save(Assignment item)
         {
             try
             {
                 bool status = false;
-                using (ISyncMilestoneMaster service = new MilestoneMasterService())
+                using (ISyncAssignment service = new AssignmentService())
                 {
                     item.CreatedBy = item.ModifiedBy = UserID;
                     status = await service.Save(item) > 0;
@@ -56,14 +56,14 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
-        [Route("api/V1/MilestonesMaster/Delete")]
+        [Route("api/V1/Assignments/Delete")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 bool status = false;
-                using (ISyncMilestoneMaster service = new MilestoneMasterService())
+                using (ISyncAssignment service = new AssignmentService())
                 {
                     status = await service.Delete(id) > 0;
                 }

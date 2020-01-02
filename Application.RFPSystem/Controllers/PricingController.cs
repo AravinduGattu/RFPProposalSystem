@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace Application.RFPSystem.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
-    public class MilestonesMasterController : BaseController
+    public class PricingController : ControllerBase
     {
-        [Route("api/V1/MilestonesMaster/GetList")]
+        [Route("api/V1/Pricing/GetList")]
         [HttpGet]
-        public async Task<IActionResult> GetList(string name)
+        public async Task<IActionResult> GetList(int proposalId, int pricingId)
         {
             try
             {
-                IEnumerable<MilestoneMaster> list = new List<MilestoneMaster>();
+                IEnumerable<Pricing> list  = new List<Pricing>();
 
-                using (ISyncMilestoneMaster service = new MilestoneMasterService())
+                using (ISyncPricing service = new PricingService())
                 {
-                    list = await service.GetList(name);
+                    list = await service.GetList(proposalId, pricingId);
                 }
 
                 return Ok(list);
@@ -35,16 +35,15 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
-        [Route("api/V1/MilestonesMaster/Save")]
+        [Route("api/V1/Pricing/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save(MilestoneMaster item)
+        public async Task<IActionResult> Save(Pricing item)
         {
             try
             {
                 bool status = false;
-                using (ISyncMilestoneMaster service = new MilestoneMasterService())
+                using (ISyncPricing service = new PricingService())
                 {
-                    item.CreatedBy = item.ModifiedBy = UserID;
                     status = await service.Save(item) > 0;
                 }
 
@@ -56,14 +55,14 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
-        [Route("api/V1/MilestonesMaster/Delete")]
+        [Route("api/V1/Pricing/Delete")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 bool status = false;
-                using (ISyncMilestoneMaster service = new MilestoneMasterService())
+                using (ISyncPricing service = new PricingService())
                 {
                     status = await service.Delete(id) > 0;
                 }

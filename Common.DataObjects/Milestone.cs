@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Common.DataObjects
 {
-    public class Milestone
+    public class Milestone : AuditFields
     {
         /// <summary>
         /// AUto generated
@@ -22,9 +22,9 @@ namespace Common.DataObjects
         public string Remarks { get; set; }
     }
 
-    public class MilestoneMaster
+    public class MilestoneMaster : AuditFields
     {
-        public int MilestoneID { get; set; }
+        public int ID { get; set; }
 
         /// <summary>
         /// Length 50

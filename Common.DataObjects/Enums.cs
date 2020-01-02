@@ -9,7 +9,13 @@ namespace Common.DataObjects
         SalesLead = 1,
         PracticeLead = 2,
         PursuitTeamLead = 3,
-        DeliveryTeamLead = 4
+        DeliveryTeamLead = 4,
+        DevLead = 5,
+        TestLead = 6,
+        JuniorDeveloper = 7,
+        JuniorTester = 8,
+        SeniorDeveloper = 9,
+        SeniorTester = 10,
     }
 
     public enum Stream

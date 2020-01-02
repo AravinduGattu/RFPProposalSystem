@@ -13,7 +13,7 @@ namespace App.RFPSystem.Services
     public class MilestoneMasterService : BaseService, ISyncMilestoneMaster
     {
         string strConString = Constants.DBConnection;
-        
+
         public void Dispose()
         {
             //throw new NotImplementedException();
@@ -41,10 +41,11 @@ namespace App.RFPSystem.Services
                 await con.OpenAsync();
                 SqlCommand cmd = new SqlCommand("sp_MilestoneMaster", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@MilestoneID", item.MilestoneID);
+                cmd.Parameters.AddWithValue("@ID", item.ID);
                 cmd.Parameters.AddWithValue("@Milestone", item.Milestone);
                 cmd.Parameters.AddWithValue("@Description", item.Description);
-                cmd.Parameters.AddWithValue("@Status", item.MilestoneID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace App.RFPSystem.Services
 {
-    public class MilestoneService : BaseService, ISyncMilestone
+    public class AssignmentService : BaseService, ISyncAssignment
     {
         string strConString = Constants.DBConnection;
         
@@ -19,53 +19,41 @@ namespace App.RFPSystem.Services
             //throw new NotImplementedException();
         }
 
-        public async Task<List<Milestone>> GetList(int proposalId, int milestoneId)
+        public async Task<List<Assignment>> GetList(int proposalId, int assignmentId)
         {
+            List<Assignment> list = new List<Assignment>();
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_GETMilestoneDetails", con);
+                SqlCommand cmd = new SqlCommand("sp_GETAssignmentDetails", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (proposalId > 0)
                     cmd.Parameters.AddWithValue("@ProposalID", proposalId);
-                if (milestoneId > 0)
-                    cmd.Parameters.AddWithValue("@MilestoneID", milestoneId);
+                if (assignmentId > 0)
+                    cmd.Parameters.AddWithValue("@ID", assignmentId);
+                //cmd.Parameters.AddWithValue("@Task", null);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
-            //return ConvertDataTable<Milestone>(dt);
-            return (from DataRow dr in dt.Rows
-                    select new Milestone()
-                    {
-                        ID = Convert.ToInt32(dr["ID"]),
-                        MilestoneID = Convert.ToInt32(dr["MilestoneID"]),
-                        MilestoneMaster = new MilestoneMaster
-                        {
-                            ID = Convert.ToInt32(dr["MilestoneID"]),
-                            Description = dr["Description"].ToString(),
-                            Milestone = dr["Milestone"].ToString()
-                        },
-                        ProposalID = Convert.ToInt32(dr["ProposalID"]),
-                        MilestoneStartDate = Convert.ToDateTime(dr["MilestoneStartDate"]),
-                        MilestoneEndDate = Convert.ToDateTime(dr["MilestoneEndDate"]),
-                        Remarks = dr["Remarks"].ToString()
-                    }).ToList();
+            list = ConvertDataTable<Assignment>(dt);
+            list.ForEach(x => x.StatusName = ((Common.DataObjects.TaskStatus)x.Status).ToString());
+            return list;
         }
 
-        public async Task<int> Save(Milestone item)
+        public async Task<int> Save(Assignment item)
         {
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_Milestone", con);
+                SqlCommand cmd = new SqlCommand("sp_Assignment", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", item.ID);
-                cmd.Parameters.AddWithValue("@MilestoneID", item.MilestoneID);
-                cmd.Parameters.AddWithValue("@MilestoneStartDate", item.MilestoneStartDate);
-                cmd.Parameters.AddWithValue("@MilestoneEndDate", item.MilestoneEndDate);
-                cmd.Parameters.AddWithValue("@Remarks", item.Remarks);
                 cmd.Parameters.AddWithValue("@ProposalID", item.ProposalID);
+                cmd.Parameters.AddWithValue("@AssignmentDate", item.AssignmentDate);
+                cmd.Parameters.AddWithValue("@Task", item.Task);
+                cmd.Parameters.AddWithValue("@Name", item.Name);
+                cmd.Parameters.AddWithValue("@AssignmentStatus", item.Status);
                 cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
                 cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
@@ -80,7 +68,7 @@ namespace App.RFPSystem.Services
                 SqlCommand cmd = new SqlCommand("sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
-                cmd.Parameters.AddWithValue("@Table", "Milestone");
+                cmd.Parameters.AddWithValue("@Table", "Assignment");
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

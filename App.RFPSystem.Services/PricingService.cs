@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace App.RFPSystem.Services
 {
-    public class FileUploadService : BaseService, ISyncFileUpload
+    public class PricingService : BaseService, ISyncPricing
     {
         string strConString = Constants.DBConnection;
         
@@ -19,39 +19,42 @@ namespace App.RFPSystem.Services
             //throw new NotImplementedException();
         }
 
-        public async Task<List<FileUpload>> GetList(string name, string category, int proposalId)
+        public async Task<List<Pricing>> GetList(int proposalId, int pricingId)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_GETFileUploadDetails", con);
+                SqlCommand cmd = new SqlCommand("sp_GETPricingDetails", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@FileName", name);
-                cmd.Parameters.AddWithValue("@Category", category);
                 if (proposalId > 0)
                     cmd.Parameters.AddWithValue("@ProposalID", proposalId);
+                if (pricingId > 0)
+                    cmd.Parameters.AddWithValue("@ID", pricingId);
+                //cmd.Parameters.AddWithValue("@Role", null);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
-            return ConvertDataTable<FileUpload>(dt);
+            return ConvertDataTable<Pricing>(dt);
         }
 
-        public async Task<int> Save(FileUpload item)
+        public async Task<int> Save(Pricing item)
         {
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_FileUpload", con);
+                SqlCommand cmd = new SqlCommand("sp_Pricing", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", item.ID);
-                cmd.Parameters.AddWithValue("@FilePath", item.FilePath);
-                cmd.Parameters.AddWithValue("@FileName", item.FileName);
-                cmd.Parameters.AddWithValue("@FileType", item.FileType);
-                cmd.Parameters.AddWithValue("@Category", item.Category);
                 cmd.Parameters.AddWithValue("@ProposalID", item.ProposalID);
+                cmd.Parameters.AddWithValue("@Role", item.Role);
+                cmd.Parameters.AddWithValue("@Description", item.Description);
+                cmd.Parameters.AddWithValue("@Count", item.Count);
+                cmd.Parameters.AddWithValue("@Allocation", item.Allocation);
+                cmd.Parameters.AddWithValue("@LocationID", item.LocationID);
+                cmd.Parameters.AddWithValue("@TotalHours", item.TotalHours);
+                cmd.Parameters.AddWithValue("@TotalCost", item.TotalCost);
                 cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
-                cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
             }
         }
@@ -64,7 +67,7 @@ namespace App.RFPSystem.Services
                 SqlCommand cmd = new SqlCommand("sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
-                cmd.Parameters.AddWithValue("@Table", "FileUpload");
+                cmd.Parameters.AddWithValue("@Table", "Pricing");
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

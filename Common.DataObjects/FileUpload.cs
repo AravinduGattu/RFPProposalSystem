@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Common.DataObjects
 {
-    public class FileUpload
+    public class FileUpload : AuditFields
     {
         /// <summary>
         /// Auto generated
         /// </summary>
-        public int FileUploadID { get; set; }
+        public int ID { get; set; }
        //Foreign Key
         public int ProposalID { get; set; }
         /// <summary>
