@@ -348,13 +348,13 @@ export class PlannerViewComponent implements OnInit {
     this.pricingForm.removeAt(index);
   }
 
-  fileInput(event: any, index: number) {
+  fileInput(formName: any, event: any, index: number) {
     const file = event.target.files[0];
     const fileName = file.name;
     const fileExt = fileName.split('.').pop();
     const fileType = file.type;
 
-    const control = (<FormArray>this.formDocuments.controls['documents']).at(index);
+    const control = (<FormArray>this.formDocuments.controls[formName]).at(index);
     control['controls'].documentName.setValue(fileName);
     control['controls'].documentExt.setValue(fileExt);
     control['controls'].documentType.setValue(fileType);
