@@ -5,7 +5,7 @@ import { ProposalService } from '../proposal.service';
 import { stepsForDL, stepsForPRL, stepsForPUL, stepsForSL, RFPMockupData, scheduleDetails, stepsForDLComplete } from '../../global/MockupConstants';
 import { SessionService } from '../../global/session.service';
 import { CommonService } from '../../services/common.service';
-import { RequestTypes, Streams, MileStones } from '../../global/constants';
+import { RequestTypes, Streams, MileStones, TaskStatus } from '../../global/constants';
 import { ProposalUsers, Session } from '../../global/enum';
 import { NotificationService } from '../../services/notification.service';
 
@@ -25,6 +25,7 @@ export class PlannerViewComponent implements OnInit {
   requestTypes: any;
   practiceTypes: any;
   practiceLeads: any;
+  taskStatus: any;
   locations: any;
   Leads: any;
   
@@ -91,6 +92,7 @@ export class PlannerViewComponent implements OnInit {
     this.requestTypes = RequestTypes;
     this.practiceTypes = Streams;
     this.mileStones = MileStones;
+    this.taskStatus = TaskStatus;
     this.getProposalTracking();
     this.createForms();
     this.getLocations();

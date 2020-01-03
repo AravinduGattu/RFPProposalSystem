@@ -175,7 +175,7 @@
                 <div class="timestamp">
                   <span class="date">{{item.scheduleEndDate  | date: 'dd/MM/yyyy'}}</span>
                 </div>
-                <div class="status" [ngClass]="{'no': item.status === 'No', 'inProgress': item.status === 'Inprogress' }">
+                <div class="status" [ngClass]="{'no': item.status === '1', 'inProgress': item.status === '2' }">
                   <span>{{getMilestoneName(item.milestone)}}</span>
                 </div>
               </div>
@@ -229,10 +229,11 @@
                         <td>
                           <mat-form-field>
                             <mat-select matinput formControlName="status" required>
-                              <mat-option value="Yet to Start">Yet to Start</mat-option>
+                              <!--<mat-option value="Yet to Start">Yet to Start</mat-option>
                               <mat-option value="Inprogress">Inprogress</mat-option>
                               <mat-option value="Review">Review</mat-option>
-                              <mat-option value="Completed">Completed</mat-option>
+                              <mat-option value="Completed">Completed</mat-option>-->
+                              <mat-option *ngFor="let data of taskStatus" value="{{data.statusId}}">{{data.status}}</mat-option>
                             </mat-select>
                           </mat-form-field>
                         </td>
