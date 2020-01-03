@@ -1,6 +1,7 @@
 ﻿using App.RFPSystem.Services;
 using Applications.Operations;
 using Common.DataObjects;
+using Common.DataObjects.RFP;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
