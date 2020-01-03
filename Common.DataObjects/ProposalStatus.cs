@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Common.DataObjects
 {
-    public class ProposalStatus
+    public class ProposalStatus : AuditFields
     {
         public int ID { get; set; }
         public int ProposalID { get; set; }

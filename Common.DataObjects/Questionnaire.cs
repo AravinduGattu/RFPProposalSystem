@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Common.DataObjects
 {
-    public class Questionnaire
+    public class Questionnaire : AuditFields
     {
-        public int QuestionnaireID { get; set; }
+        public int ID { get; set; }
         public int ProposalID { get; set; }
         /// <summary>
         /// Length 50

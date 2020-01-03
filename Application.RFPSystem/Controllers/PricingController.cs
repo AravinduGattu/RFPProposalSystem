@@ -12,7 +12,7 @@ namespace Application.RFPSystem.Controllers
 {
     //[Authorize]
     [ApiController]
-    public class PricingController : ControllerBase
+    public class PricingController : BaseController
     {
         [Route("api/V1/Pricing/GetList")]
         [HttpGet]
@@ -44,6 +44,7 @@ namespace Application.RFPSystem.Controllers
                 bool status = false;
                 using (ISyncPricing service = new PricingService())
                 {
+                    item.CreatedBy = item.ModifiedBy = UserID;
                     status = await service.Save(item) > 0;
                 }
 

@@ -55,6 +55,7 @@ namespace App.RFPSystem.Services
                 cmd.Parameters.AddWithValue("@TotalHours", item.TotalHours);
                 cmd.Parameters.AddWithValue("@TotalCost", item.TotalCost);
                 cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

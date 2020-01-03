@@ -44,13 +44,14 @@ namespace App.RFPSystem.Services
                 await con.OpenAsync();
                 SqlCommand cmd = new SqlCommand("sp_Questionnaire", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@QuestionnaireID", item.QuestionnaireID);
+                cmd.Parameters.AddWithValue("@ID", item.ID);
                 cmd.Parameters.AddWithValue("@ProposalID", item.ProposalID);
                 cmd.Parameters.AddWithValue("@Area", item.Area);
                 cmd.Parameters.AddWithValue("@Question", item.Question);
                 cmd.Parameters.AddWithValue("@Answer", item.Answer);
                 cmd.Parameters.AddWithValue("@Remarks", item.Remarks);
-                cmd.Parameters.AddWithValue("@Status", item.QuestionnaireID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

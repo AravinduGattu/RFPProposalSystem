@@ -12,7 +12,7 @@ namespace Application.RFPSystem.Controllers
 {
     [Authorize]
     [ApiController]
-    public class QuestionnaireController : ControllerBase
+    public class QuestionnaireController : BaseController
     {
         [Route("api/V1/Questionnaire/GetList")]
         [HttpGet]
@@ -44,6 +44,7 @@ namespace Application.RFPSystem.Controllers
                 bool status = false;
                 using (ISyncQuestionnaire service = new QuestionnaireService())
                 {
+                    item.CreatedBy = item.ModifiedBy = UserID;
                     status = await service.Save(item) > 0;
                 }
 
