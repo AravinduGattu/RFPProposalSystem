@@ -35,6 +35,25 @@ export const Streams = [
   }
 ]
 
+export const TaskStatus = [
+  {
+    statusId: 1,
+    status: 'Yet to start'
+  },
+  {
+    statusId: 2,
+    status: 'Inprogress'
+  },
+  {
+    statusId: 3,
+    status: 'Completed'
+  },
+  {
+    statusId: 4,
+    status: 'Review'
+  }
+]
+
 export const MileStones = [
   {
     mileStoneId: 1,

@@ -55,7 +55,7 @@
           </mat-form-field>
         </div>
         <div class="col-lg-3">
-          <mat-label> Practice Type <label>*</label></mat-label>
+          <mat-label> Practice Name <label>*</label></mat-label>
           <mat-form-field appearance="outline">
             <mat-select matinput formControlName="practiceType" required (selectionChange)="streamChange($event.value)">
               <mat-option *ngFor="let data of practiceTypes" value="{{data.streamId}}">{{data.streamName}}</mat-option>
@@ -71,7 +71,7 @@
           </mat-form-field>
         </div>
         <div class="col-lg-3">
-          <mat-label>Point Of Contact</mat-label>
+          <mat-label>Sales point of contact</mat-label>
           <mat-form-field appearance="outline">
             <input matInput formControlName="poc" maxlength="5">
           </mat-form-field>
@@ -94,18 +94,18 @@
             <mat-datepicker #submissionPicker></mat-datepicker>
           </mat-form-field>
         </div>
+      </div>
+      <div class="row">
         <div class="col-lg-6">
           <mat-label>Scope</mat-label>
           <mat-form-field appearance="outline">
-            <textarea rows="1" matInput multiline formControlName="scope" maxlength="250"></textarea>
+            <textarea rows="3" matInput multiline formControlName="scope" maxlength="250"></textarea>
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
           <mat-label>Description</mat-label>
           <mat-form-field appearance="outline">
-            <textarea rows="1" matInput multiline formControlName="description" maxlength="250"></textarea>
+            <textarea rows="3" matInput multiline formControlName="description" maxlength="250"></textarea>
           </mat-form-field>
         </div>
       </div>

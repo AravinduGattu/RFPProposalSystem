@@ -19,7 +19,7 @@ export class ProposalsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  displayedColumns = ['requestCode', 'title', 'requestType', 'status', 'scope', 'rfpUser'];
+  displayedColumns = ['requestCode', 'title', 'requestType', 'status', 'rfpUser'];
 
 
   constructor(private router: Router,

@@ -5,7 +5,7 @@ import { ProposalService } from '../proposal.service';
 import { stepsForDL, stepsForPRL, stepsForPUL, stepsForSL, RFPMockupData, scheduleDetails, stepsForDLComplete } from '../../global/MockupConstants';
 import { SessionService } from '../../global/session.service';
 import { CommonService } from '../../services/common.service';
-import { RequestTypes, Streams, MileStones } from '../../global/constants';
+import { RequestTypes, Streams, MileStones, TaskStatus } from '../../global/constants';
 import { ProposalUsers, Session } from '../../global/enum';
 import { NotificationService } from '../../services/notification.service';
 
@@ -25,6 +25,7 @@ export class PlannerViewComponent implements OnInit {
   requestTypes: any;
   practiceTypes: any;
   practiceLeads: any;
+  taskStatus: any;
   locations: any;
   Leads: any;
   
@@ -91,6 +92,7 @@ export class PlannerViewComponent implements OnInit {
     this.requestTypes = RequestTypes;
     this.practiceTypes = Streams;
     this.mileStones = MileStones;
+    this.taskStatus = TaskStatus;
     this.getProposalTracking();
     this.createForms();
     this.getLocations();
@@ -348,13 +350,13 @@ export class PlannerViewComponent implements OnInit {
     this.pricingForm.removeAt(index);
   }
 
-  fileInput(event: any, index: number) {
+  fileInput(formName: any, event: any, index: number) {
     const file = event.target.files[0];
     const fileName = file.name;
     const fileExt = fileName.split('.').pop();
     const fileType = file.type;
 
-    const control = (<FormArray>this.formDocuments.controls['documents']).at(index);
+    const control = (<FormArray>this.formDocuments.controls[formName]).at(index);
     control['controls'].documentName.setValue(fileName);
     control['controls'].documentExt.setValue(fileExt);
     control['controls'].documentType.setValue(fileType);

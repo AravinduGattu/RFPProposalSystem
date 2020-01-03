@@ -226,21 +226,13 @@ mat-panel-description {
 /*Ends Journey1 Section*/
 
 /*Schedule Section*/
-.scheduleSection th:nth-child(6) {
+.scheduleSection th:nth-child(7) {
   border: none;
   background-color: transparent;
 }
 
-.scheduleSection td:nth-child(6) {
+.scheduleSection td:nth-child(7) {
   border: none;
-}
-
-.scheduleSection th:nth-child(2) {
-  width: 100px;
-}
-
-.scheduleSection td:nth-child(2) {
-  width: 100px;
 }
 
 .scheduleSection th:nth-child(3) {
@@ -256,6 +248,14 @@ mat-panel-description {
 }
 
 .scheduleSection td:nth-child(4) {
+  width: 100px;
+}
+
+.scheduleSection th:nth-child(5) {
+  width: 100px;
+}
+
+.scheduleSection td:nth-child(5) {
   width: 100px;
 }
 

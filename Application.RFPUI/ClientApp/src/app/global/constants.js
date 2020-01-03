@@ -34,6 +34,24 @@ exports.Streams = [
         streamName: 'Emerging Tech'
     }
 ];
+exports.TaskStatus = [
+    {
+        statusId: 1,
+        status: 'Yet to start'
+    },
+    {
+        statusId: 2,
+        status: 'Inprogress'
+    },
+    {
+        statusId: 3,
+        status: 'Completed'
+    },
+    {
+        statusId: 4,
+        status: 'Review'
+    }
+];
 exports.MileStones = [
     {
         mileStoneId: 1,

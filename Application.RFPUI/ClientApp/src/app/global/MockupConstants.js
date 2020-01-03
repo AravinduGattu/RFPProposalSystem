@@ -157,7 +157,7 @@ exports.RFPMockupData = [
 exports.scheduleDetails = [
     {
         "scheduleID": 1,
-        "status": "Yes",
+        "status": "3",
         "milestone": "1",
         "scheduleStartDate": "2019-10-18T18:30:00.000Z",
         "scheduleEndDate": "2019-10-20T18:30:00.000Z",
@@ -165,7 +165,7 @@ exports.scheduleDetails = [
     },
     {
         "scheduleID": 2,
-        "status": "Yes",
+        "status": "3",
         "milestone": "2",
         "scheduleStartDate": "2019-10-21T18:30:00.000Z",
         "scheduleEndDate": "2019-10-23T18:30:00.000Z",
@@ -173,7 +173,7 @@ exports.scheduleDetails = [
     },
     {
         "scheduleID": 3,
-        "status": "Yes",
+        "status": "3",
         "milestone": "3",
         "scheduleStartDate": "2019-10-21T18:30:00.000Z",
         "scheduleEndDate": "2019-10-23T18:30:00.000Z",
@@ -181,7 +181,7 @@ exports.scheduleDetails = [
     },
     {
         "scheduleID": 3,
-        "status": "Inprogress",
+        "status": "2",
         "milestone": "5",
         "scheduleStartDate": "2019-10-21T18:30:00.000Z",
         "scheduleEndDate": "2019-10-23T18:30:00.000Z",
@@ -189,7 +189,7 @@ exports.scheduleDetails = [
     },
     {
         "scheduleID": 4,
-        "status": "No",
+        "status": "1",
         "milestone": "6",
         "scheduleStartDate": "2019-10-21T18:30:00.000Z",
         "scheduleEndDate": "2019-10-23T18:30:00.000Z",

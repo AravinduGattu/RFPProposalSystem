@@ -23,7 +23,7 @@
     </div>
     <div class="col-lg-10 col-md-10">
       <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel [expanded]="true">
           <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
             <mat-panel-title>Proposal : {{proposaldata.opportunityName}} ({{proposaldata.rfpCode}})</mat-panel-title>
             <mat-panel-description>Submission Date : {{proposaldata.rfpSubmissionDate | date: 'dd/MM/yyyy'}}</mat-panel-description>
@@ -107,7 +107,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-3">
-                  <mat-label> Practice Type <label>*</label></mat-label>
+                  <mat-label> Practice Name <label>*</label></mat-label>
                   <mat-form-field appearance="outline">
                     <mat-select matinput formControlName="practiceID" required readonly (selectionChange)="streamChange($event.value)">
                       <mat-option *ngFor="let data of practiceTypes" value="{{data.streamId}}">{{data.streamName}}</mat-option>
@@ -123,7 +123,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-3">
-                  <mat-label>Point Of Contact</mat-label>
+                  <mat-label>Sales point of contact</mat-label>
                   <mat-form-field appearance="outline">
                     <input matInput formControlName="poc" maxlength="5">
                   </mat-form-field>
@@ -146,18 +146,18 @@
                     <mat-datepicker #submissionPicker></mat-datepicker>
                   </mat-form-field>
                 </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <mat-label>Description</mat-label>
+                  <mat-form-field appearance="outline">
+                    <textarea rows="3" matInput multiline formControlName="description" maxlength="250"></textarea>
+                  </mat-form-field>
+                </div>
                 <div class="col-lg-6">
                   <mat-label>Scope</mat-label>
                   <mat-form-field appearance="outline">
-                    <textarea rows="1" matInput multiline formControlName="scope" maxlength="250"></textarea>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <mat-label>Description</mat-label>
-                  <mat-form-field appearance="outline">
-                    <textarea rows="1" matInput multiline formControlName="description" maxlength="250"></textarea>
+                    <textarea rows="3" matInput multiline formControlName="scope" maxlength="250"></textarea>
                   </mat-form-field>
                 </div>
               </div>
@@ -175,7 +175,7 @@
                 <div class="timestamp">
                   <span class="date">{{item.scheduleEndDate  | date: 'dd/MM/yyyy'}}</span>
                 </div>
-                <div class="status" [ngClass]="{'no': item.status === 'No', 'inProgress': item.status === 'Inprogress' }">
+                <div class="status" [ngClass]="{'no': item.status === '1', 'inProgress': item.status === '2' }">
                   <span>{{getMilestoneName(item.milestone)}}</span>
                 </div>
               </div>
@@ -190,6 +190,7 @@
                   <table>
                     <thead>
                       <tr>
+                        <th>S.No</th>
                         <th>Milestone</th>
                         <th>Start Date</th>
                         <th>End Date</th>
@@ -200,6 +201,9 @@
                     </thead>
                     <tbody formArrayName="schedule" *ngFor="let X of formSchedule.get('schedule')['controls']; let i = index;">
                       <tr [formGroupName]="i">
+                        <td>
+                          <label>{{i+1}}</label>
+                        </td>
                         <td>
                           <mat-form-field>
                             <!--<input matInput formControlName="milestone" required maxlength="100">-->
@@ -225,9 +229,11 @@
                         <td>
                           <mat-form-field>
                             <mat-select matinput formControlName="status" required>
-                              <mat-option value="Yes">Yes</mat-option>
+                              <!--<mat-option value="Yet to Start">Yet to Start</mat-option>
                               <mat-option value="Inprogress">Inprogress</mat-option>
-                              <mat-option value="No">No</mat-option>
+                              <mat-option value="Review">Review</mat-option>
+                              <mat-option value="Completed">Completed</mat-option>-->
+                              <mat-option *ngFor="let data of taskStatus" value="{{data.statusId}}">{{data.status}}</mat-option>
                             </mat-select>
                           </mat-form-field>
                         </td>
@@ -349,7 +355,7 @@
                             <div class="docLabel">
                               <input matInput placeholder="Upload Document" formControlName="documentName" required readonly maxlength="50" class="hidden">
                               <label>{{ X.get('documentName').value || 'No file choosen' }}</label>
-                              <input type="file" (change)="fileInput($event, i)" id="file+{{i}}" class="hidden" />
+                              <input type="file" (change)="fileInput(doc.docForm, $event, i)" id="file+{{i}}" class="hidden" />
                             </div>
                             <div class="documentImg">
                               <label for="file+{{i}}"><img src="{{getDocumentImage(X.get('documentExt').value || 'new')}}" alt="Document Here"></label>

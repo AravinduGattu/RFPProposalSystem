@@ -79,4 +79,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  forgotCredentials() {
+    alert('This feature is not implemented yet !!');
+  }
+
 }
