@@ -12,11 +12,12 @@ export class ProposalService {
     return this.httpService.makeGetRequest('Proposals/GetGrid');
   }
 
-  public getProposalDetails(RFPCode: any): Observable<any> {
-    return this.httpService.makeGetRequest('GetProposals?requestID=' + RFPCode);
+  public getProposalDetails(ID: any): Observable<any> {
+    return this.httpService.makeGetRequest('Proposals/GetList?ProposalId=' + ID);
+    //return this.httpService.makeGetRequest('GetProposals?requestID=' + RFPCode);
   }
 
   public addProposal(proposalData: any): Observable<any> {
-    return this.httpService.makePostRequestforFormData('CreateProposal', proposalData);
+    return this.httpService.makePostRequest('Proposals/Save', proposalData);
   }
 }

@@ -1,0 +1,17 @@
+<div class="pricingSection">
+  <div>
+    <button class="btn btn-sm btn-success" type="submit" (click)="save()">Save</button>
+  </div>
+  <br/>
+  <div>
+    <ag-grid-angular style="width: 100%; height: calc(100vh - 400px);"
+                     class="ag-theme-balham"
+                     [rowData]="rowData"
+                     [columnDefs]="columnDefs"
+                      [gridOptions]="gridOptionsPricing"
+                      [suppressRowTransform]=true>
+    </ag-grid-angular>
+  </div>
+  
+</div>
+

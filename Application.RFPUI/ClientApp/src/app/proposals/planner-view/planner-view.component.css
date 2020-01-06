@@ -373,7 +373,7 @@ h5 .material-icons {
 
 /* Pricing Section */
 
-.pricingSection
+/*.pricingSection
 ::ng-deep .mat-form-field-underline {
   display: none;
 }
@@ -390,7 +390,7 @@ h5 .material-icons {
 
 .pricingSection td:nth-child(9) {
   border: none;
-}
+}*/
 /* Pricing Section */
 
 /*Table with Mat-Fields*/

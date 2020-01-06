@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 
 body {
   font-size: 12px !important;
@@ -151,4 +153,21 @@ mat-label label {
 
 .bold {
   font-weight: 600;
+}
+
+
+/* AG-GRID*/
+
+.custom-ag-header {
+  padding: 10px !important;
+  line-height: 20px !important;
+  background: #00163b;
+  color: white;
+}
+
+.custom-ag-header .ag-fresh .ag-header-icon {
+  color: #fff;
+  stroke: none;
+  fill: #fff;
+  background: #414141;
 }

@@ -7,6 +7,12 @@ import { AngularMaterialModule } from './core/AngularMaterialModule';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ChartsModule } from 'ng2-charts';
+import { AgGridModule } from 'ag-grid-angular';
+
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+
+import { MyDateAdapter } from '../app/core/DateAdapter';
+import { MY_DATE_FORMATS } from '../app/global/constants';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -41,6 +47,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { PlannerViewComponent } from './proposals/planner-view/planner-view.component';
 import { LocationsComponent } from './administration/locations/locations.component';
 import { MilestonesComponent } from './administration/milestones/milestones.component';
+import { PricingComponent } from './proposals/planner-view/pricing/pricing.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +70,8 @@ import { MilestonesComponent } from './administration/milestones/milestones.comp
     UnauthorizedComponent,
     PlannerViewComponent,
     LocationsComponent,
-    MilestonesComponent
+    MilestonesComponent,
+    PricingComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -74,7 +82,8 @@ import { MilestonesComponent } from './administration/milestones/milestones.comp
     AngularMaterialModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    AgGridModule.withComponents([])
   ],
   providers: [HttpService, ProposalService, LoginService, LoaderService, DashboardService, SessionService,
     {
@@ -91,7 +100,9 @@ import { MilestonesComponent } from './administration/milestones/milestones.comp
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    //{ provide: DateAdapter, useClass: MyDateAdapter },
+    //{ provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
   bootstrap: [AppComponent]
 })

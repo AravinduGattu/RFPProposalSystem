@@ -1,0 +1,46 @@
+.pricingSection
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.pricingSection
+::ng-deep .mat-form-field-wrapper {
+  padding: 0px;
+}
+
+.pricingSection th:nth-child(9) {
+  border: none;
+  background-color: transparent;
+}
+
+.pricingSection td:nth-child(9) {
+  border: none;
+}
+
+
+/*Table with Mat-Fields*/
+
+table mat-form-field {
+  padding: 5px;
+}
+
+th {
+  height: 30px;
+  color: white;
+  background-color: #00163b;
+  text-align: center;
+}
+
+th, td {
+  border: 1px solid black;
+}
+
+td {
+  height: 30px;
+  padding: 0px 10px;
+}
+/*Table with Mat-Fields*/
+
+  td mat-icon {
+    cursor: pointer;
+  }

@@ -25,34 +25,34 @@
       <mat-accordion>
         <mat-expansion-panel [expanded]="true">
           <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
-            <mat-panel-title>Proposal : {{proposaldata.opportunityName}} ({{proposaldata.rfpCode}})</mat-panel-title>
-            <mat-panel-description>Submission Date : {{proposaldata.rfpSubmissionDate | date: 'dd/MM/yyyy'}}</mat-panel-description>
+            <mat-panel-title>Proposal : {{proposaldata?.opportunityName}} ({{proposaldata?.rfpCode}})</mat-panel-title>
+            <mat-panel-description>Submission Date : {{proposaldata?.rfpSubmissionDate | date: 'dd/MM/yyyy'}}</mat-panel-description>
           </mat-expansion-panel-header>
           <div>
             <div class="row">
               <div class="col-lg-3">
-                <label>Customer : </label><i> {{proposaldata.customer}}</i>
+                <label>Customer : </label><i> {{proposaldata?.customer}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Location : </label><i> {{proposaldata.locationName}}</i>
+                <label>Location : </label><i> {{proposaldata?.locationName}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Practice Type : </label><i> {{proposaldata.practiceName}}</i>
+                <label>Practice Type : </label><i> {{proposaldata?.practiceName}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Practice Lead : </label><i> {{proposaldata.practiceLead}}</i>
+                <label>Practice Lead : </label><i> {{proposaldata?.practiceLead}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Created By : </label><i> {{proposaldata.createdByName}}</i>
+                <label>Created By : </label><i> {{proposaldata?.createdByName}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Created Date : </label><i> {{proposaldata.createdDate | date: 'dd/MM/yyyy'}}</i>
+                <label>Created Date : </label><i> {{proposaldata?.createdDate | date: 'dd/MMM/yyyy'}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Modified By : </label><i> {{proposaldata.modifiedByName}}</i>
+                <label>Modified By : </label><i> {{proposaldata?.modifiedByName}}</i>
               </div>
               <div class="col-lg-3">
-                <label>Modified Date : </label><i> {{proposaldata.modifiedDate | date: 'dd/MM/yyyy'}}</i>
+                <label>Modified Date : </label><i> {{proposaldata?.modifiedDate | date: 'dd/MMM/yyyy'}}</i>
               </div>
             </div>
           </div>
@@ -355,10 +355,10 @@
                             <div class="docLabel">
                               <input matInput placeholder="Upload Document" formControlName="documentName" required readonly maxlength="50" class="hidden">
                               <label>{{ X.get('documentName').value || 'No file choosen' }}</label>
-                              <input type="file" (change)="fileInput(doc.docForm, $event, i)" id="file+{{i}}" class="hidden" />
+                              <input type="file" (change)="fileInput(doc.docForm, $event, i)" id="file{{z}}{{i}}" class="hidden" />
                             </div>
                             <div class="documentImg">
-                              <label for="file+{{i}}"><img src="{{getDocumentImage(X.get('documentExt').value || 'new')}}" alt="Document Here"></label>
+                              <label for="file{{z}}{{i}}"><img src="{{getDocumentImage(X.get('documentExt').value || 'new')}}" alt="Document Here"></label>
                             </div>
                             <div class="docDownload">
                               <button *ngIf="X.get('documentId').value > 0" class="btn btn-default btn-sm" type="button" (click)="downloadFile(X.value)">Download</button>
@@ -454,82 +454,78 @@
         </mat-tab>
         <mat-tab label="Pricing">
           <div class="proposalTab">
-            <div class="pricingSection">
-              <form id="proposalPricing" [formGroup]="formPricing">
-                <div>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>S.No</th>
-                        <th>Role</th>
-                        <th>Description</th>
-                        <th>Count</th>
-                        <th>Allocation</th>
-                        <th>Location</th>
-                        <th>Total Hours</th>
-                        <th>Total Cost</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody formArrayName="pricing" *ngFor="let X of formPricing.get('pricing')['controls']; let i = index;">
-                      <tr [formGroupName]="i">
-                        <td>
-                          <label>{{i+1}}</label>
-                        </td>
-                        <td>
-                          <mat-form-field>
-                            <input matInput formControlName="role" required maxlength="50">
-                          </mat-form-field>
-                        </td>
-                        <td>
-                          <mat-form-field>
-                            <input matInput formControlName="description" required maxlength="50">
-                          </mat-form-field>
-                        </td>
-                        <td>
-                          <mat-form-field>
-                            <input matInput formControlName="count" required maxlength="50">
-                          </mat-form-field>
-                        </td>
-                        <td>
-                          <mat-form-field>
-                            <input matInput formControlName="allocation" required maxlength="50">
-                          </mat-form-field>
-                        </td>
-                        <td>
-                          <mat-form-field>
-                            <input matInput formControlName="location" required maxlength="50">
-                          </mat-form-field>
-                        </td>
-                        <td>
-                          <mat-form-field>
-                            <input matInput formControlName="totalHours" required maxlength="50">
-                          </mat-form-field>
-                        </td>
-                        <td>
-                          <mat-form-field>
-                            <input matInput formControlName="totalCost" required maxlength="50">
-                          </mat-form-field>
-                        </td>
-                        <td *ngIf="formPricing.get('pricing').controls.length > 1">
-                          <mat-icon class="matIconButton" (click)="removePricing(i)">remove_circle</mat-icon>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div>
-                  <div class="btn" (click)="addNewPricing()">
-                    <mat-icon>add_circle</mat-icon>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div>
-              <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
-              <button class="btn btn-info pull-right" (click)="back()">Back</button>
-            </div>
+            <!--<form id="proposalPricing" [formGroup]="formPricing">
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Role</th>
+            <th>Description</th>
+            <th>Count</th>
+            <th>Allocation</th>
+            <th>Location</th>
+            <th>Total Hours</th>
+            <th>Total Cost</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody formArrayName="pricing" *ngFor="let X of formPricing.get('pricing')['controls']; let i = index;">
+          <tr [formGroupName]="i">
+            <td>
+              <label>{{i+1}}</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput formControlName="role" required maxlength="50">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput formControlName="description" required maxlength="50">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput formControlName="count" required maxlength="50">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput formControlName="allocation" required maxlength="50">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput formControlName="location" required maxlength="50">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput formControlName="totalHours" required maxlength="50">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput formControlName="totalCost" required maxlength="50">
+              </mat-form-field>
+            </td>
+            <td *ngIf="formPricing.get('pricing').controls.length > 1">
+              <mat-icon class="matIconButton" (click)="removePricing(i)">remove_circle</mat-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="btn" (click)="addNewPricing()">
+        <mat-icon>add_circle</mat-icon>
+      </div>
+    </div>
+  </form>-->
+            <app-pricing></app-pricing>
           </div>
+          <button class="btn btn-info pull-right" (click)="back()">Back</button>
         </mat-tab>
       </mat-tab-group>
       </div>
