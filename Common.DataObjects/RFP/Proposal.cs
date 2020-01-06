@@ -29,13 +29,10 @@ namespace Common.DataObjects.RFP
         public string LocationName { get; set; }
         public string Scope { get; set; }
         public string Description { get; set; }
-        public int SubmittedBy { get; set; }
         /// <summary>
         /// Used only for display purpose
         /// </summary>
         public string SubmittedByName { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
         public DateTime RFPSubmissionDate { get; set; }
         public string POC { get; set; }
         public string AdditionalRemarks { get; set; }
