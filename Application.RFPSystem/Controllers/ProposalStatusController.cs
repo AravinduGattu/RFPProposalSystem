@@ -5,9 +5,12 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using App.RFPSystem.Services;
+using App.RFPSystem.Services.RFP;
 using Application.RulesSetup;
 using Applications.Operations;
+using Applications.Operations.RFP;
 using Common.DataObjects;
+using Common.DataObjects.RFP;
 using LiteDB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +24,7 @@ namespace Application.RFPSystem.Controllers
 {
     [Authorize]
     [ApiController]
-    public class ProposalStatusController : ControllerBase
+    public class ProposalStatusController : BaseController
     {
         [Route("api/V1/ProposalStatus/GetList")]
         [HttpGet]
@@ -53,6 +56,7 @@ namespace Application.RFPSystem.Controllers
                 bool status = false;
                 using (ISyncProposalStatus service = new ProposalStatusService())
                 {
+                    item.CreatedBy = item.ModifiedBy = UserID;
                     status = await service.Save(item) > 0;
                 }
 

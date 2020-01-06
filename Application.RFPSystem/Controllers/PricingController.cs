@@ -1,6 +1,9 @@
 ﻿using App.RFPSystem.Services;
+using App.RFPSystem.Services.RFP;
 using Applications.Operations;
+using Applications.Operations.RFP;
 using Common.DataObjects;
+using Common.DataObjects.RFP;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
@@ -12,7 +15,7 @@ namespace Application.RFPSystem.Controllers
 {
     //[Authorize]
     [ApiController]
-    public class PricingController : ControllerBase
+    public class PricingController : BaseController
     {
         [Route("api/V1/Pricing/GetList")]
         [HttpGet]
@@ -44,6 +47,7 @@ namespace Application.RFPSystem.Controllers
                 bool status = false;
                 using (ISyncPricing service = new PricingService())
                 {
+                    item.CreatedBy = item.ModifiedBy = UserID;
                     status = await service.Save(item) > 0;
                 }
 

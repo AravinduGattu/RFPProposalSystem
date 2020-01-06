@@ -8,6 +8,7 @@ using App.RFPSystem.Services;
 using Application.RulesSetup;
 using Applications.Operations;
 using Common.DataObjects;
+using Common.DataObjects.RFP;
 using LiteDB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

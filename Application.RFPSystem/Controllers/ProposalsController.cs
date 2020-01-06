@@ -1,6 +1,9 @@
 ﻿using App.RFPSystem.Services;
+using App.RFPSystem.Services.RFP;
 using Applications.Operations;
+using Applications.Operations.RFP;
 using Common.DataObjects;
+using Common.DataObjects.RFP;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
@@ -68,7 +71,7 @@ namespace Application.RFPSystem.Controllers
                     if (item.ID == 0)
                         item.CreatedBy = UserID;
 
-                    item.ModifiedBy = item.SubmittedBy = UserID;
+                    item.ModifiedBy = UserID;
 
                     status = await service.Save(item) > 0;
                 }
