@@ -85,7 +85,7 @@ export class PlannerViewComponent implements OnInit {
     this.role = +this.sessionService.getSession(Session.userRole);
 
     this.selectedTab = 5;
-    var rfpID = this.activatedRoute.snapshot.params.ID;
+    var rfpID = this.activatedRoute.snapshot.params.Id;
     //this.proposaldata = RFPMockupData.filter(data => data.id === +rfpID)[0];
     this.getProposaldata(+rfpID);
     this.scheduleData = scheduleDetails;
@@ -161,7 +161,6 @@ export class PlannerViewComponent implements OnInit {
     this.genearteDocumentsForm();
     this.genearteQuestionnaireForm();
     this.genearteAssignmentForm();
-    this.geneartePricingForm();
   }
 
   genearteBasicForm() {
@@ -313,42 +312,6 @@ export class PlannerViewComponent implements OnInit {
   removeAssignment(index: number) {
     this.assignmentForm = this.formAssignment.get('assignment') as FormArray;
     this.assignmentForm.removeAt(index);
-  }
-
-  geneartePricingForm() {
-    this.formPricing = this.formBuilder.group({
-      pricing: this.formBuilder.array([this.createPricingForm()])
-    })
-
-
-    //Temporary
-    this.addNewPricing();
-    this.addNewPricing();
-    this.addNewPricing();
-  }
-
-  createPricingForm(): FormGroup {
-    return this.formBuilder.group({
-      role: new FormControl(),
-      description: new FormControl(),
-      count: new FormControl(),
-      allocation: new FormControl(),
-      location: new FormControl(),
-      //cost: new FormControl(),
-      //rate: new FormControl(),
-      totalHours: new FormControl(),
-      totalCost: new FormControl(),
-    });
-  }
-
-  addNewPricing() {
-    this.pricingForm = this.formPricing.get('pricing') as FormArray;
-    this.pricingForm.push(this.createPricingForm());
-  }
-
-  removePricing(index: number) {
-    this.pricingForm = this.formPricing.get('pricing') as FormArray;
-    this.pricingForm.removeAt(index);
   }
 
   fileInput(formName: any, event: any, index: number) {

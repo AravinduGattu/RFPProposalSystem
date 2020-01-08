@@ -15,12 +15,25 @@ export class ProposalRequestModel {
   submittedBy: number;
   submittedByName: string;
   createdDate: Date;
+  createdBy: number;
   modifiedDate: Date;
   rfpSubmissionDate: Date;
   poc: string;
   additionalRemarks: string;
   proposalStatus: number;
   ProposalStatusName: string;
+}
+
+export class PricingModel {
+  id: number;
+  proposalID: number;
+  role: number;
+  description: string;
+  count: number;
+  allocation: number;
+  locationID: number;
+  totalHours: any;
+  totalCost: any;
 }
 
 export class ProposalDocuments {

@@ -6,6 +6,12 @@ var ProposalRequestModel = /** @class */ (function () {
     return ProposalRequestModel;
 }());
 exports.ProposalRequestModel = ProposalRequestModel;
+var PricingModel = /** @class */ (function () {
+    function PricingModel() {
+    }
+    return PricingModel;
+}());
+exports.PricingModel = PricingModel;
 var ProposalDocuments = /** @class */ (function () {
     function ProposalDocuments() {
     }

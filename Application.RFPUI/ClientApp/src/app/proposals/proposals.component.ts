@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSnackBar, MatSnackBarConfig, MatProgressSpinner, MatSort } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { ProposalRequest } from '../view-models/proposal-request-view-model';
+import { ProposalRequestModel } from '../view-models/proposal-request-view-model';
 import { Router } from '@angular/router';
 import { ProposalService } from './proposal.service';
 
@@ -12,8 +12,8 @@ import { ProposalService } from './proposal.service';
 })
 export class ProposalsComponent implements OnInit {
 
-  dataSource = new MatTableDataSource<ProposalRequest>();
-  data: ProposalRequest[];
+  dataSource = new MatTableDataSource<ProposalRequestModel>();
+  data: ProposalRequestModel[];
   filterText: string;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;

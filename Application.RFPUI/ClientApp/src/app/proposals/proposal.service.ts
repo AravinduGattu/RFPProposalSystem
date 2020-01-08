@@ -14,10 +14,18 @@ export class ProposalService {
 
   public getProposalDetails(ID: any): Observable<any> {
     return this.httpService.makeGetRequest('Proposals/GetList?ProposalId=' + ID);
-    //return this.httpService.makeGetRequest('GetProposals?requestID=' + RFPCode);
   }
 
   public addProposal(proposalData: any): Observable<any> {
     return this.httpService.makePostRequest('Proposals/Save', proposalData);
+  }
+
+  //Pricing//
+  public getPricingDetails(ID: any): Observable<any> {
+    return this.httpService.makeGetRequest('Pricing/GetList?ProposalId=' + ID);
+  }
+
+  public savePricingDetails(data: any): Observable<any> {
+    return this.httpService.makePostRequest('Pricing/Save', data);
   }
 }

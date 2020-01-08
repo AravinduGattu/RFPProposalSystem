@@ -48,6 +48,13 @@ import { PlannerViewComponent } from './proposals/planner-view/planner-view.comp
 import { LocationsComponent } from './administration/locations/locations.component';
 import { MilestonesComponent } from './administration/milestones/milestones.component';
 import { PricingComponent } from './proposals/planner-view/pricing/pricing.component';
+import { BasicProposalComponent } from './proposals/planner-proposal/basic-proposal/basic-proposal.component';
+
+import { EditCellRenderNumberComponent } from './cell-render/cell-edit-renderer-number.component';
+import { EditCellRenderNumberWODecimalComponent } from './cell-render/cell-edit-renderer-without-decimal.component';
+import { DateRendererComponent } from './cell-render/date-renderer.component';
+import { DropdownEditorComponent } from './cell-render/dropdown-renderer.component';
+import { EditCellRenderComponent } from './cell-render/editcell-renderer.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +78,13 @@ import { PricingComponent } from './proposals/planner-view/pricing/pricing.compo
     PlannerViewComponent,
     LocationsComponent,
     MilestonesComponent,
-    PricingComponent
+    PricingComponent,
+    BasicProposalComponent,
+    EditCellRenderNumberComponent,
+    EditCellRenderNumberWODecimalComponent,
+    DateRendererComponent,
+    DropdownEditorComponent,
+    EditCellRenderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -83,7 +96,13 @@ import { PricingComponent } from './proposals/planner-view/pricing/pricing.compo
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     ChartsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents(
+      [EditCellRenderNumberComponent,
+      EditCellRenderNumberWODecimalComponent,
+      DateRendererComponent,
+      DropdownEditorComponent,
+        EditCellRenderComponent]
+    )
   ],
   providers: [HttpService, ProposalService, LoginService, LoaderService, DashboardService, SessionService,
     {

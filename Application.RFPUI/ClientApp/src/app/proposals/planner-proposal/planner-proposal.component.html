@@ -1,14 +1,6 @@
 <div class="multiColorLine"></div>
 
 <div class="page">
-  <!--<div class="banner">
-    <div class="bannerTitle1">
-      <b>New Proposal</b>
-    </div>
-    <div class="bannerTitle2">
-      <b>Please fill the form and submit to proceed !!</b>
-    </div>
-  </div>-->
   <div class="header">
     <h4>New Proposal, Please fill the details and submit to proceed !</h4>
   </div>
@@ -16,104 +8,10 @@
     <strong>Info!</strong> RFP Code will be generated based on the Opportunity Name, Customer, Location details.
   </div>
   <div class="newProposal">
-    <form id="newProposal" [formGroup]="newProposalForm">
-      <div class="row">
-        <div class="col-lg-3">
-          <mat-label>Opportunity Name <label>*</label></mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput formControlName="title" required maxlength="50">
-          </mat-form-field>
-        </div>
-        <div class="col-lg-3">
-          <mat-label>Customer <label>*</label></mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput formControlName="customer" required maxlength="50">
-          </mat-form-field>
-        </div>
-        <div class="col-lg-3">
-          <mat-label>Location <label>*</label></mat-label>
-          <mat-form-field appearance="outline">
-            <mat-select matinput formControlName="location" required>
-              <mat-option *ngFor="let data of locations" value="{{data.id}}">{{data.locationName}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-lg-3">
-          <mat-label>RFP Code</mat-label>
-          <mat-form-field appearance="outline" disabled>
-            <input matInput placeholder="RFP Code" formControlName="rfpCode" readonly maxlength="50">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-3">
-          <mat-label>Request Type <label>*</label></mat-label>
-          <mat-form-field appearance="outline">
-            <mat-select matinput formControlName="requestType" required>
-              <mat-option *ngFor="let data of requestTypes" value="{{data.requestTypeName}}">{{data.requestTypeName}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-lg-3">
-          <mat-label> Practice Name <label>*</label></mat-label>
-          <mat-form-field appearance="outline">
-            <mat-select matinput formControlName="practiceType" required (selectionChange)="streamChange($event.value)">
-              <mat-option *ngFor="let data of practiceTypes" value="{{data.streamId}}">{{data.streamName}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-lg-3">
-          <mat-label> Practice Lead <label>*</label></mat-label>
-          <mat-form-field appearance="outline">
-            <mat-select matinput formControlName="practiceLead" required>
-              <mat-option *ngFor="let data of practiceLeads" value="{{data.employeeName}}">{{data.employeeName}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-lg-3">
-          <mat-label>Sales point of contact</mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput formControlName="poc">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-3">
-          <mat-label>Released Date <label>*</label></mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="releasePicker" required readonly formControlName="requestedDate" [max]="newProposalForm.controls['submissionDate'].value">
-            <mat-datepicker-toggle matSuffix [for]="releasePicker"></mat-datepicker-toggle>
-            <mat-datepicker #releasePicker></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <div class="col-lg-3">
-          <mat-label>Submission Date <label>*</label></mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="submissionPicker" required readonly formControlName="submissionDate" [min]="newProposalForm.controls['requestedDate'].value">
-            <mat-datepicker-toggle matSuffix [for]="submissionPicker"></mat-datepicker-toggle>
-            <mat-datepicker #submissionPicker></mat-datepicker>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <mat-label>Scope</mat-label>
-          <mat-form-field appearance="outline">
-            <textarea rows="3" matInput multiline formControlName="scope" maxlength="250"></textarea>
-          </mat-form-field>
-        </div>
-        <div class="col-lg-6">
-          <mat-label>Description</mat-label>
-          <mat-form-field appearance="outline">
-            <textarea rows="3" matInput multiline formControlName="description" maxlength="250"></textarea>
-          </mat-form-field>
-        </div>
-      </div>
-    </form>
+    <app-basic-proposal [new]="true"></app-basic-proposal>
   </div>
   
   <div class="margin15">
-    <button class="btn btn-success pull-right" type="submit" (click)="submit()">Submit</button>
     <button class="btn btn-danger pull-left" (click)="back()">Back</button>
   </div>
 </div>

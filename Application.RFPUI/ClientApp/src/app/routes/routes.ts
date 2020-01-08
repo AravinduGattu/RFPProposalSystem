@@ -50,7 +50,7 @@ export const newProposalRoutes = [
 
 export const viewProposalRoutes = [
   {
-    path: 'view/:ID',
+    path: 'view/:Id',
     component: PlannerViewComponent,
     canActivate: [RouteGuardService],
     data: {

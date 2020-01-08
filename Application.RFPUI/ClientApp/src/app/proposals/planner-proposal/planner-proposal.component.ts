@@ -106,19 +106,15 @@ export class PlannerProposalComponent implements OnInit {
       this.newRequest.practiceLead = newProposalData.practiceLead;
       this.newRequest.customer = newProposalData.customer;
       this.newRequest.locationID = newProposalData.location;
-      //this.newRequest.locationName = newProposalData.
       this.newRequest.scope = newProposalData.scope;
       this.newRequest.description = newProposalData.description;
-      //this.newRequest.submittedBy = newProposalData.
-      //this.newRequest.submittedByName = newProposalData.
       this.newRequest.createdDate = new Date();
       this.newRequest.modifiedDate = new Date();
       this.newRequest.rfpSubmissionDate = new Date(newProposalData.submissionDate);
       this.newRequest.poc = newProposalData.poc;
-      this.newRequest.additionalRemarks = '';
+      this.newRequest.additionalRemarks = newProposalData.additionalRemarks;
       this.newRequest.proposalStatus = ProposalRequestType.Drafted;
-      //this.newRequest.ProposalStatusName = newProposalData.
-
+      
       //* Converting json to formdata *//
       //const newProposalFormData: FormData = new FormData();
       //newProposalFormData.append('proposalData', JSON.stringify(newProposalData));

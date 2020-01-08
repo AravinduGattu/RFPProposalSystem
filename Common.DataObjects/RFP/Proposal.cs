@@ -43,7 +43,7 @@ namespace Common.DataObjects.RFP
     public class ProposalGrid
     {
         public int ID { get; set; }
-        public string CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
         /// <summary>
         /// Used only for display purpose
         /// </summary>
