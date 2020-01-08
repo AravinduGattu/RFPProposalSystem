@@ -55,9 +55,9 @@ namespace Common.DataObjects.RFP
         public DateTime ReleaseDate { get; set; }
         public string OpportunityName { get; set; }
         public string Scope { get; set; }
-        public int Approve { get; set; }
-        public string ApproveBtnTxt { get; set; }
-        public int Reject { get; set; }
-        public string RejectBtnTxt { get; set; }
+        public int ApproveID { get; set; }
+        public string ApproveTxt { get; set; }
+        public int RejectID { get; set; }
+        public string RejectTxt { get; set; }
     }
 }

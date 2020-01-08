@@ -59,6 +59,26 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
+        [Route("api/V1/Proposals/UpdateStatus")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatus(int id, int status)
+        {
+            try
+            {
+                bool result = false;
+                using (ISyncProposal service = new ProposalService())
+                {
+                    result = await service.UpdateStatus(id, UserID, status) > 0;
+                }
+
+                return Ok(result);
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
         [Route("api/V1/Proposals/Save")]
         [HttpPost]
         public async Task<IActionResult> Save(Proposal item)

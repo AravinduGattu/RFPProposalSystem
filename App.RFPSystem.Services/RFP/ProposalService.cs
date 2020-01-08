@@ -81,10 +81,10 @@ namespace App.RFPSystem.Services.RFP
                 if (flowList.Any(y => y.ID == item.ProposalStatus && (int)y.Role == role))
                 {
                     var flowItem = flowList.FirstOrDefault(x => x.ID == item.ProposalStatus && (int)x.Role == role);
-                    item.Approve = flowItem.ApproveID;
-                    item.ApproveBtnTxt = flowItem.ApproveTxt;
-                    item.Reject = flowItem.RejectID;
-                    item.RejectBtnTxt = flowItem.RejectTxt;
+                    item.ApproveID = flowItem.ApproveID;
+                    item.ApproveTxt = flowItem.ApproveTxt;
+                    item.RejectID = flowItem.RejectID;
+                    item.RejectTxt = flowItem.RejectTxt;
                 }
             }
             return list;
