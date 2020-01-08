@@ -90,7 +90,6 @@ namespace App.RFPSystem.Services.RFP
                 cmd.Parameters.AddWithValue("@LocationID", item.LocationID);
                 cmd.Parameters.AddWithValue("@Scope", item.Scope);
                 cmd.Parameters.AddWithValue("@Description", item.Description);
-                cmd.Parameters.AddWithValue("@SubmittedBy", item.SubmittedBy);
                 cmd.Parameters.AddWithValue("@CreatedBy", item.CreatedBy);
                 cmd.Parameters.AddWithValue("@ModifiedBy", item.ModifiedBy);
                 cmd.Parameters.AddWithValue("@CreatedDate", item.CreatedDate);

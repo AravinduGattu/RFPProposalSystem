@@ -71,7 +71,7 @@ namespace Application.RFPSystem.Controllers
                     if (item.ID == 0)
                         item.CreatedBy = UserID;
 
-                    item.ModifiedBy = item.SubmittedBy = UserID;
+                    item.ModifiedBy = UserID;
 
                     status = await service.Save(item) > 0;
                 }
