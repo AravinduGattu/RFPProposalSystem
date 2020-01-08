@@ -4,16 +4,16 @@ using System.Text;
 
 namespace Common.DataObjects.RFP
 {
-    
-    public class Schedule
-    {
-        public string milestone { get; set; }
-        public DateTime scheduleStartDate { get; set; }
-        public DateTime scheduleEndDate { get; set; }
-        public string remarks { get; set; }
-    }
 
-   
+    //public class Schedule
+    //{
+    //    public string milestone { get; set; }
+    //    public DateTime scheduleStartDate { get; set; }
+    //    public DateTime scheduleEndDate { get; set; }
+    //    public string remarks { get; set; }
+    //}
+
+
     public class Proposal : AuditFields
     {
         public int ID { get; set; }
@@ -36,7 +36,7 @@ namespace Common.DataObjects.RFP
         public DateTime RFPSubmissionDate { get; set; }
         public string POC { get; set; }
         public string AdditionalRemarks { get; set; }
-        public ProposalRequestType ProposalStatus { get; set; }
+        public int ProposalStatus { get; set; }
         public string ProposalStatusName { get; set; }
     }
 
@@ -49,11 +49,15 @@ namespace Common.DataObjects.RFP
         /// </summary>
         public string CreatedByName { get; set; }
         public string RFPCode { get; set; }
-        public ProposalRequestType ProposalStatus { get; set; }
+        public int ProposalStatus { get; set; }
         public string ProposalStatusName { get; set; }
-        public string RequestType { get; set; }       
+        public string RequestType { get; set; }
         public DateTime ReleaseDate { get; set; }
         public string OpportunityName { get; set; }
         public string Scope { get; set; }
+        public int ApproveID { get; set; }
+        public string ApproveTxt { get; set; }
+        public int RejectID { get; set; }
+        public string RejectTxt { get; set; }
     }
 }

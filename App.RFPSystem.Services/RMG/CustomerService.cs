@@ -12,52 +12,55 @@ using System.Threading.Tasks;
 
 namespace App.RFPSystem.Services.RMG
 {
-    public class DesignationService : BaseService, ISyncDesignation
+    public class CustomerService : BaseService, ISyncCustomer
     {
-        string strConString = Constants.DBConnectionRMG;
-
+        string strConString = Constants.DBConnection;
+        
         public void Dispose()
         {
             //throw new NotImplementedException();
         }
 
-        public async Task<List<Designation>> GetList(int id, string code, string status, string startDate, string endDate)
+        public async Task<List<Customer>> GetList(int id, string code, string status,string name, string country, int locationid, string poc)
         {
-            _ = new List<Designation>();
+            _ = new List<Customer>();
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand(" [rmg].[sp_GetDesignationMaster]", con);
+                SqlCommand cmd = new SqlCommand(" [rmg].[sp_GetAllCustomer]", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (id > 0)
-                    cmd.Parameters.AddWithValue("@Designation_ID", id);
-                cmd.Parameters.AddWithValue("@Designation_Code", code);
-                cmd.Parameters.AddWithValue("@Designation_Status", status);
-                cmd.Parameters.AddWithValue("@Designation_StartDate", startDate);
-                cmd.Parameters.AddWithValue("@Designation_EndDate", endDate);
+                    cmd.Parameters.AddWithValue("@Customer_ID", id);
+                cmd.Parameters.AddWithValue("@Customer_Code", code);
+                cmd.Parameters.AddWithValue("@Customer_Status", status);
+                cmd.Parameters.AddWithValue("@Country", country);
+                cmd.Parameters.AddWithValue("@Customer_Name", name);
+                cmd.Parameters.AddWithValue("@Location_ID", locationid);
+                cmd.Parameters.AddWithValue("@Customer_PoC", poc);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
-            List<Designation> list = ConvertDataTable<Designation>(dt);
+            List<Customer> list = ConvertDataTable<Customer>(dt);
             return list;
         }
 
-        public async Task<int> Save(Designation item)
+        public async Task<int> Save(Customer item)
         {
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
                 SqlCommand cmd = new SqlCommand("[rmg].[sp_Department]", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Designation_ID", item.Designation_ID);
-                cmd.Parameters.AddWithValue("@Designation_Code", item.Designation_Code);
-                cmd.Parameters.AddWithValue("@Designation_Description", item.Designation_Description);
-                cmd.Parameters.AddWithValue("@Designation_Status", item.Designation_Status);
-                cmd.Parameters.AddWithValue("@Designation_StartDate", item.Designation_StartDate);
-                cmd.Parameters.AddWithValue("@Designation_EndDate", item.Designation_EndDate);
-                cmd.Parameters.AddWithValue("@Designation_Flag", item.Designation_Flag == 0 ? 1 : 2);
+                cmd.Parameters.AddWithValue("@Customer_ID", item.Customer_ID);
+                cmd.Parameters.AddWithValue("@Customer_Code", item.Customer_Code);
+                cmd.Parameters.AddWithValue("@Customer_Name", item.CreatedByName);
+                cmd.Parameters.AddWithValue("@Customer_Status", item.Customer_Status);
+                cmd.Parameters.AddWithValue("@Country", item.Country);
+                cmd.Parameters.AddWithValue("@Location_ID", item.Location_ID);
+                cmd.Parameters.AddWithValue("@Customer_PoC", item.Customer_POC);
+                cmd.Parameters.AddWithValue("@Customer_Flag", item.Customer_Flag == 0 ? 1 : 2);
                 cmd.Parameters.AddWithValue("@Delete_Flag", item.Delete_Flag == 0 ? 1 : 2);
                 cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
@@ -72,7 +75,7 @@ namespace App.RFPSystem.Services.RMG
                 SqlCommand cmd = new SqlCommand("[rmg].[sp_Delete]", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
-                cmd.Parameters.AddWithValue("@Table", "Designation");
+                cmd.Parameters.AddWithValue("@Table", "rmg.Customer_Master");
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

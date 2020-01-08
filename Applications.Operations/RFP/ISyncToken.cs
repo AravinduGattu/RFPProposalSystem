@@ -11,11 +11,8 @@ using System.Threading.Tasks;
 
 namespace Applications.Operations.RFP
 {
-    public interface ISyncPricing : IDisposable
+    public interface ISyncToken : IDisposable
     {
-        Task<List<Pricing>> GetList(int proposalId, int pricingId);
-        Task<int> Save(Pricing item);
-        Task<int> SaveList(List<Pricing> list);
-        Task<int> Delete(int id);
+        string ValidateToken(string authToken, out string token);
     }
 }

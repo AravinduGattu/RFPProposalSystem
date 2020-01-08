@@ -59,6 +59,28 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
+        [Route("api/V1/Pricing/SaveList")]
+        [HttpPost]
+        public async Task<IActionResult> SaveList(List<Pricing> list)
+        {
+            try
+            {
+                bool status = false;
+                using (ISyncPricing service = new PricingService())
+                {
+                    if (list != null && list.Count() > 0)
+                        list.ForEach(x => { x.CreatedBy = x.ModifiedBy = UserID; });                    
+                    status = await service.SaveList(list) > 0;
+                }
+
+                return Ok(status);
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
         [Route("api/V1/Pricing/Delete")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)

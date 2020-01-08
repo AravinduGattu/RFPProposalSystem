@@ -25,29 +25,29 @@ namespace Common.DataObjects
         Globalization = 3,
         EmergingTech = 4
     }
-    public enum ProposalRequestType
-    {
-        Drafted = 1,
-        //PRLApprove
-        Draft_Reviewed = 2,
-        //PRLReject
-        Draft_Rejected = 3,
-        Draft_Resubmit = 4,
-        //PULApprove
-        Solution_Created = 5,
-        //PRLApprove
-        Solution_Reviwed = 6,
-        //PRLApprove
-        Pricing_Created = 7,
-        //PRLReject
-        Solution_Rejected = 8,
-        //PRLReject
-        Solution_Resubmit = 9,
-        //SL
-        Presentation_Submited = 10,
-        //PRL 
-        Assigned_To_Delivery_Team = 11,
-        //DL
-        Accept = 12
-    }
+    //public enum ProposalRequestType
+    //{
+    //    Drafted = 1,
+    //    //PRLApprove
+    //    Draft_Reviewed = 2,
+    //    //PRLReject
+    //    Draft_Rejected = 3,
+    //    Draft_Resubmit = 4,
+    //    //PULApprove
+    //    Solution_Created = 5,
+    //    //PRLApprove
+    //    //Solution_Reviwed = 6,
+    //    //PRLApprove
+    //    Pricing_Created = 7,
+    //    //PRLReject
+    //    Solution_Rejected = 8,
+    //    //PRLReject
+    //    Solution_Resubmit = 9,
+    //    //SL
+    //    Presentation_Submited = 10,
+    //    //PRL 
+    //    Assigned_To_Delivery_Team = 11,
+    //    //DL
+    //    Accept = 12
+    //}
 }
