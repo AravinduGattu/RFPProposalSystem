@@ -31,41 +31,25 @@ namespace Application.RMGSystem.Helpers
             if (!Request.Headers.ContainsKey("AuthToken"))
                 return AuthenticateResult.Fail("Missing AuthToken Header");
 
-            var strDecrypted = "";
-            try
+            using (Applications.Operations.RFP.ISyncToken service = new App.RFPSystem.Services.RFP.TokenService())
             {
-                var strEncrypted = Request.Headers["AuthToken"];
-                strDecrypted =
-                    await Task.Run(() => Cipher.Decrypt(strEncrypted, Constants.Token));
+                string token = "";
+                var result = await Task.Run(() => 
+                    service.ValidateToken(Request.Headers["AuthToken"], out token));
+                if (!string.IsNullOrEmpty(result))
+                    return AuthenticateResult.Fail(result);
 
-                if (string.IsNullOrEmpty(strDecrypted) || strDecrypted.IndexOf("~") == -1)
-                {
-                    return AuthenticateResult.Fail("Invalid AuthToken Header");
-                }
+                var claims = new[] {
+                    new Claim("Id", token.Split('~')[0]),
+                    new Claim("Role", token.Split('~')[1]),
+                    new Claim("Name", "User"),
+                };
+                var identity = new ClaimsIdentity(claims, Scheme.Name);
+                var principal = new ClaimsPrincipal(identity);
+                var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
-                DateTime dateTime = new DateTime();
-                DateTime.TryParseExact(strDecrypted.Split('~')[1], "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime);
-                TimeSpan timeSpan = DateTime.Now.Subtract(dateTime);
-
-                if (timeSpan.Ticks < 0 || timeSpan.Minutes > 60)
-                {
-                    return AuthenticateResult.Fail("Unauthorized. Invalid Token");
-                }
+                return AuthenticateResult.Success(ticket);
             }
-            catch
-            {
-                return AuthenticateResult.Fail("Invalid AuthToken Header");
-            }
-
-            var claims = new[] {
-                new Claim("Id", strDecrypted.Split('~')[0]),
-                new Claim("Name", "User"),
-            };
-            var identity = new ClaimsIdentity(claims, Scheme.Name);
-            var principal = new ClaimsPrincipal(identity);
-            var ticket = new AuthenticationTicket(principal, Scheme.Name);
-
-            return AuthenticateResult.Success(ticket);
         }
     }
 }

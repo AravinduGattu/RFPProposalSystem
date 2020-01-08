@@ -40,7 +40,7 @@ namespace Application.RFPSystem.Controllers
 
         [Route("api/V1/Proposals/GetGrid")]
         [HttpGet]
-        public async Task<IActionResult> GetGrid(int status, int proposalId, int userId, int role)
+        public async Task<IActionResult> GetGrid(int status, int proposalId, int userId)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace Application.RFPSystem.Controllers
 
                 using (ISyncProposal service = new ProposalService())
                 {
-                    list = await service.GetGrid(status, proposalId, userId, role);
+                    list = await service.GetGrid(status, proposalId, userId, UserRoleID);
                 }
 
                 return Ok(list);

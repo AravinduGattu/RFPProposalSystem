@@ -38,11 +38,6 @@ namespace Application.RFPSystem.Controllers
                 {
                     return Unauthorized();
                 }
-
-                string str = user.ID + "~" + DateTime.Now.ToString("yyyyMMddHHmmss");
-                var strEncryptred = await Task.Run(() => Cipher.Encrypt(str, Constants.Token));
-                user.AccessKey = strEncryptred;
-
                 return Ok(user);                
             }
             catch (System.Exception ex)

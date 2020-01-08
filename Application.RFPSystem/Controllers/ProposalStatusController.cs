@@ -56,7 +56,6 @@ namespace Application.RFPSystem.Controllers
                 bool status = false;
                 using (ISyncProposalStatus service = new ProposalStatusService())
                 {
-                    item.CreatedBy = item.ModifiedBy = UserID;
                     status = await service.Save(item) > 0;
                 }
 

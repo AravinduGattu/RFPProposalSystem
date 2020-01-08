@@ -14,7 +14,7 @@ namespace App.RFPSystem.Services.RFP
 {
     public class ProposalService : BaseService, ISyncProposal
     {
-        string strConString = Constants.DBConnection;
+        readonly string strConString = Constants.DBConnection;
 
         public void Dispose()
         {
@@ -28,8 +28,10 @@ namespace App.RFPSystem.Services.RFP
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_RFPGETProposalDetails", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("sp_RFPGETProposalDetails", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
                 if (proposalId > 0)
                     cmd.Parameters.AddWithValue("@ID", proposalId);
                 if (status > 0)
@@ -42,20 +44,25 @@ namespace App.RFPSystem.Services.RFP
                 da.Fill(dt);
             }
             list = ConvertDataTable<Proposal>(dt);
-            list.ForEach(x => x.PracticeName = ((Stream)x.PracticeID).ToString());
-            list.ForEach(x => x.ProposalStatusName = ((ProposalRequestType)x.ProposalStatus).ToString());            
+            list.ForEach(x => x.PracticeName = x.PracticeID.ToString());
             return list;
         }
 
         public async Task<List<ProposalGrid>> GetGrid(int status, int proposalId, int userId, int role)
         {
+            ProposalFlowService service = new ProposalFlowService();
+            //Filter records by current user role
+            var flowList = await service.GetList();
+
             List<ProposalGrid> list = new List<ProposalGrid>();
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_RFPGETProposalDetails", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("sp_RFPGETProposalDetails", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
                 if (proposalId > 0)
                     cmd.Parameters.AddWithValue("@ID", proposalId);
                 if (status > 0)
@@ -68,8 +75,35 @@ namespace App.RFPSystem.Services.RFP
                 da.Fill(dt);
             }
             list = ConvertDataTable<ProposalGrid>(dt);
-            list.ForEach(x => x.ProposalStatusName = ((ProposalRequestType)x.ProposalStatus).ToString());
+
+            foreach (var item in list)
+            {                
+                if (flowList.Any(y => y.ID == item.ProposalStatus && (int)y.Role == role))
+                {
+                    var flowItem = flowList.FirstOrDefault(x => x.ID == item.ProposalStatus);
+                    item.Approve = flowItem.ApproveID;
+                    item.ApproveBtnTxt = flowItem.ApproveTxt;
+                    item.Reject = flowItem.RejectID;
+                    item.RejectBtnTxt = flowItem.RejectTxt;
+                }
+            }
             return list;
+        }
+
+        public async Task<int> UpdateStatus(int proposalID, int userID, int status)
+        {
+            using (SqlConnection con = new SqlConnection(strConString))
+            {
+                await con.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_RFPProposalStatus", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.AddWithValue("@ID", proposalID);
+                cmd.Parameters.AddWithValue("@ProposalStatus", status);
+                cmd.Parameters.AddWithValue("@UserID", userID);
+                return await cmd.ExecuteNonQueryAsync();
+            }
         }
 
         public async Task<int> Save(Proposal item)
@@ -77,8 +111,10 @@ namespace App.RFPSystem.Services.RFP
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_RFPProposal", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("sp_RFPProposal", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
                 cmd.Parameters.AddWithValue("@ID", item.ID);
                 cmd.Parameters.AddWithValue("@RequestType", item.RequestType);
                 cmd.Parameters.AddWithValue("@RFPCode", item.RFPCode);

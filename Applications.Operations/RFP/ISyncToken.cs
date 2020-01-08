@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace Applications.Operations.RFP
 {
-    public interface ISyncProposalFlow : IDisposable
+    public interface ISyncToken : IDisposable
     {
-        Task<List<ProposalFlow>> GetList();
+        string ValidateToken(string authToken, out string token);
     }
 }

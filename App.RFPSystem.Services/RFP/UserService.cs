@@ -44,8 +44,10 @@ namespace App.RFPSystem.Services.RFP
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_GETUserInformationDetails", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("sp_GETUserInformationDetails", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
 
                 cmd.Parameters.AddWithValue("@EmployeeID", empId);
                 cmd.Parameters.AddWithValue("@EmailID", email);
@@ -68,28 +70,38 @@ namespace App.RFPSystem.Services.RFP
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_Authenticate", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("sp_Authenticate", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
 
                 cmd.Parameters.AddWithValue("@EmailID", email);
                 cmd.Parameters.AddWithValue("@AccessKey", accessKey);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
             }
-            return (from DataRow dr in dt.Rows
-                    select new UserInfo()
-                    {
-                        ID = Convert.ToInt32(dr["ID"]),
-                        AccessKey = null,
-                        EmailID = dr["EmailID"].ToString(),
-                        EmployeeID = dr["EmployeeID"].ToString(),
-                        EmployeeName = dr["EmployeeName"].ToString(),
-                        Environment = dr["Environment"].ToString(),
-                        LastLoginTime = Convert.ToDateTime(dr["LastLoginTime"].ToString()),
-                        LastLogoutTime = Convert.ToDateTime(dr["LastLogoutTime"].ToString()),
-                        Role = (UserRole)Convert.ToInt32(dr["Role"]),
-                        Stream = (Stream)Convert.ToInt32(dr["Stream"])
-                    }).FirstOrDefault();
+            var user = (from DataRow dr in dt.Rows
+                           select new UserInfo()
+                           {
+                               ID = Convert.ToInt32(dr["ID"]),
+                               AccessKey = null,
+                               EmailID = dr["EmailID"].ToString(),
+                               EmployeeID = dr["EmployeeID"].ToString(),
+                               EmployeeName = dr["EmployeeName"].ToString(),
+                               Environment = dr["Environment"].ToString(),
+                               LastLoginTime = Convert.ToDateTime(dr["LastLoginTime"].ToString()),
+                               LastLogoutTime = Convert.ToDateTime(dr["LastLogoutTime"].ToString()),
+                               Role = (UserRole)Convert.ToInt32(dr["Role"]),
+                               Stream = (Stream)Convert.ToInt32(dr["Stream"])
+                           }).FirstOrDefault();
+
+            if (user != null)
+            {
+                string str = DateTime.Now.ToString("yyyyMMddHHmmss") + "~" + user.ID + "~" + (int)user.Role;
+                var strEncryptred = await Task.Run(() => Cipher.Encrypt(str, Constants.Token));
+                user.AccessKey = strEncryptred;
+            }
+            return user;
         }
 
         public async Task<int> Save(UserInfo item)
