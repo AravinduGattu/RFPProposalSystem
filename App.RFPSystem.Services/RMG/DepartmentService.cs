@@ -14,8 +14,8 @@ namespace App.RFPSystem.Services.RMG
 {
     public class DepartmentService : BaseService, ISyncDepartment
     {
-        string strConString = Constants.DBConnection;
-        
+        string strConString = Constants.DBConnectionRMG;
+
         public void Dispose()
         {
             //throw new NotImplementedException();
