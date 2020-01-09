@@ -313,6 +313,7 @@
 
 .forgotC a {
   color: white;
+  cursor: pointer;
 }
 
 /*New Login Screen*/

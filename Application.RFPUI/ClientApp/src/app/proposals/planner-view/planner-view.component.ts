@@ -84,9 +84,10 @@ export class PlannerViewComponent implements OnInit {
     this.roles = ProposalUsers;
     this.role = +this.sessionService.getSession(Session.userRole);
 
-    this.selectedTab = 0;
-    var rfpCode = this.activatedRoute.snapshot.params.RfpCode;
-    this.proposaldata = RFPMockupData.filter(data => data.rfpCode === rfpCode)[0];
+    this.selectedTab = 5;
+    var rfpID = this.activatedRoute.snapshot.params.Id;
+    //this.proposaldata = RFPMockupData.filter(data => data.id === +rfpID)[0];
+    this.getProposaldata(+rfpID);
     this.scheduleData = scheduleDetails;
 
     this.requestTypes = RequestTypes;
@@ -128,13 +129,13 @@ export class PlannerViewComponent implements OnInit {
     this.practiceLeads = LeadsList;
   }
 
-  getProposaldata(RFPCode: any) {
-    this.proposalService.getProposalDetails(RFPCode).subscribe((response: any) => {
+  getProposaldata(ID: any) {
+    this.proposalService.getProposalDetails(ID).subscribe((response: any) => {
       if (response && response.length > 0) {
         this.proposaldata = response[0];
-        this.proposalTitle = this.proposaldata.title;
-        this.porposalStatus = this.proposaldata.status;
-        this.proposalBy = this.proposaldata.rfpUser;
+        //this.proposalTitle = this.proposaldata.title;
+        //this.porposalStatus = this.proposaldata.status;
+        //this.proposalBy = this.proposaldata.rfpUser;
         //this.dataLoad(this.proposaldata);
       }
     }, (error: any) => {
@@ -160,7 +161,6 @@ export class PlannerViewComponent implements OnInit {
     this.genearteDocumentsForm();
     this.genearteQuestionnaireForm();
     this.genearteAssignmentForm();
-    this.geneartePricingForm();
   }
 
   genearteBasicForm() {
@@ -314,42 +314,6 @@ export class PlannerViewComponent implements OnInit {
     this.assignmentForm.removeAt(index);
   }
 
-  geneartePricingForm() {
-    this.formPricing = this.formBuilder.group({
-      pricing: this.formBuilder.array([this.createPricingForm()])
-    })
-
-
-    //Temporary
-    this.addNewPricing();
-    this.addNewPricing();
-    this.addNewPricing();
-  }
-
-  createPricingForm(): FormGroup {
-    return this.formBuilder.group({
-      role: new FormControl(),
-      description: new FormControl(),
-      count: new FormControl(),
-      allocation: new FormControl(),
-      location: new FormControl(),
-      //cost: new FormControl(),
-      //rate: new FormControl(),
-      totalHours: new FormControl(),
-      totalCost: new FormControl(),
-    });
-  }
-
-  addNewPricing() {
-    this.pricingForm = this.formPricing.get('pricing') as FormArray;
-    this.pricingForm.push(this.createPricingForm());
-  }
-
-  removePricing(index: number) {
-    this.pricingForm = this.formPricing.get('pricing') as FormArray;
-    this.pricingForm.removeAt(index);
-  }
-
   fileInput(formName: any, event: any, index: number) {
     const file = event.target.files[0];
     const fileName = file.name;
@@ -429,11 +393,15 @@ export class PlannerViewComponent implements OnInit {
   }
 
   dataLoad() {
-    this.formBasicProposal.patchValue(this.proposaldata);
-    this.formBasicProposal.get('practiceID').setValue((this.proposaldata.practiceID).toString());
-    this.formBasicProposal.get('locationID').setValue((this.proposaldata.locationID).toString());
-    this.streamChange(this.proposaldata.practiceID);
-    this.formBasicProposal.get('practiceLead').setValue(this.proposaldata.practiceLead);
+
+    if (this.proposaldata) {
+      this.formBasicProposal.patchValue(this.proposaldata);
+      this.formBasicProposal.get('practiceID').setValue((this.proposaldata.practiceID).toString());
+      this.formBasicProposal.get('locationID').setValue((this.proposaldata.locationID).toString());
+      this.streamChange(this.proposaldata.practiceID);
+      this.formBasicProposal.get('practiceLead').setValue(this.proposaldata.practiceLead);
+    }
+    
 
 
     if (this.scheduleData.length > 0) {

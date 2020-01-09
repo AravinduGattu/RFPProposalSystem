@@ -31,6 +31,12 @@
     </mat-paginator>
     <div class="table-div">
       <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="SNo" class="container">
+          <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> S.No </mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index;">
+            <span class="sort-header">{{i+1}}</span>
+          </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="action" class="container">
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Action </mat-header-cell>
           <mat-cell *matCellDef="let element">
@@ -49,25 +55,25 @@
             <span class="sort-header">{{element.requestType}}</span>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="requestCode" class="container">
+        <ng-container matColumnDef="rfpCode" class="container">
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> RFP Code </mat-header-cell>
           <mat-cell *matCellDef="let element" class="cell">
             <!--<span class="sort-header">{{element.rfpCode}}</span>-->
-            <a fxFlexFill [routerLink]="['/app/proposals/view',element.rfpCode]" class="mat-row-link cell">
+            <a fxFlexFill [routerLink]="['/app/proposals/view',element.id]" class="mat-row-link cell">
               {{element.rfpCode}}
             </a>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="title" class="container">
+        <ng-container matColumnDef="opportunityName" class="container">
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Opportunity Name </mat-header-cell>
           <mat-cell *matCellDef="let element" class="cell">
             <span class="sort-header">{{element.opportunityName}}</span>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="status" class="container">
+        <ng-container matColumnDef="proposalStatusName" class="container">
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Status </mat-header-cell>
           <mat-cell *matCellDef="let element" class="cell">
-            <span class="sort-header">{{element.proposalStatus}}</span>
+            <span class="sort-header">{{element.proposalStatusName}}</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="scope" class="container">
@@ -76,30 +82,18 @@
             <span class="sort-header">{{element.scope}}</span>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="rfpUser" class="container">
+        <ng-container matColumnDef="createdBy" class="container">
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Created By </mat-header-cell>
           <mat-cell *matCellDef="let element" class="cell">
-            <span class="sort-header">{{element.createdBy}}</span>
+            <span class="sort-header">{{element.createdByName}}</span>
           </mat-cell>
         </ng-container>
-        <!--<ng-container matColumnDef="createDate" class="container">
-          <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Create Date </mat-header-cell>
+        <ng-container matColumnDef="releaseDate" class="container">
+          <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Released Date </mat-header-cell>
           <mat-cell *matCellDef="let element" class="cell">
-            <span class="sort-header">{{element.createDate | date: 'MMMM dd, yyyy hh:mm a'}}</span>
+            <span class="sort-header">{{element.releaseDate | date: 'dd-MMM-yyyy'}}</span>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="modifiedBy" class="container">
-          <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Modified By </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="cell">
-            <span class="sort-header">{{element.modifiedBy}}</span>
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="mofdifiedDate" class="container">
-          <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Mofdified Date </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="cell">
-            <span class="sort-header">{{element.mofdifiedDate | date: 'MMMM dd, yyyy hh:mm a'}}</span>
-          </mat-cell>
-        </ng-container>-->
         <mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;" class="row"></mat-row>
       </mat-table>

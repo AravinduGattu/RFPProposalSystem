@@ -1,11 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ProposalRequest = /** @class */ (function () {
-    function ProposalRequest() {
+var ProposalRequestModel = /** @class */ (function () {
+    function ProposalRequestModel() {
     }
-    return ProposalRequest;
+    return ProposalRequestModel;
 }());
-exports.ProposalRequest = ProposalRequest;
+exports.ProposalRequestModel = ProposalRequestModel;
+var PricingModel = /** @class */ (function () {
+    function PricingModel() {
+    }
+    return PricingModel;
+}());
+exports.PricingModel = PricingModel;
 var ProposalDocuments = /** @class */ (function () {
     function ProposalDocuments() {
     }

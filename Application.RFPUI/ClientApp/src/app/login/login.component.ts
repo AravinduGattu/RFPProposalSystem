@@ -4,6 +4,7 @@ import { Form, FormGroup, FormControl, FormBuilder, Validators } from '@angular/
 import { LoginService } from './login.service';
 import { SessionService } from '../global/session.service';
 import { Session } from '../global/enum';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-login',
@@ -66,7 +67,10 @@ export class LoginComponent implements OnInit {
       } else {
         this.isValidCredentials = false;
       }
-     });
+    },
+    error => {
+      this.isValidCredentials = false;
+    });
   }
 
   validateStorage() {

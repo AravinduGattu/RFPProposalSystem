@@ -7,6 +7,12 @@ import { AngularMaterialModule } from './core/AngularMaterialModule';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ChartsModule } from 'ng2-charts';
+import { AgGridModule } from 'ag-grid-angular';
+
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+
+import { MyDateAdapter } from '../app/core/DateAdapter';
+import { MY_DATE_FORMATS } from '../app/global/constants';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -41,6 +47,17 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { PlannerViewComponent } from './proposals/planner-view/planner-view.component';
 import { LocationsComponent } from './administration/locations/locations.component';
 import { MilestonesComponent } from './administration/milestones/milestones.component';
+import { PricingComponent } from './proposals/planner-view/pricing/pricing.component';
+import { BasicProposalComponent } from './proposals/planner-proposal/basic-proposal/basic-proposal.component';
+
+import { EditCellRenderNumberComponent } from './cell-render/cell-edit-renderer-number.component';
+import { EditCellRenderNumberWODecimalComponent } from './cell-render/cell-edit-renderer-without-decimal.component';
+import { DateRendererComponent } from './cell-render/date-renderer.component';
+import { DropdownEditorComponent } from './cell-render/dropdown-renderer.component';
+import { EditCellRenderComponent } from './cell-render/editcell-renderer.component';
+import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
+import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
+import { DialogService } from './services/dialog.service';
 
 @NgModule({
   declarations: [
@@ -63,7 +80,16 @@ import { MilestonesComponent } from './administration/milestones/milestones.comp
     UnauthorizedComponent,
     PlannerViewComponent,
     LocationsComponent,
-    MilestonesComponent
+    MilestonesComponent,
+    PricingComponent,
+    BasicProposalComponent,
+    EditCellRenderNumberComponent,
+    EditCellRenderNumberWODecimalComponent,
+    DateRendererComponent,
+    DropdownEditorComponent,
+    EditCellRenderComponent,
+    AlertDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -74,9 +100,16 @@ import { MilestonesComponent } from './administration/milestones/milestones.comp
     AngularMaterialModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    AgGridModule.withComponents(
+      [EditCellRenderNumberComponent,
+      EditCellRenderNumberWODecimalComponent,
+      DateRendererComponent,
+      DropdownEditorComponent,
+        EditCellRenderComponent]
+    )
   ],
-  providers: [HttpService, ProposalService, LoginService, LoaderService, DashboardService, SessionService,
+  providers: [HttpService, ProposalService, LoginService, LoaderService, DashboardService, SessionService, DialogService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
@@ -91,8 +124,11 @@ import { MilestonesComponent } from './administration/milestones/milestones.comp
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    //{ provide: DateAdapter, useClass: MyDateAdapter },
+    //{ provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AlertDialogComponent, ConfirmationDialogComponent]
 })
 export class AppModule { }
