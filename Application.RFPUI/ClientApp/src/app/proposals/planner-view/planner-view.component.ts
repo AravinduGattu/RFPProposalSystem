@@ -84,7 +84,7 @@ export class PlannerViewComponent implements OnInit {
     this.roles = ProposalUsers;
     this.role = +this.sessionService.getSession(Session.userRole);
 
-    this.selectedTab = 5;
+    this.selectedTab = 0;
     var rfpID = this.activatedRoute.snapshot.params.Id;
     //this.proposaldata = RFPMockupData.filter(data => data.id === +rfpID)[0];
     this.getProposaldata(+rfpID);
