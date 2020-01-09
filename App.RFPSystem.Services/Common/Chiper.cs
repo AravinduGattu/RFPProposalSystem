@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Application.RFPSystem.Controllers
+namespace App.RFPSystem.Services
 {
     public static class Cipher
     {

@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace App.RFPSystem.Services.RFP
 {
@@ -38,6 +39,52 @@ namespace App.RFPSystem.Services.RFP
                 da.Fill(dt);
             }
             return ConvertDataTable<Pricing>(dt);
+        }
+
+        public async Task<int> SaveList(List<Pricing> list)
+        {
+            var counter = 0;
+            try
+            {
+                // Create the TransactionScope to execute the commands, guaranteeing
+                // that both commands can commit or roll back as a single unit of work.
+                using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    using (SqlConnection con = new SqlConnection(strConString))
+                    {
+                        await con.OpenAsync();
+                        foreach (var item in list)
+                        {
+                            SqlCommand cmd = new SqlCommand("sp_Pricing", con)
+                            {
+                                CommandType = CommandType.StoredProcedure
+                            };
+                            cmd.Parameters.AddWithValue("@ID", item.ID);
+                            cmd.Parameters.AddWithValue("@ProposalID", item.ProposalID);
+                            cmd.Parameters.AddWithValue("@Role", item.Role);
+                            cmd.Parameters.AddWithValue("@Description", item.Description);
+                            cmd.Parameters.AddWithValue("@Count", item.Count);
+                            cmd.Parameters.AddWithValue("@Allocation", item.Allocation);
+                            cmd.Parameters.AddWithValue("@LocationID", item.LocationID);
+                            cmd.Parameters.AddWithValue("@TotalHours", item.TotalHours);
+                            cmd.Parameters.AddWithValue("@TotalCost", item.TotalCost);
+                            cmd.Parameters.AddWithValue("@Status", item.ID == 0 ? 1 : 2);
+                            cmd.Parameters.AddWithValue("@UserID", item.CreatedBy);
+                            await cmd.ExecuteNonQueryAsync();
+                            counter++;
+                        }
+                    }
+                    // The Complete method commits the transaction. If an exception has been thrown,
+                    // Complete is not  called and the transaction is rolled back.
+                    scope.Complete();
+                    //scope.Dispose();
+                }
+            }
+            catch (TransactionAbortedException ex)
+            {
+                return 0;
+            }
+            return counter;
         }
 
         public async Task<int> Save(Pricing item)

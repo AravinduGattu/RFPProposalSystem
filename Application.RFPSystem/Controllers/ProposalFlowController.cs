@@ -33,26 +33,5 @@ namespace Application.RFPSystem.Controllers
                 return Ok(ex.Message);
             }
         }
-
-        [Route("api/V1/ProposalFlow/Save")]
-        [HttpPost]
-        public async Task<IActionResult> Save(ProposalFlow item)
-        {
-            try
-            {
-                bool status = false;
-                using (ISyncProposalFlow service = new ProposalFlowService())
-                {
-                    item.CreatedBy = item.ModifiedBy = 1; //UserID;
-                    status = await service.Save(item) > 0;
-                }
-
-                return Ok(status);
-            }
-            catch (System.Exception ex)
-            {
-                return Ok(ex.Message);
-            }
-        }
     }
 }

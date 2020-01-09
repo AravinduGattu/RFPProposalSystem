@@ -12,11 +12,24 @@ export class ProposalService {
     return this.httpService.makeGetRequest('Proposals/GetGrid');
   }
 
-  public getProposalDetails(RFPCode: any): Observable<any> {
-    return this.httpService.makeGetRequest('GetProposals?requestID=' + RFPCode);
+  public getProposalDetails(ID: any): Observable<any> {
+    return this.httpService.makeGetRequest('Proposals/GetList?ProposalId=' + ID);
   }
 
   public addProposal(proposalData: any): Observable<any> {
-    return this.httpService.makePostRequestforFormData('CreateProposal', proposalData);
+    return this.httpService.makePostRequest('Proposals/Save', proposalData);
+  }
+
+  //Pricing//
+  public getPricingDetails(ID: any): Observable<any> {
+    return this.httpService.makeGetRequest('Pricing/GetList?ProposalId=' + ID);
+  }
+
+  public savePricingDetails(data: any): Observable<any> {
+    return this.httpService.makePostRequest('Pricing/SaveList', data);
+  }
+
+  public deletePricingDetails(id: any): Observable<any> {
+    return this.httpService.makeGetRequest('Pricing/Delete?id=' + id);
   }
 }

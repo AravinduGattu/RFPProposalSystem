@@ -41,7 +41,7 @@ exports.TaskStatus = [
     },
     {
         statusId: 2,
-        status: 'Inprogress'
+        status: 'In Progress'
     },
     {
         statusId: 3,
@@ -52,6 +52,32 @@ exports.TaskStatus = [
         status: 'Review'
     }
 ];
+exports.MY_DATE_FORMATS = {
+    parse: {
+        dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+    },
+    display: {
+        // dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+        dateInput: 'input',
+        monthYearLabel: { year: 'numeric', month: 'short' },
+        dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+        monthYearA11yLabel: { year: 'numeric', month: 'long' },
+    }
+};
+exports.Months = {
+    1: 'Jan',
+    2: 'Feb',
+    3: 'Mar',
+    4: 'Apr',
+    5: 'May',
+    6: 'Jun',
+    7: 'Jul',
+    8: 'Aug',
+    9: 'Sep',
+    10: 'Oct',
+    11: 'Nov',
+    12: 'Dec'
+};
 exports.MileStones = [
     {
         mileStoneId: 1,
