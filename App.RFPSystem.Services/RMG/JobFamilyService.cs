@@ -61,7 +61,6 @@ namespace App.RFPSystem.Services.RMG
                 cmd.Parameters.AddWithValue("@JobFamily_StartDate", item.JobFamily_StartDate);
                 cmd.Parameters.AddWithValue("@JobFamily_EndDate", item.JobFamily_EndDate);
                 cmd.Parameters.AddWithValue("@JobFamily_Flag", item.JobFamily_Flag == 0 ? 1 : 2);
-                cmd.Parameters.AddWithValue("@Delete_Flag", item.Delete_Flag == 0 ? 1 : 2);
                 cmd.Parameters.AddWithValue("@JobFamily_CreatedBy", item.CreatedBy);
                 return await cmd.ExecuteNonQueryAsync();
             }
