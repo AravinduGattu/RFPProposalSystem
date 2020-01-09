@@ -26,6 +26,10 @@ export class ProposalService {
   }
 
   public savePricingDetails(data: any): Observable<any> {
-    return this.httpService.makePostRequest('Pricing/Save', data);
+    return this.httpService.makePostRequest('Pricing/SaveList', data);
+  }
+
+  public deletePricingDetails(id: any): Observable<any> {
+    return this.httpService.makeGetRequest('Pricing/Delete?id=' + id);
   }
 }

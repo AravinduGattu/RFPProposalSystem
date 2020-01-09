@@ -1,5 +1,5 @@
 mat-tab-group {
-  height: calc(100vh - 250px)
+  height: calc(100vh - 275px)
 }
 
 ::ng-deep .mat-tab-label-active {
@@ -35,8 +35,7 @@ mat-tab-group {
 
 .proposalTab {
   overflow: auto;
-  /*height: calc(100vh - 150px);*/
-  padding: 15px;
+  padding: 10px;
 }
 
 ::ng-deep mat-tab {

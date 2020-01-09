@@ -1,16 +1,15 @@
 <div class="pricingSection">
   <div>
-    <button class="btn btn-sm btn-info" type="submit" (click)="save()">Save</button>
-    <button class="btn btn-sm btn-secondary" (click)="addNewRecord()">Add New</button>
+    <button class="btn btn-sm btn-primary" type="submit" (click)="save()">Save</button>
+    <button class="btn btn-sm btn-outline-primary" (click)="addNewRecord()">Add New</button>
+    <button class="btn btn-sm btn-outline-danger" (click)="delete()">Delete</button>
   </div>
-  <br/>
   <div>
-    <ag-grid-angular style="width: 100%; height: calc(100vh - 400px);"
+    <ag-grid-angular style="width: 100%; height: calc(100vh - 410px);"
                       class="ag-theme-balham"
                       [gridOptions]="gridOptionsPricing"
                       [suppressRowTransform]=true>
     </ag-grid-angular>
   </div>
-  
 </div>
 

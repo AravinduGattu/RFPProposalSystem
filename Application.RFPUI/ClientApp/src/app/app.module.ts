@@ -55,6 +55,9 @@ import { EditCellRenderNumberWODecimalComponent } from './cell-render/cell-edit-
 import { DateRendererComponent } from './cell-render/date-renderer.component';
 import { DropdownEditorComponent } from './cell-render/dropdown-renderer.component';
 import { EditCellRenderComponent } from './cell-render/editcell-renderer.component';
+import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
+import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
+import { DialogService } from './services/dialog.service';
 
 @NgModule({
   declarations: [
@@ -84,7 +87,9 @@ import { EditCellRenderComponent } from './cell-render/editcell-renderer.compone
     EditCellRenderNumberWODecimalComponent,
     DateRendererComponent,
     DropdownEditorComponent,
-    EditCellRenderComponent
+    EditCellRenderComponent,
+    AlertDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -104,7 +109,7 @@ import { EditCellRenderComponent } from './cell-render/editcell-renderer.compone
         EditCellRenderComponent]
     )
   ],
-  providers: [HttpService, ProposalService, LoginService, LoaderService, DashboardService, SessionService,
+  providers: [HttpService, ProposalService, LoginService, LoaderService, DashboardService, SessionService, DialogService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
@@ -123,6 +128,7 @@ import { EditCellRenderComponent } from './cell-render/editcell-renderer.compone
     //{ provide: DateAdapter, useClass: MyDateAdapter },
     //{ provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AlertDialogComponent, ConfirmationDialogComponent]
 })
 export class AppModule { }

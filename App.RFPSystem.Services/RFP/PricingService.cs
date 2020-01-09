@@ -48,7 +48,7 @@ namespace App.RFPSystem.Services.RFP
             {
                 // Create the TransactionScope to execute the commands, guaranteeing
                 // that both commands can commit or roll back as a single unit of work.
-                using (TransactionScope scope = new TransactionScope())
+                using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
                     using (SqlConnection con = new SqlConnection(strConString))
                     {

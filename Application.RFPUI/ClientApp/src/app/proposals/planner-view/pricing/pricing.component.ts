@@ -7,7 +7,7 @@ import { CommonService } from '../../../services/common.service';
 import { ProposalService } from '../../../proposals/proposal.service';
 import { PricingModel } from '../../../view-models/proposal-request-view-model';
 import { NotificationService } from '../../../services/notification.service';
-import { element } from 'protractor';
+import { DialogService } from '../../../services/dialog.service';
 
 @Component({
   selector: 'app-pricing',
@@ -31,7 +31,8 @@ export class PricingComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private commonService: CommonService,
     private proposalService: ProposalService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private dialogService: DialogService
   ) {
     this.roles = {
       '1': 'Employee',
@@ -275,14 +276,15 @@ export class PricingComponent implements OnInit {
       if (this.isRequired) {
         this.notificationService.showAlert("Please fill all required information.", "Alert !");
       } else {
-        this.updatePricings.forEach(data => {
-          this.savePricingData(data);
-        })
+        //this.updatePricings.forEach(data => {
+        //  this.savePricingData(data);
+        //})
+        this.savePricingData(this.updatePricings);
       }
     }
   }
 
-  savePricingData(data: PricingModel) {
+  savePricingData(data: PricingModel[]) {
     this.proposalService.savePricingDetails(data).subscribe((response: any) => {
       if (response && response === true) {
         this.notificationService.showSuccess('Pricing details saved', 'Success !');
@@ -295,4 +297,45 @@ export class PricingComponent implements OnInit {
     });
   }
 
+  delete() {
+    const count = this.gridOptionsPricing.api.getSelectedNodes().length;
+    if (count > 0) {
+      const dialogRef = this.dialogService.openConfirmationDialog('Are you sure, you want to delete all the selected records ?');
+
+      dialogRef.afterClosed().subscribe(data => {
+        if (data === true) {
+          this.gridOptionsPricing.api.getSelectedNodes().forEach((element, index) => {
+            if (+element.data.id < 0) {
+              this.notificationService.showSuccess('Pricing details deleted', 'Success !');
+            } else {
+              this.deletePricing(+element.data.id);
+            }
+            if (index === count - 1) {
+              this.getPricingData();
+            }
+          });
+        } else {
+
+        }
+      })
+    } else {
+      this.notificationService.showAlert('Please select atleast one record to delete', 'Alert !');
+    }
+  }
+
+
+
+  deletePricing(Id: any) {
+    this.proposalService.deletePricingDetails(Id)
+      .subscribe(response => {
+        if (response && response === true) {
+          this.notificationService.showSuccess('Pricing details deleted', 'Success !');
+        } else {
+          this.notificationService.showError('Pricing details delete failed', 'Error !');
+        }
+      },
+        error => {
+          this.notificationService.showError('Pricing details delete failed', 'Error !');
+      });
+  }
 }
