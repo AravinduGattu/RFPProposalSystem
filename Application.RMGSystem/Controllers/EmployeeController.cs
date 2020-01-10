@@ -16,19 +16,18 @@ namespace Application.RMGSystem.Controllers
 {
     [Authorize]
     [ApiController]
-    public class JobSubCategoryController : BaseController
+    public class EmployeeController: BaseController
     {
-        [Route("api/V1/JobSubCategory/GetList")]
-        [HttpGet]
-        public async Task<IActionResult> GetList(int? id, string code, string description, int jobFamilyId, int categoryId, string status, string startDate, string endDate)
+        [Route("api/V1/Employee/GetList")]
+        [HttpPost]
+        public async Task<IActionResult> GetList(Employee employee)
         {
             try
             {
-                IEnumerable<JobSubCategory> list = new List<JobSubCategory>();
-
-                using (ISyncJobSubCategory service = new JobSubCategoryService())
+                IEnumerable<Employee> list = new List<Employee>();
+                using (ISyncEmployee service = new EmployeeService())
                 {
-                    list = await service.GetList(id ?? 0, code, description, jobFamilyId, categoryId, status, startDate, endDate);
+                    list = await service.GetList(employee);
                 }
 
                 return Ok(list);
@@ -39,17 +38,17 @@ namespace Application.RMGSystem.Controllers
             }
         }
 
-        [Route("api/V1/JobSubCategory/Save")]
+        [Route("api/V1/Employee/Save")]
         [HttpPost]
-        public async Task<IActionResult> Save(JobSubCategory item)
+        public async Task<IActionResult> Save(Employee employee)
         {
             try
             {
                 bool status = false;
-                using (ISyncJobSubCategory service = new JobSubCategoryService())
+                using (ISyncEmployee service = new EmployeeService())
                 {
-                    item.CreatedBy = item.ModifiedBy = UserID.ToString();
-                    status = await service.Save(item) > 0;
+                    employee.CreatedBy = employee.ModifiedBy = UserID.ToString();
+                    status = await service.Save(employee) > 0;
                 }
 
                 return Ok(status);
@@ -60,14 +59,14 @@ namespace Application.RMGSystem.Controllers
             }
         }
 
-        [Route("api/V1/JobSubCategory/Delete")]
+        [Route("api/V1/Employee/Delete")]
         [HttpPut]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 bool status = false;
-                using (ISyncJobSubCategory service = new JobSubCategoryService())
+                using (ISyncEmployee service = new EmployeeService())
                 {
                     status = await service.Delete(id) > 0;
                 }
