@@ -30,6 +30,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.RFPSystem.Services", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.RMGSystem", "Application.RMGSystem\Application.RMGSystem.csproj", "{212E4187-1423-45C9-A484-B6CEE42CB7F6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.RMGUI", "Application.RMGUI\Application.RMGUI.csproj", "{B0BC2741-6D5C-413F-942C-CAFE8646B0B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{212E4187-1423-45C9-A484-B6CEE42CB7F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{212E4187-1423-45C9-A484-B6CEE42CB7F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{212E4187-1423-45C9-A484-B6CEE42CB7F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0BC2741-6D5C-413F-942C-CAFE8646B0B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0BC2741-6D5C-413F-942C-CAFE8646B0B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0BC2741-6D5C-413F-942C-CAFE8646B0B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0BC2741-6D5C-413F-942C-CAFE8646B0B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{39D4EB21-B33B-46BA-BE04-E5B785079D80} = {B8B5471C-2CD0-412D-A69E-66BB74A315DF}
 		{FCF9F03C-C157-4527-98FC-E2EF69C61666} = {7ACDF76B-47A6-4726-A718-49FE4660BFA4}
 		{212E4187-1423-45C9-A484-B6CEE42CB7F6} = {B8B5471C-2CD0-412D-A69E-66BB74A315DF}
+		{B0BC2741-6D5C-413F-942C-CAFE8646B0B5} = {B8B5471C-2CD0-412D-A69E-66BB74A315DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98433DFA-6BF4-4AB4-B46C-85E12C0FBE79}

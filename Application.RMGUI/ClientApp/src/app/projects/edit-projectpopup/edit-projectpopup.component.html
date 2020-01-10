@@ -1,0 +1,120 @@
+
+<form [formGroup]="projectservice.projectForm ">
+  <div class="col-md-12">
+    <div class="popheader">
+      Edit Project
+      <span style="float:right; cursor:pointer; background-color: inherit !important" (click)="onClose()"><mat-icon>clear</mat-icon></span>
+    </div>
+    </div>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4">
+
+          <mat-label>Customer Name <span style="color:red;">*</span></mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <mat-select formControlName="customer_Details">
+              <mat-option *ngFor="let cu of Customer" [value]="cu.customer_name" [disabled]="true">{{cu.customer_code}} , {{cu.customer_name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('customer_Details', 'required')">customer name is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-label>Project Code <span style="color:red;">*</span></mat-label>
+
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <input matInput [readonly]="!editable" type="text" formControlName="project_Code">
+            <mat-error *ngIf="hasError('project_Code','required')">Project Name is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-label>Project Name <span style="color:red;">*</span></mat-label>
+
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <input matInput [readonly]="!editable" type="text" formControlName="project_Name">
+            <mat-error *ngIf="hasError('project_Name','required')">Project Name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+       
+
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-label>Project Description</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <input matInput  formControlName="project_Description">
+            <mat-error *ngIf="hasError('project_Description','required')">Description is required</mat-error>
+            <mat-error *ngIf="hasError('project_Description','maxlength')">You have more than 500 characters</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+
+          <mat-label>Project Start Date</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <input matInput [readonly]="!editable" (focus)="StartDate.open()" [matDatepicker]="StartDate" formControlName="project_StartDate">
+            <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+            <mat-datepicker #StartDate></mat-datepicker>
+            <mat-error *ngIf="hasError('project_StartDate', 'required')">Project Start Date is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-label>Project End Date</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <input matInput (focus)="EndDate.open()" [min]="projectservice.projectForm.controls['project_StartDate'].value" [matDatepicker]="EndDate" formControlName="project_EndDate">
+            <mat-datepicker-toggle matSuffix [for]="EndDate"></mat-datepicker-toggle>
+            <mat-datepicker #EndDate></mat-datepicker>
+            <mat-error *ngIf="hasError('project_EndDate', 'required')">Project End Date is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-label>Location</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <mat-select formControlName="project_Location">
+              <mat-option *ngFor="let d of Location" [value]="d.city">{{d.city}} , {{d.country}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('project_LocationId', 'required')">Location Code is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-label> Billable</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <mat-select [(value)]="selected" formControlName="project_Billable">
+              <mat-option value="Yes">
+                Yes
+              </mat-option>
+              <mat-option value="No">
+                No
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('project_Billable','required')">Billing is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-label> Status</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <mat-select [(value)]="selectedoption" formControlName="project_Status">
+              <mat-option value="Active">
+                Active
+              </mat-option>
+              <mat-option value="Inactive">
+                Inactive
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('project_Status','required')">Status is required</mat-error>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+      </div>
+</form>
+
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="onUpdate()">Save</button>&nbsp;&nbsp;&nbsp;
+  <!--<button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>-->
+  <button mat-raised-button color="warn" (click)="onClose()">Cancel</button>
+</div>
+
+
+

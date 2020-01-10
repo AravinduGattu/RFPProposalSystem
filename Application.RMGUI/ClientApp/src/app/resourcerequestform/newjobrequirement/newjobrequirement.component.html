@@ -1,0 +1,88 @@
+<div class="padcla">
+  <form [formGroup]="createnewjobForm">
+    <div class="popheader">
+      Create Resource Request
+      <button style="float:right; background-color:inherit; border:none" (click)="close()"><mat-icon>clear</mat-icon></button>
+      <!--<span style="float:right; cursor:pointer; background-color: inherit !important" (click)="close()"><mat-icon>clear</mat-icon></span>-->
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-label>Resource Request Id</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput type="text" formControlName="resourcerequest_Id">
+          <mat-error *ngIf="hasError('resourcerequest_Id','required')">Project Name is required</mat-error>
+        </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-label>New Job Code</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <input matInput formControlName="newjobrequirement_code">
+            <mat-error *ngIf="hasError('newjobrequirement_code','required')">Description is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-label>New Job Id</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <input matInput type="text" formControlName="newjobrequirement_Id">
+            <mat-error *ngIf="hasError('newjobrequirement_Id','required')">Project Name is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-label>Skills</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput type="text" formControlName="skills">
+          <mat-error *ngIf="hasError('skills','required')">Project Name is required</mat-error>
+        </mat-form-field>
+        </div>
+      <div class="col-md-4">
+        <mat-label>Experience</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput type="text" formControlName="experience">
+          <mat-error *ngIf="hasError('experience','required')">Project Name is required</mat-error>
+        </mat-form-field>
+        </div>
+      <div class="col-md-4">
+        <mat-label>Position</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="position">
+          <mat-error *ngIf="hasError('position','required')">Description is required</mat-error>
+        </mat-form-field>
+      </div>
+      </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-label>Vacancies</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="vacancies">
+          <mat-error *ngIf="hasError('vacancies','required')">Description is required</mat-error>
+        </mat-form-field>
+        </div>
+      <div class="col-md-4">
+        <mat-label>Start Date</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput (focus)="jobStartDate.open()" [matDatepicker]="jobStartDate" formControlName="startdate">
+          <mat-datepicker-toggle matSuffix [for]="jobStartDate"></mat-datepicker-toggle>
+          <mat-datepicker #jobStartDate></mat-datepicker>
+          <mat-error *ngIf="hasError('startdate', 'required')">Project Start Date is required</mat-error>
+        </mat-form-field>
+        </div>
+      <div class="col-md-4">
+        <mat-label>End Date</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput (focus)="jobEndDate.open()" [matDatepicker]="jobEndDate" formControlName="enddate">
+          <mat-datepicker-toggle matSuffix [for]="jobEndDate"></mat-datepicker-toggle>
+          <mat-datepicker #jobEndDate></mat-datepicker>
+          <mat-error *ngIf="hasError('enddate', 'required')">Project End Date is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+  <div class="col-md-12">
+    <button mat-raised-button color="primary" (click)="Submit() ">Submit</button>&nbsp;&nbsp;&nbsp;
+    <!--<button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>-->
+    <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+  </div>
+</div>

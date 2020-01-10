@@ -1,0 +1,64 @@
+<div class="padcla">
+  <form [formGroup]="assignpro.addFormValues">
+    <div class="popheader">
+      Suggested Resource
+      <button style="float:right; background-color:inherit; border:none" (click)="close()"><mat-icon>clear</mat-icon></button>
+      <!--<span style="float:right; cursor:pointer; background-color: inherit !important" (click)="close()"><mat-icon>clear</mat-icon></span>-->
+    </div>
+    <div class="col-md-6">
+
+      <mat-label>Ticket No</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" type="text" formControlName="res_req_cid">
+      </mat-form-field><br />
+
+
+
+
+      <mat-label>Employee Name</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" type="text" formControlName="Emp_Name">
+      </mat-form-field><br />
+
+
+
+      <mat-label>Project Name</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" type="text" formControlName="res_req_project_name">
+      </mat-form-field><br>
+
+
+
+
+
+    </div>
+    <div class="col-md-6">
+      <mat-label>Employee ID</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" type="text" formControlName="Emp_Id">
+      </mat-form-field><br />
+
+      <mat-label>Employee Mail</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" type="text" formControlName="Email_ID">
+      </mat-form-field><br>
+
+      <mat-label>Billable Percentage (%)</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" type="text" formControlName="Billing_Percentage">
+      </mat-form-field><br>
+
+
+
+
+    </div>
+
+  </form>
+
+  <div class="col-md-12">
+
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="acceptAssignRequest()">Accept</button>&nbsp;&nbsp;&nbsp;
+    <button mat-raised-button color="warn" [mat-dialog-close]="true" (click)="rejectAssignProject()">Reject</button>
+  </div>
+  </div>
+

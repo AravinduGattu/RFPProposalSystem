@@ -1,0 +1,159 @@
+  <div class="btnbar">
+  <li style="float: left;">
+    <button mat-button routerLink="/home" style="color:white"><span class="glyphicon glyphicon-home"></span><p role="presentation">Home</p></button>
+  </li>
+  <h3 style="float: left; color:white">Projects</h3>
+  <li>
+    <button mat-button (click)="openImport()" style="color:white"><span class="glyphicon glyphicon-import"></span><p role="presentation">Import</p></button>
+  </li>
+  <li>
+    <button (click)="exportAsXLSX()" mat-button style="color:white"><span class="glyphicon glyphicon-export"></span><p role="presentation">Export</p></button>
+  </li>
+  <li>
+    <button [disabled]=disable  (click)="openDialog()" mat-button style="color:white"><span class="glyphicon glyphicon-plus"></span><p role="presentation">Add</p></button>
+  </li>
+  <li>
+    <button (click)="m_searchbar()" mat-button style="color:white"><span class="glyphicon glyphicon-search"></span><p role="presentation">Search</p></button>
+  </li>
+</div>
+  <br><br>
+  <div class="pg-assnpro" style="height: calc( 100vh - 142px)">
+      <br>
+      <div *ngIf="v_searchbar">
+        <mat-card *ngIf="v_searchbar">
+          <form [formGroup]="projectForm">
+            <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+              <input matInput placeholder="Project Name" formControlName="project_Name" id="Project_Name">
+            </mat-form-field>
+            <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+              <input matInput placeholder="Project Code" formControlName="project_Code" id="Project_Code">
+            </mat-form-field>
+            <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+              <input matInput placeholder="Project Description" formControlName="project_Description" id="Project_Description">
+            </mat-form-field>
+            <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+              <input matInput placeholder="Start Date" [matDatepicker]="StartDate" formControlName="project_StartDate">
+              <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+              <mat-datepicker #StartDate></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+              <input matInput placeholder="End Date" [matDatepicker]="EndDate" formControlName="project_EndDate">
+              <mat-datepicker-toggle matSuffix [for]="EndDate"></mat-datepicker-toggle>
+              <mat-datepicker #EndDate></mat-datepicker>
+            </mat-form-field>
+
+
+            <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+
+              <input type="text" formControlName="project_Location" placeholder="Location" matInput [matAutocomplete]="prLoc">
+            </mat-form-field>
+
+            <mat-autocomplete #prLoc="matAutocomplete" style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+
+              <mat-option *ngFor="let prloc of Location" [value]="prloc.city">{{prloc.city}}</mat-option>
+
+            </mat-autocomplete>
+
+
+            <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+              <input type="text" formControlName="customer_Details" placeholder="Customer Name" matInput [matAutocomplete]="prCust">
+            </mat-form-field>
+            <mat-autocomplete #prCust="matAutocomplete">
+              <mat-option *ngFor="let prcust of prCustomer" [value]="prcust.customer_name">{{prCust.customer_code}},{{prCust.customer_name}}</mat-option>
+            </mat-autocomplete>
+
+
+
+            <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+              <mat-label>Billable</mat-label>
+              <mat-select [(value)]="projectBillable" formControlName="project_Billable">
+                <mat-option value="Yes">
+                  Yes
+                </mat-option>
+                <mat-option value="No">
+                  No
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <hr class="cardhr">
+            <button mat-button type="submit" class="searchbtn" (click)="searchQuery()" style="color:rgb(58, 56, 56);float:right;"><span class="glyphicon glyphicon-search" style="padding-bottom:3px;"></span>&nbsp; Search</button>
+            <button mat-button class="searchbtn" (click)="OnResetSearch()" style="color:rgb(58, 56, 56);float:right;"><span class="glyphicon glyphicon-refresh" style="padding-bottom:3px;"></span>&nbsp; Reset</button>
+            <br><br>
+          </form>
+        </mat-card>
+        <hr class="cardhr">
+      </div>    
+      <div [hidden]="load==1">
+        <div [hidden]="!noData">
+          <mat-paginator #paginator
+                         [pageSize]="10"
+                         [pageSizeOptions]="[ 10, 20,50,100]"
+                         [showFirstLastButtons]="true">
+          </mat-paginator>
+        </div>
+        <mat-card>
+          <div *ngIf="noData==false">
+            <p class="not-available">NO DATA  AVAILABLE</p>
+          </div>
+          <div class="example-container mat-elevation-z8" [hidden]="!noData">
+            <table mat-table [dataSource]="data_Source" matSort>
+
+              <!-- Edit  Column -->
+              <ng-container matColumnDef="edit">
+
+                <th mat-header-cell style="width:60px; font-weight:bold" *matHeaderCellDef> </th>
+                <td mat-cell style="font-size:11.5px; width:60px;" *matCellDef="let row"><button [disabled]=disable (click)="onEdit(row)"><i class="material-icons">create</i></button></td>
+              </ng-container>
+              <!-- Employee Name Column -->
+              <ng-container matColumnDef="project_Name">
+                <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header>Project Name </th>
+                <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.project_Name}} </td>
+              </ng-container>
+              <ng-container matColumnDef="project_Code">
+                <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header>Project Code </th>
+                <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.project_Code}} </td>
+              </ng-container>
+              <!-- Designation Column -->
+              <ng-container matColumnDef="project_Description">
+                <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header>Project Description </th>
+                <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.project_Description}} </td>
+              </ng-container>
+              <!-- Department Column -->
+              <ng-container matColumnDef="project_StartDate">
+                <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header>Start Date </th>
+                <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.project_StartDate| date:'dd-MMM-yyyy'}} </td>
+              </ng-container>
+              <!-- Edge Practice Column -->
+              <ng-container matColumnDef="project_EndDate">
+                <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header>End Date</th>
+                <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.project_EndDate|date: 'dd-MMM-yyyy'}} </td>
+              </ng-container>
+              <!-- Edge Practice Column -->
+              <ng-container matColumnDef="project_Status">
+                <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header>Status </th>
+                <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.project_Status}} </td>
+              </ng-container>
+              <!-- Edge Practice Column -->
+              <ng-container matColumnDef="project_Location">
+                <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header>Location</th>
+                <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.project_Location}} </td>
+              </ng-container>
+              <!-- Edge Practice Column -->
+              <ng-container matColumnDef="project_Billable">
+                <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header>Billing </th>
+                <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.project_Billable}} </td>
+              </ng-container>
+              <ng-container matColumnDef="customer_Details">
+                <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header>Customer  </th>
+                <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.customer_Details}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+            </table>
+          </div>
+
+          <!--showFirstLastButtons-->
+        </mat-card>
+      </div>
+  </div>

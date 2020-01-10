@@ -1,0 +1,222 @@
+<form [formGroup]="resourcereqForm">
+  <div class="popheader">
+    Create Resource Request
+    <button style="float:right; background-color:inherit; border:none" (click)="close()"><mat-icon>clear</mat-icon></button>
+    <!--<span style="float:right; cursor:pointer; background-color: inherit !important" (click)="close()"><mat-icon>clear</mat-icon></span>-->
+  </div>
+
+  <!--<div class="col-md-12">
+    <mat-toolbar>
+      <mat-label style="width: 100%;color:rgb(47, 72, 131);font-size:large">{{title}} </mat-label>
+      <button style="float:right; background-color:inherit; border:none" (click)="close()"><mat-icon>clear</mat-icon></button>
+    </mat-toolbar><br /><br>
+  </div>-->
+  <!--<div class="col-md-12">
+    <mat-label style="width: 100%;color:rgb(255, 51, 51);font-size:large">{{title}} </mat-label>&nbsp;&nbsp;&nbsp;
+    <button style="float:right; background-color:inherit; border:none"><mat-icon (click)="close()">clear</mat-icon></button>
+  </div>-->
+  <div class="col-md-12">
+    <div class="row">
+
+      <div class="col-md-4">
+        <mat-label>Customer Name</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="res_req_customer_name" [matAutocomplete]="cust_name">
+          <mat-error *ngIf="hasError('res_req_customer_name','required')">Customer Name is required</mat-error>
+        </mat-form-field>
+        <!--<mat-autocomplete #cust_name="matAutocomplete" (optionSelected)="getProjectName($event)">-->
+          <mat-autocomplete #cust_name="matAutocomplete" >
+            <mat-option *ngFor="let custdrop of customers" [value]="custdrop.customer_name">{{custdrop.customer_name}}</mat-option>
+          </mat-autocomplete><br />
+      </div>
+
+
+      <div class="col-md-4">
+        <mat-label>Project Name</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="res_req_project_name" [matAutocomplete]="Project_Name">
+          <mat-error *ngIf="hasError('res_req_project_name','required')">Project Name is required</mat-error>
+        </mat-form-field><br />
+        <mat-autocomplete #Project_Name="matAutocomplete">
+          <mat-option *ngFor="let projectdrop of projectlist" [value]="projectdrop.project_Name">{{projectdrop.project_Name}}</mat-option>
+        </mat-autocomplete>
+      </div>
+
+
+
+      <div class="col-md-4">
+        <mat-label>Request For</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <mat-select [(value)]="typeReq" formControlName="res_req_request_for">
+            <mat-option value="Project">
+              Project
+            </mat-option>
+            <mat-option value="Opportunity">
+              Opportunity
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('res_req_request_for','required')">Request For is required</mat-error>
+        </mat-form-field><br>
+      </div>
+
+
+
+    </div>
+
+    <div class="row">
+
+
+      <div class="col-md-4">
+        <mat-label>No of Resources Required</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="res_req_num_res">
+          <mat-error *ngIf="hasError('res_req_num_res','required')">Number of Resources is required</mat-error>
+        </mat-form-field><br />
+      </div>
+
+
+      <div class="col-md-4">
+        <mat-label>Skill Set</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="res_req_skillset">
+          <mat-error *ngIf="hasError('res_req_skillset','required')">Skill set is required</mat-error>
+        </mat-form-field><br />
+      </div>
+
+      <div class="col-md-4">
+        <mat-label>EDGE Practice</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="res_req_practice_name">
+            <mat-option *ngFor="let e of edge" [value]="e.edge_Practice_Description">{{e.edge_Practice_Description}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('res_req_practice_name','required')">EDGE Practice  is required</mat-error>
+        </mat-form-field>
+        <br />
+      </div>
+
+
+
+
+
+    </div>
+
+    <!--<mat-label>Textarea</mat-label>
+  <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+    <textarea matInput formControlName="res_req_textarea"></textarea>
+    <mat-error *ngIf="hasError('res_req_textarea','maxlength')">You have more than 500 characters</mat-error>
+  </mat-form-field><br />-->
+    <div class="row">
+
+      <div class="col-md-4">
+        <mat-label>COE</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="res_req_COE">
+            <mat-option *ngFor="let c of coe" [value]="c.coe_Description">{{c.coe_Description}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('res_req_COE', 'required')">COE is required</mat-error>
+        </mat-form-field>
+
+
+      </div>
+
+      <div class="col-md-4">
+        <mat-label>Cost Center Code</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="res_req_ccc">
+          <mat-error *ngIf="hasError('res_req_ccc','required')">Cost Center Code is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-label>Billable</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <mat-select [(value)]="typBill" formControlName="res_req_type_of_billing">
+            <mat-option value="Yes">
+              Yes
+            </mat-option>
+            <mat-option value="No">
+              No
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('res_req_type_of_billing','required')">Billable is required</mat-error>
+        </mat-form-field><br>
+      </div>
+
+
+
+
+    </div>
+    <div class="row">
+
+      <div class="col-md-4">
+        <mat-label>Location</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <mat-select [(value)]="loc" formControlName="res_req_location">
+            <mat-option value="Onsite">
+              Onsite
+            </mat-option>
+            <mat-option value="Offsite">
+              Offsite
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('res_req_location','required')">Location is required</mat-error>
+        </mat-form-field><br />
+      </div>
+
+      <div class="col-md-4">
+        <mat-label>Category</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <mat-select [(value)]="cat" formControlName="res_req_category">
+            <mat-option value="Contract">
+              Contract
+            </mat-option>
+            <mat-option value="PayRoll">
+              PayRoll
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('res_req_category','required')">Category is required</mat-error>
+        </mat-form-field><br />
+      </div>
+
+
+
+      <div class="col-md-4">
+        <mat-label>StartDate</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput (focus)="StartDate.open()" [max]="resourcereqForm.controls['res_req_end_date'].value" [matDatepicker]="StartDate" formControlName="res_req_start_date">
+          <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+          <mat-datepicker #StartDate></mat-datepicker>
+          <mat-error *ngIf="hasError('res_req_start_date','required')">Request Start Date is required</mat-error>
+        </mat-form-field>
+      </div>
+
+
+    </div>
+    <div class="row">
+
+      <div class="col-md-4">
+        <mat-label>EndDate</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput (focus)="EndDate.open()" [min]="resourcereqForm.controls['res_req_start_date'].value" [matDatepicker]="EndDate" formControlName="res_req_end_date">
+          <mat-datepicker-toggle matSuffix [for]="EndDate"></mat-datepicker-toggle>
+          <mat-datepicker #EndDate></mat-datepicker>
+          <mat-error *ngIf="hasError('res_req_end_date','required')">Request End Date is required</mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4" style="padding:30px;">
+        <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+      </div>
+
+    </div>
+    </div>
+</form>
+
+<!--<div class="col-md-12">
+  
+</div>-->

@@ -1,0 +1,93 @@
+<div class="btnbar">
+  <li style="float: left;">
+    <button mat-button routerLink="/home" style="color:white"><span class="glyphicon glyphicon-home"></span><p role="presentation">Home</p></button>
+  </li>
+  <h3 style="float: left; color:white">COE</h3>
+  <li>
+    <button mat-button (click)="openImport()" style="color:white"><span class="glyphicon glyphicon-import"></span><p role="presentation">Import</p></button>
+  </li>
+  <li>
+    <button (click)="exportAsXLSX()" mat-button style="color:white"><span class="glyphicon glyphicon-export"></span><p role="presentation">Export</p></button>
+  </li>
+  <li>
+    <button (click)="openDialog()" mat-button style="color:white"><span class="glyphicon glyphicon-plus"></span><p role="presentation">Add</p></button>
+  </li>
+  <li>
+    <button (click)="m_searchbar()" mat-button style="color:white"><span class="glyphicon glyphicon-search"></span><p role="presentation">Search</p></button>
+  </li>
+</div>
+<br><br>
+<div class="pg-assnpro" style="height: calc( 100vh - 142px)">
+  <br>
+  <div *ngIf="v_searchbar">
+    <mat-card>
+      <form [formGroup]="coeform">
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="COE" formControlName="coe" id="coe">
+        </mat-form-field>
+
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="Start Date" [matDatepicker]="StartDate" formControlName="coeStartDate">
+          <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+          <mat-datepicker #StartDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="End Date" [matDatepicker]="EndDate" formControlName="coeEndDate">
+          <mat-datepicker-toggle matSuffix [for]="EndDate"></mat-datepicker-toggle>
+          <mat-datepicker #EndDate></mat-datepicker>
+        </mat-form-field>
+
+        <hr class="cardhr">
+        <button mat-button class="searchbtn" (click)="searchQuery()" style="color:rgb(58, 56, 56);float:right;"><span class="glyphicon glyphicon-search" style="padding-bottom:3px;"></span>&nbsp; Search</button>
+        <button mat-button class="searchbtn" (click)="OnResetSearch()" style="color:rgb(58, 56, 56);float:right;"><span class="glyphicon glyphicon-refresh" style="padding-bottom:3px;"></span>&nbsp; Reset</button>
+        <br><br>
+      </form>
+    </mat-card>
+    <hr class="cardhr">
+  </div>
+
+  <div [hidden]="load==1">
+    <mat-paginator #paginator
+                   [pageSize]="10"
+                   [pageSizeOptions]="[ 10, 20,50,100]"
+                   [showFirstLastButtons]="true">
+    </mat-paginator>
+    <mat-card>
+      <div class="tablediv">
+        <table mat-table #table [dataSource]="data_Source" matSort>
+
+          <!-- Edit  Column -->
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell style="width:60px; font-weight:bold" *matHeaderCellDef>  </th>
+            <td mat-cell style="font-size:11.5px; width:60px;" *matCellDef="let row"><button><i (click)="onEdit(row)" class="material-icons">create</i></button></td>
+          </ng-container>
+          <!-- Employee Name Column -->
+          <ng-container matColumnDef="coe">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header>COE </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.coe}} </td>
+          </ng-container>
+          <!-- Designation Column -->
+          <ng-container matColumnDef="coeStatus">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.coeStatus}} </td>
+          </ng-container>
+          <!-- Department Column -->
+          <ng-container matColumnDef="coeStartDate">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Start Date </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.coeStartDate| date:'dd-MMM-yyyy'}} </td>
+          </ng-container>
+          <!-- Edge Practice Column -->
+          <ng-container matColumnDef="coeEndDate">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> End Date </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.coeEndDate|date:'dd-MMM-yyyy'}} </td>
+          </ng-container>
+          <!-- Edge Practice Column -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+        </table>
+      </div>
+
+      <!--showFirstLastButtons-->
+    </mat-card>
+  </div>
+</div>

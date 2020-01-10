@@ -1,0 +1,91 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === true">
+    <mat-toolbar style="background-color:rgb(0,66,128) !important; color:white; font-weight:bold;">Menu</mat-toolbar>
+    <mat-nav-list>
+      <mat-expansion-panel *ngIf="userRole==='ADMIN'|| userRole==='COE'|| userRole==='DM'|| userRole==='FINANCE'|| userRole==='HR'|| userRole==='HR_ADMIN'|| userRole==='PH'|| userRole==='PM'|| userRole==='RMG'||  userRole==='TA'||  userRole==='TA_ADMIN'">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b>Resource Management</b>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!--<li routerLinkActive="active"><a routerLink="/assignProjects" role="button"> Assign Project</a></li>-->
+        <li *ngIf="userRole==='ADMIN'|| userRole==='COE'|| userRole==='DM'|| userRole==='HR_ADMIN'|| userRole==='PH'|| userRole==='PM'|| userRole==='RMG'|| userRole==='TA_ADMIN'" routerLinkActive="active"><a routerLink="/resourcereq" role="button">Resource Request</a></li>
+        <li *ngIf="userRole==='ADMIN'|| userRole==='DM'|| userRole==='PM'" routerLinkActive="active"><a routerLink="/roles" role="button">Project Roles</a></li>
+        <li *ngIf="userRole==='ADMIN'|| userRole==='COE'|| userRole==='DM'|| userRole==='HR'|| userRole==='HR_ADMIN'|| userRole==='PH'|| userRole==='PM'|| userRole==='RMG'  " routerLinkActive="active"><a routerLink="/EmpProjInfo" role="button">Employee-Project Information</a></li>
+      </mat-expansion-panel>
+      <!--<mat-expansion-panel *ngIf="false">
+        <mat-expansion-panel *ngIf="userRole==='ADMIN'|| userRole==='COE'|| userRole==='HR_ADMIN'|| userRole==='PH'||  userRole==='TA'||  userRole==='TA_ADMIN'">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b>Talent Acquisition</b>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <li routerLinkActive="active"><a routerLink="/jobdescription" role="button">Job Posting</a></li>
+        <li routerLinkActive="active"><a routerLink="/panel" role="button"> Panel</a></li>
+        <li routerLinkActive="active"><a routerLink="/applicant-profile-shortlist" role="button">Applicant Profile Review</a></li>
+        <li routerLinkActive="active"><a routerLink="/vendor" role="button">Vendor</a></li>
+        <li routerLinkActive="active"><a routerLink="/assign-panel" role="button">Assign Panel</a></li>
+        <li routerLinkActive="active"><a routerLink="/applicant" role="button">Applicant</a></li>
+        <li routerLinkActive="active"><a routerLink="/assessment/assesedit" role="button">Assessment</a></li>
+
+        <li style="border:none" routerLinkActive="active"><a routerLink="/assessment" role="button">Assessment</a></li>
+
+      </mat-expansion-panel>-->
+      <mat-expansion-panel *ngIf="userRole==='ADMIN'|| userRole==='COE'|| userRole==='DM'|| userRole==='FINANCE'|| userRole==='HR'|| userRole==='HR_ADMIN'|| userRole==='OP'|| userRole==='PH'|| userRole==='PM'|| userRole==='RMG'||  userRole==='TA'||  userRole==='TA_ADMIN'">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b>Master</b>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <li *ngIf="userRole==='ADMIN'|| userRole==='COE'|| userRole==='DM'|| userRole==='FINANCE'|| userRole==='HR'|| userRole==='HR_ADMIN'|| userRole==='OP'|| userRole==='PH'|| userRole==='PM'|| userRole==='RMG'||userRole==='TA_ADMIN'||userRole==='TA'" routerLinkActive="active"><a routerLink="/employee" role="button">Employee</a></li>
+        <li *ngIf="userRole==='ADMIN'|| userRole==='COE'|| userRole==='DM'|| userRole==='FINANCE'||  userRole==='OP'|| userRole==='PH'|| userRole==='PM'|| userRole==='RMG'||  userRole==='TA'||  userRole==='TA_ADMIN'" routerLinkActive="active"><a routerLink="/projects" role="button">Projects</a></li>
+        <li *ngIf="userRole==='ADMIN'|| userRole==='COE'|| userRole==='DM'|| userRole==='FINANCE'||  userRole==='OP'|| userRole==='PH'|| userRole==='PM'|| userRole==='RMG'||  userRole==='TA'||  userRole==='TA_ADMIN'" style="border:none" routerLinkActive="active"><a routerLink="/customers" role="button">Customers</a></li>
+      </mat-expansion-panel>
+      <mat-expansion-panel *ngIf="userRole==='ADMIN'|| userRole==='COE'|| userRole==='DM'|| userRole==='FINANCE'|| userRole==='HR'|| userRole==='HR_ADMIN'|| userRole==='OP'|| userRole==='PH'|| userRole==='PM'|| userRole==='RMG'||  userRole==='TA'||  userRole==='TA_ADMIN'">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b>Reports</b>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <li routerLinkActive="active"><a routerLink="/EmpProjectInfo" role="button">Employee-Project Info</a></li>
+        <li routerLinkActive="active"><a routerLink="/powerBI-dashboard" role="button">Power BI Dashboard</a></li>
+        <li routerLinkActive="active"><a routerLink="/deliverable" role="button">Project Deliverables Template</a></li>
+        <!--<li routerLinkActive="active"><a routerLink="/skills" role="button">Employee Skills</a></li>-->
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="userRole==='ADMIN'">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b>Admin</b>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <li routerLinkActive="active"><a routerLink="/bussinessgroup" role="button">Bussiness Group</a></li>
+        <li routerLinkActive="active"><a routerLink="/centerofexcellence" role="button">COE</a></li>
+        <li routerLinkActive="active"><a routerLink="/designation" role="button">Designation</a></li>
+        <li routerLinkActive="active"><a routerLink="/department" role="button">Department</a></li>
+
+        <li routerLinkActive="active"><a routerLink="/timesheetstemplate" role="button">Import TimeSheets</a></li>
+        <li style="border:none" routerLinkActive="active"><a routerLink="/edgepractice" role="button">Edge Practice</a></li>
+      </mat-expansion-panel>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button style="color:white !important" type="button"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span style="color:#FFB500 !important"><a href="home"><img class="logo" src="../../assets/images/TopNavLogo.png" alt="Pactera-logo"></a></span>
+      <span class="spacer"></span>
+      <a class="last-log">[User:{{employeeid}} | Last Login:{{loginfo |date:'dd-MMM-yyyy HH:mm:ss'}}]</a>
+      <a class="logout" (click)="logout()"><span class="glyphicon glyphicon-off"></span>Logout</a>
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

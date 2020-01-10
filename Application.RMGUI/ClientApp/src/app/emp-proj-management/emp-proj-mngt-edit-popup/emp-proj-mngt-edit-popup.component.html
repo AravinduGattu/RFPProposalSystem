@@ -1,0 +1,152 @@
+<div class="popheader">
+  Employee Project Management Edits
+  <span style="float:right; cursor:pointer; background-color: inherit !important" (click)="close()"><mat-icon>clear</mat-icon></span>
+</div>
+<form [formGroup]="reportService.EmpProjForm">
+
+  <!--<div class="col-md-12">
+    <mat-toolbar>
+      <mat-label style="width: 100%;color:rgb(47, 72, 131);font-size:large">{{title}} </mat-label>&nbsp;&nbsp;&nbsp;
+      <button mat-button style="float:right; background-color:inherit; border:none" (click)="close()"><mat-icon>clear</mat-icon></button>
+    </mat-toolbar><br /><br>
+  </div>-->
+  <div class="row">
+    <div class="col-md-4">
+      <mat-label>Employee Name</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" formControlName="emp_Name">
+
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-label>Employee Id</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" formControlName="emp_Id">
+
+
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-label>Project Code</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" formControlName="project_Code">
+
+      </mat-form-field>
+    </div>
+   
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+
+      <mat-label>Project Name</mat-label>
+      <!--<mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input type="text" formControlName="project_Name" matInput [matAutocomplete]="projectCode">
+        <mat-error *ngIf="hasError('project_Name', 'required')">Project Name is required</mat-error>
+        <mat-autocomplete #projectCode="matAutocomplete" (optionSelected)="GetProjectCode($event)">
+          <mat-option *ngFor="let prj of prjdroplist1;" [value]="prj.project_Name">{{prj.project_Name}}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>-->
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <mat-select formControlName="project_Name" (selectionChange)="GetProjectCode($event)">
+          <mat-option *ngFor="let prj of prjdroplist1;" [value]="prj.project_Name">{{prj.project_Name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-label>Assign Date</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput (focus)="myDatepicker.open()" [matDatepicker]="AssignDate" [readonly]="editable" formControlName="assign_Project_StartDate">
+        <mat-datepicker-toggle matSuffix [for]="AssignDate"></mat-datepicker-toggle>
+        <mat-datepicker #AssignDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-label>Release Date</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput (focus)="myDatepicker.open()" [matDatepicker]="myDatepicker" [readonly]="editable" [min]="getReleaseDate(reportService.EmpProjForm.controls['assign_Project_StartDate'].value)" formControlName="assign_Project_EndDate">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+
+
+      </mat-form-field>
+    </div>
+
+   
+
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-label>Billable</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <!--<input matInput [readonly]="editable" formControlName="billable">-->
+        <mat-select formControlName="billable">
+          <mat-option value="Yes">
+            Yes
+          </mat-option>
+          <mat-option value="No">
+            No
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-label>Billable Percentage</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="editable" formControlName="billing_Percentage">
+
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-label>Location</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <mat-select formControlName="location">
+          <mat-option *ngFor="let d of countries" [value]="d.city">{{d.city}} ,{{d.country}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+        <!--<input matInput [readonly]="editable" formControlName="location">-->
+
+    </div>
+
+
+    
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-label>Shore</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <!--<input matInput [readonly]="editable" formControlName="onsite">-->
+        <mat-select   formControlName="onsite">
+          <mat-option value="Offsite">
+            Offsite
+          </mat-option>
+          <mat-option value="Onsite">
+            Onsite
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+
+    </div>
+  </div>
+
+
+
+
+</form>
+
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="Submit()">Submit</button>&nbsp;&nbsp;&nbsp;
+  <button mat-raised-button color="warn" (click)="close()">Cancel</button>
+</div>
+

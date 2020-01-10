@@ -1,0 +1,130 @@
+<div class="btnbar">
+  <li style="float: left;">
+    <button mat-button routerLink="/home" style="color:white"><span class="glyphicon glyphicon-home"></span><p role="presentation">Home</p></button>
+  </li>
+  <h3 style="float: left;color:white">Applicant  Profile Shortlisted</h3>
+  <li>
+    <button mat-button (click)="openImport()" style="color:white"><span class="glyphicon glyphicon-import"></span><p role="presentation">Import</p></button>
+  </li>
+  <li>
+    <button (click)="exportAsXLSX()" mat-button style="color:white"><span class="glyphicon glyphicon-export"></span><p role="presentation">Export</p></button>
+  </li>
+  <li>
+    <button (click)="openPopup()" mat-button style="color:white"><span class="glyphicon glyphicon-plus"></span><p role="presentation">Add</p></button>
+  </li>
+  <li>
+    <button (click)="m_searchbar()" mat-button style="color:white"><span class="glyphicon glyphicon-search"></span><p role="presentation">Search</p></button>
+  </li>
+</div>
+<br><br>
+<div class="pg-assnpro" style="height: calc( 100vh - 128.5px)">
+  <br>
+  <div *ngIf="v_searchbar">
+    <mat-card>
+      <form [formGroup]="applicantprofilereviewForm">
+
+        <mat-form-field style="width: 250px; padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="panel Name" formControlName="panel_name" id="panel_name" [matAutocomplete]="panelname">
+          <mat-error *ngIf="hasError('panel_name', 'required')">Panel Name is required</mat-error>
+          <!--<mat-error *ngIf="hasError('Panel_name', 'maxlength')">You have more than 10 characters</mat-error-->
+
+        </mat-form-field>&nbsp;&nbsp;
+        <mat-autocomplete #panelname="matAutocomplete">
+
+          <mat-option *ngFor="let panelname of panelemp" [value]="panelname.emp_Name">{{panelname.emp_Name}}</mat-option>
+
+        </mat-autocomplete>&nbsp;&nbsp;
+
+        <mat-form-field style="width: 250px; padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="Applicant Name" formControlName="applicant_name" id="applicant_name" [matAutocomplete]="panelappname">
+          <mat-error *ngIf="hasError('applicant_name', 'required')">Applicant Name is required</mat-error>
+          <!--<mat-error *ngIf="hasError('Panel_name', 'maxlength')">You have more than 10 characters</mat-error-->
+
+        </mat-form-field>&nbsp;&nbsp;
+        <mat-autocomplete #panelappname="matAutocomplete">
+
+          <mat-option *ngFor="let panelappname of panelapp" [value]="panelappname.applicant_name">{{panelappname.applicant_name}}</mat-option>
+
+        </mat-autocomplete>&nbsp;&nbsp;
+
+
+
+
+
+        <!--<mat-form-field style="width: 250px; padding: 0% 0.8% 0% 0.8%">
+    <mat-label>Panel Status</mat-label>
+    <mat-select [(value)]="applicant_profile_status" formControlName="applicant_profile_status">
+      <mat-option value="active">
+        Active
+      </mat-option>
+      <mat-option value="inactive">
+        Inactive
+      </mat-option>
+    </mat-select>
+  </mat-form-field>-->
+
+        <mat-form-field style="width: 250px; padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="panel profile review" formControlName="panel_profile_review" id="panel_profile_review">
+          <mat-error *ngIf="hasError('panel_profile_review', 'required')">Review  is required</mat-error>
+        </mat-form-field>&nbsp;&nbsp;
+
+
+        <br><hr class="cardhr">
+        <button mat-button class="searchbtn" (click)="m_applicantprofileshortlistSearchQuery()" style="color:rgb(58, 56, 56);float:right;"><span class="glyphicon glyphicon-search" style="padding-bottom:3px;"></span>&nbsp; Search</button>
+        <button mat-button class="searchbtn" (click)="OnResetSearch()" style="color:rgb(58, 56, 56);float:right;"><span class="glyphicon glyphicon-refresh" style="padding-bottom:3px;"></span>&nbsp; Reset</button>
+        <br /><br />
+      </form>
+    </mat-card>
+    <hr>
+  </div>
+  <div [hidden]="vload==1">
+    <mat-card>
+      <mat-paginator #paginator
+                     [pageSize]="10"
+                     [pageSizeOptions]="[ 10, 20,50,100]"
+                     [showFirstLastButtons]="true">
+      </mat-paginator>
+      <div class="example-container mat-elevation-z8">
+        <mat-table [dataSource]="data_Source" matSort>
+
+          <!-- Edit Cancel Column -->
+          <ng-container matColumnDef="edit">
+            <mat-header-cell style="width:60px; font-weight:bold" *matHeaderCellDef>  </mat-header-cell>
+            <mat-cell style="font-size:11.5px; width:60px;" *matCellDef="let row"><button (click)="editPopup(row)"><i class="material-icons">create</i></button></mat-cell>
+          </ng-container>
+
+
+          <!-- Employee Name Column -->
+          <ng-container matColumnDef="panel_name">
+            <mat-header-cell style=" width:250px;font-weight:bold" *matHeaderCellDef mat-sort-header> Panel Name </mat-header-cell>
+            <mat-cell style="font-size:11.5px; width:250px" *matCellDef="let element"> {{element.panel_name}} </mat-cell>
+          </ng-container>
+
+          <!-- Designation Column -->
+          <ng-container matColumnDef="applicant_name">
+            <mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Applicant Name </mat-header-cell>
+            <mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.applicant_name}} </mat-cell>
+          </ng-container>
+
+          <!-- Department Column -->
+          <ng-container matColumnDef="applicant_profile_status">
+            <mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Applicant Profile Status </mat-header-cell>
+            <mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.applicant_profile_status}} </mat-cell>
+          </ng-container>
+
+          <!-- Edge Practice Column -->
+          <ng-container matColumnDef="panel_profile_review">
+            <mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Panel Profile Review </mat-header-cell>
+            <mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.panel_profile_review}} </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+
+
+    </mat-card>
+  </div>
+
+</div>
+

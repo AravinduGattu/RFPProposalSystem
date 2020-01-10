@@ -1,0 +1,139 @@
+
+<form [formGroup]="AssessmentForm">
+  <div class="col-md-12">
+    <button (click)="close()" style="float:right; background-color:inherit; border:none"><mat-icon>clear</mat-icon></button>
+  </div>
+
+  <div class="col-md-4">
+    <mat-label>Applicant ID</mat-label>
+    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <input type="text" matInput formControlName="applicant_id">
+      <mat-error *ngIf="hasError('applicant_id','required')">Applicant ID is required</mat-error>
+    </mat-form-field><br>
+
+    <mat-label>Assesment Type</mat-label>
+    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <mat-select [(value)]="selected" formControlName="assessment_type">
+        <mat-option value="Aptitude">
+          Aptitude
+        </mat-option>
+        <mat-option value="Technical Round1">
+          Technical Round1
+        </mat-option>
+        <mat-option value="Technical Round2">
+          Technical Round2
+        </mat-option>
+        <mat-option value="Group Discussion">
+          Group Discussion
+        </mat-option>
+        <mat-option value="Technical Written Test">
+          Technical Written Test
+        </mat-option>
+        <mat-option value="HR">
+          HR
+        </mat-option>
+        <mat-option value="MR">
+          MR
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-label>Interviwed By </mat-label>
+    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <input type="text" matInput formControlName="interviwed_by">
+      <mat-error *ngIf="hasError('interviwed_by','required')">Interviwed By is required</mat-error>
+    </mat-form-field><br>
+
+    <mat-label>  Is-Promoted </mat-label>
+    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <mat-select [(value)]="selectedoption2" formControlName="promoted">
+        <mat-option value="Yes">
+          yes
+        </mat-option>
+        <mat-option value="No">
+          No
+        </mat-option>
+      </mat-select>
+    </mat-form-field><br>
+  </div>
+
+  <div class="col-md-4">
+    <mat-label>Rounds</mat-label>
+    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <mat-select [(value)]="selectedoption" formControlName="asmt_round">
+        <mat-option value="Round1">
+          Round1
+        </mat-option>
+        <mat-option value="Round2">
+          Round2
+        </mat-option>
+        <mat-option value="Round3">
+          Round3
+        </mat-option>
+        <mat-option value="Round4">
+          Round4
+        </mat-option>
+        <mat-option value="Round5">
+          Round5
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+
+    <mat-label>Skill Set </mat-label>
+    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <input type="text" matInput formControlName="skillset">
+      <mat-error *ngIf="hasError('skillset','required')">Skill Set is required</mat-error>
+    </mat-form-field><br>
+
+    <mat-label>Assessment Date </mat-label>
+    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <input type="text" matInput formControlName="assessment_date">
+      <mat-error *ngIf="hasError('assessment_date','required')">Applied Position is required</mat-error>
+    </mat-form-field><br>
+    
+  </div>
+ 
+  <div class="col-md-4">
+
+    <mat-label>Mode Of Interview</mat-label>
+    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <mat-select [(value)]="selectedoption1" formControlName="mode_of_interview">
+        <mat-option value="In-Person">
+          In-Person
+        </mat-option>
+        <mat-option value="Telephonic">
+          Telephonic
+        </mat-option>
+        <mat-option value="Skype">
+          Skype
+        </mat-option>
+        <mat-option value="Zoom">
+          Zoom
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-label>Rating </mat-label>
+    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <input type="text" matInput formControlName="rating">
+      <mat-error *ngIf="hasError('rating','required')">Assessment Start Time is required</mat-error>
+    </mat-form-field><br>
+
+    <mat-label>Remarks </mat-label>
+    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <textarea matInput formControlName="remarks"></textarea>
+      <input type="text" matInput formControlName="remarks">
+      <mat-error *ngIf="hasError('remarks','required')">Remarks is required</mat-error>
+    </mat-form-field><br>
+
+
+  </div>
+</form>
+
+
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>&nbsp;&nbsp;&nbsp;
+  <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+</div>
+

@@ -1,0 +1,78 @@
+<form [formGroup]="assignpanelForm">
+  <div class="col-md-12">
+    <mat-toolbar>
+      <mat-label style="width: 100%;color:rgb(47, 72, 131);font-size:large">{{title}} </mat-label>&nbsp;&nbsp;&nbsp;
+      <button style="float:right; background-color:inherit; border:none" (click)="Close()"><mat-icon>clear</mat-icon></button>
+    </mat-toolbar><br /><br>
+  </div><br /><br />
+
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-label>Panel Name </mat-label>
+                    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+                      <mat-select formControlName="assign_panel_name">
+                        <mat-option *ngFor="let assignpanelname of panelemp" [value]="assignpanelname.panel_name">
+                          {{assignpanelname.panel_name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="hasError('assign_panel_name', 'required')">Panel Name is required</mat-error>
+                      <mat-error *ngIf="hasError('assign_panel_name', 'pattern')">Panel Name should not contain numbers</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-label>Applicant Name </mat-label>
+                    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+                      <input matInput formControlName="applicant_name" id="applicant_name">
+                      <mat-error *ngIf="hasError('applicant_name', 'required')">Applicant Name is required</mat-error>
+                      <mat-error *ngIf="hasError('applicant_name', 'pattern')">Applicant Name should not contain numbers</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-label>Time Slot</mat-label>
+                    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+                      <input matInput formControlName="time_slot" id="time_slot">
+                      <mat-error *ngIf="hasError('time_slot', 'required')">time slot is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!--<br><hr class="cardhr">-->
+                  <div class="col-md-6">
+                    <mat-label>Type Of Assessment </mat-label>
+                    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+                      <input matInput formControlName="type_of_assessment">
+                      <mat-error *ngIf="hasError('type_of_assessment', 'required')">type of assessment is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-label>Assignpanel Start Date</mat-label>
+                    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+                      <input matInput [matDatepicker]="StartDate" formControlName="assignpanel_start_date">
+                      <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+                      <mat-datepicker #StartDate></mat-datepicker>
+                      <mat-error *ngIf="hasError('assignpanel_start_date', 'required')">Assign Panel start Date is required</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-label>Assignpanel End Date</mat-label>
+                    <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+                      <input matInput [matDatepicker]="EndDate" [min]="assignpanelService.assignpanelForm.controls['assignpanel_start_date'].value" formControlName="assignpanel_end_date">
+                      <mat-datepicker-toggle matSuffix [for]="EndDate"></mat-datepicker-toggle>
+                      <mat-datepicker #EndDate></mat-datepicker>
+                      <mat-error *ngIf="hasError('assignpanel_end_date', 'required')">Assign Panel End Date is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                </div>
+</form>
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="OnSubmit()">Submit</button>&nbsp;&nbsp;
+  <button mat-raised-button color="warn" (click)="Clear()">Clear</button>
+
+</div>
+
+

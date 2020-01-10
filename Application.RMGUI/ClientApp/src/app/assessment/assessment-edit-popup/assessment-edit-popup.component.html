@@ -1,0 +1,206 @@
+<div class="pg-assnpro" style="height: calc( 100vh - 142px)">
+  <form [formGroup]="AssessmentForm">
+    <div class="col-md-12">
+      <mat-label style="width: 100%;color:rgb(255, 51, 51) ;font-size:large">{{title}} </mat-label>&nbsp;&nbsp;&nbsp;
+      
+    </div><br /><br>
+    <mat-horizontal-stepper formArrayName="form">
+      <!--<mat-step [formGroupName]="i" *ngFor="let round of AssessmentForm.controls.form.controls;-->
+                let i = index">
+        <ng-template matStepLabel>Round {{i+1}}</ng-template>
+        <div class="row">
+
+
+
+          <div class="col-md-4">
+            <mat-label>Applicant Name </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input matInput [readonly]="!editable" type="text" formControlName="applicant_name">
+              <!--<mat-error *ngIf="hasError('applicant_name','required')">Applicant Name is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Applicant ID</mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input matInput [readonly]="!editable" type="text" formControlName="applicant_code">
+              <!--<mat-error *ngIf="hasError('applicant_code','required')">Applicant ID is required</mat-error>-->
+            </mat-form-field><br />
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Educational Details </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input matInput [readonly]="!editable" type="text" formControlName="educational_details">
+              <!--<mat-error *ngIf="hasError('educational_details','required')">Educational Details is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Experience </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input matInput [readonly]="!editable" type="text" formControlName="experience">
+              <!--<mat-error *ngIf="hasError('experience','required')">Experience is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Previous Company </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input matInput [readonly]="!editable" type="text" formControlName="previous_company">
+              <!--<mat-error *ngIf="hasError('previous_company','required')">Previous Company is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Employment Type </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input matInput [readonly]="!editable" type="text" formControlName="employment_type">
+              <!--<mat-error *ngIf="hasError('employment_type','required')">Employment Type is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+        </div>
+
+        <div class="row">
+       
+
+          <div class="col-md-4">
+            <mat-label>Skills </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input matInput [readonly]="!editable" type="text" formControlName="skills">
+              <!--<mat-error *ngIf="hasError('skills','required')">Skills is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Phone </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input matInput [readonly]="!editable" type="text" formControlName="phone">
+              <!--<mat-error *ngIf="hasError('phone','required')">Phone is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Email Id </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input matInput [readonly]="!editable" type="text" formControlName="email_id">
+              <!--<mat-error *ngIf="hasError('email_id','required')">Email Id is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Mode Of Interview</mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <mat-select [(value)]="selectedoption" formControlName="mode_of_interview">
+                <mat-option value="In-Person">
+                  In-Person
+                </mat-option>
+                <mat-option value="Telephonic">
+                  Telephonic
+                </mat-option>
+                <mat-option value="Skype">
+                  Skype
+                </mat-option>
+                <mat-option value="Zoom">
+                  Zoom
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-md-4">
+            <mat-label>Assesment Type</mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <mat-select [(value)]="selected" formControlName="assessment_type">
+                <mat-option value="Aptitude">
+                  Aptitude
+                </mat-option>
+                <mat-option value="Technical Round1">
+                  Technical Round1
+                </mat-option>
+                <mat-option value="Technical Round2">
+                  Technical Round2
+                </mat-option>
+                <mat-option value="Group Discussion">
+                  Group Discussion
+                </mat-option>
+                <mat-option value="Technical Written Test">
+                  Technical Written Test
+                </mat-option>
+                <mat-option value="HR">
+                  HR
+                </mat-option>
+                <mat-option value="MR">
+                  MR
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Rating </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input type="text" matInput formControlName="rating">
+              <!--<mat-error *ngIf="hasError('rating','required')">Rating is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+
+        </div>
+        <div class="row">
+         
+
+          <div class="col-md-4">
+            <mat-label>Interviwed By </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <mat-select formControlName="interviwed_by">
+                <mat-option *ngFor="let prj of asesmtemplist;" [value]="prj.asesmnt_emp_names">{{prj.asesmnt_emp_names}}</mat-option>
+              </mat-select>
+              <!--<mat-error *ngIf="hasError('interviwed_by','required')">Interviwed By is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+          <div class="col-md-4">
+            <mat-label>Remarks </mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input type="text" matInput formControlName="remarks">
+              <!--<mat-error *ngIf="hasError('remarks','required')">Remarks is required</mat-error>-->
+            </mat-form-field><br>
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Assessment Date</mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <input matInput (focus)="myDatepicker.open()" [matDatepicker]="myDatepicker" formControlName="assessment_date">
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+              <!--<mat-error *ngIf="hasError('assessment_date', 'required')">Assessment Date is required</mat-error>-->
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-label>Is Promoted</mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+              <mat-select [(value)]="selectedoption1" formControlName="promoted">
+                <mat-option value="Yes">
+                  Yes
+                </mat-option>
+                <mat-option value="No">
+                  No
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+        </div>
+        <div class="col-md-12">
+          <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>&nbsp;
+          <button mat-raised-button color="warn" (click)="onClear()">Clear</button>&nbsp;
+          <button mat-raised-button (click)="navigateBack()">Back</button>
+          <button mat-raised-button style="float:right" color="primary" (click)="addItem()">Add Round</button>
+        </div>
+<!--</mat-step>-->
+    </mat-horizontal-stepper>
+
+  </form>
+</div>

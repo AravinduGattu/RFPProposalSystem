@@ -1,0 +1,80 @@
+<form [formGroup]="panelForm">
+  <div class="col-md-12">
+    <mat-toolbar>
+      <mat-label style="width: 100%;color:rgb(47, 72, 131);font-size:large">{{title}} </mat-label>&nbsp;&nbsp;&nbsp;
+      <button style="float:right; background-color:inherit; border:none" (click)="Close()"><mat-icon>clear</mat-icon></button>
+    </mat-toolbar><br /><br>
+  </div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <mat-label>Panel Name </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="panel_name">
+            <mat-option *ngFor="let panelname of panelemp" [value]="panelname.emp_Name">
+              {{panelname.emp_Name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('panel_name', 'required')">Panel Name is required</mat-error>
+          <mat-error *ngIf="hasError('panel_name', 'pattern')">Panel Name should not contain numbers</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Email  </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <input matInput formControlName="email_id" id="email_id">
+          <mat-error *ngIf="hasError('email_id', 'required')">Email  Id is required</mat-error>
+          <mat-error *ngIf="hasError('email_id','pattern')"> Email should ends with @pactera.com</mat-error>
+        </mat-form-field>
+        </div>
+        </div>
+    <div class="row">
+      <div class="col-md-6">
+                
+        <mat-label>Panel Role </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="panel_role">
+            <mat-option *ngFor="let panelname of design" [value]="panelname.designation_Description">{{panelname.designation_Description}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('panel_role', 'required')">Designation is required</mat-error>
+        </mat-form-field>
+      </div>
+      
+      <div class="col-md-6">
+        <mat-label>Contact </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <input matInput formControlName="phone" id="phone">
+          <mat-error *ngIf="hasError('phone', 'required')">Phone is required</mat-error>
+          <mat-error *ngIf="hasError('phone', 'minlength')">Contact Number is less than 10 characters</mat-error>
+          <mat-error *ngIf="hasError('phone', 'maxlength')">Contact Number is more than 13 characters</mat-error>
+          <mat-error *ngIf="hasError('phone', 'pattern')">Contact Number should not contain characters</mat-error>
+        </mat-form-field>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-label>Panel Start Date </mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+            <input matInput [matDatepicker]="StartDate" formControlName="panel_startdate">
+            <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+            <mat-datepicker #StartDate></mat-datepicker>
+            <mat-error *ngIf="hasError('panel_startdate', 'required')">panel Start Date is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Panel End Date</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+            <input matInput [matDatepicker]="EndtDate" [min]="panelForm.controls['panel_startdate'].value" formControlName="panel_enddate">
+            <mat-datepicker-toggle matSuffix [for]="EndtDate"></mat-datepicker-toggle>
+            <mat-datepicker #EndtDate></mat-datepicker>
+            <mat-error *ngIf="hasError('panel_enddate', 'required')">Panel End Date is required</mat-error>
+          </mat-form-field>
+        </div>
+        </div>
+      </div>
+</form>
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="OnSubmit()">Submit</button> &nbsp;&nbsp;&nbsp;
+  <button mat-raised-button color="warn" (click)="Clear()">Clear</button>
+
+</div>

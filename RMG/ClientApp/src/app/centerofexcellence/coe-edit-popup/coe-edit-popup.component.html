@@ -1,0 +1,66 @@
+<form [formGroup]="adminservice.coeform">
+
+    <div class="popheader">
+      Edit COE
+      <span style="float:right; cursor:pointer; background-color: inherit !important" (click)="close()"><mat-icon>clear</mat-icon></span>
+    </div>
+
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <mat-label>COE <span style="color:red;">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput [readonly]="!editable" formControlName="coe">
+          <mat-error *ngIf="hasError('coe', 'required')">Employee Id is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Status <span style="color:red;">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <mat-select [(value)]="selectedoption" formControlName="coeStatus">
+            <mat-option value="Active">
+              Active
+            </mat-option>
+            <mat-option value="Inactive">
+              Inactive
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('coeStatus', 'required')">Status is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-label>Start Date</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput [readonly]="!editable" (focus)="startDate.open()" [matDatepicker]="startDate" formControlName="coeStartDate">
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate></mat-datepicker>
+          <mat-error *ngIf="hasError('coeStartDate', 'required')">Start Date is required</mat-error>
+        </mat-form-field>
+      </div>
+      <!--<div class="col-md-6">
+       <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+      <input matInput [readonly]="!editable" formControlName="coeStartDate">
+      <mat-error *ngIf="hasError('coeStartDate', 'required')">Start Date is required</mat-error>
+    </mat-form-field>
+        </div>-->
+        <div class="col-md-6">
+          <mat-label>End Date</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+            <input matInput (focus)="endDate.open()" [min]="adminservice.coeform.controls['coeStartDate'].value" [matDatepicker]="endDate" formControlName="coeEndDate">
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+            <mat-error *ngIf="hasError('coeEndDate', 'required')">End Date is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+</form>
+
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="Submit()">Submit</button>&nbsp;&nbsp;&nbsp;
+  <button mat-raised-button color="warn" (click)="clear()">Cancel</button>
+</div>
+
+
