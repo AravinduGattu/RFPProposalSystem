@@ -1,0 +1,45 @@
+<div class="btnbar">
+  <li style="float: left;">
+    <button mat-button routerLink="/home" style="color:white"><span class="glyphicon glyphicon-home"></span><p role="presentation">Home</p></button>
+  </li>
+  <h3 style="float: left; color:white">Employee Skills</h3>
+  <li>
+    <span class="spacer"></span>
+    <button mat-button disabled style="color:white; cursor: no-drop"><span class="glyphicon glyphicon-import"></span><p role="presentation">Import</p></button>
+  </li>
+  <li>
+    <button  mat-button  disabled style="color:white; cursor: no-drop"><span class="glyphicon glyphicon-export"></span><p role="presentation">Export</p></button>
+  </li>
+  <li>
+    <button mat-button disabled style="color:white; cursor: no-drop"><span class="glyphicon glyphicon-plus"></span><p role="presentation">Add</p></button>
+  </li>
+  <li>
+    <button mat-button (click)="m_searchbar()" style="color:white"><span class="glyphicon glyphicon-search"></span><p role="presentation">Search</p></button>
+  </li>
+</div>
+<br><br>
+<div class="pg-assnpro" style="height: calc( 100vh - 142px)">
+  <br>
+  <div *ngIf="v_searchbar">
+    <mat-card>
+      <form [formGroup]="epmForm">
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input type="text" placeholder="Employee Id" matInput formControlName="emp_Id" [matAutocomplete]="Emp_Id">
+        </mat-form-field>
+        <mat-autocomplete #Emp_Id="matAutocomplete">
+          <mat-option *ngFor="let empdrop of empdroplist" [value]="empdrop.emp_Id">{{empdrop.emp_Id}}</mat-option>
+        </mat-autocomplete>&nbsp;&nbsp;
+        
+        <hr class="cardhr">
+        <button mat-button class="searchbtn" (click)="m_epmSearchQuery()" style="color:rgb(58, 56, 56);float:right;"><span class="glyphicon glyphicon-search" style="padding-bottom:3px;"></span>&nbsp; Search</button>
+        <button mat-button class="searchbtn" (click)="OnResetSearch()" style="color:rgb(58, 56, 56);float:right;"><span class="glyphicon glyphicon-refresh" style="padding-bottom:3px;"></span>&nbsp; Reset</button>
+        <br />
+        <br />
+      </form>
+    </mat-card>
+    <hr class="cardhr">
+  </div>
+  <div [hidden]="vload==1">
+   
+  </div>
+</div>

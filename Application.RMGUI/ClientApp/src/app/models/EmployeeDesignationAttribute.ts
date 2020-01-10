@@ -1,0 +1,3 @@
+class EmployeeDesignationAttribute {
+  Designation: string;
+}

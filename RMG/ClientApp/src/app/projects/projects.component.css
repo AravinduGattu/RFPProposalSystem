@@ -1,0 +1,90 @@
+.heading {
+  font-style: italic;
+  padding: 4px;
+  width: 100%;
+}
+
+h3 {
+  padding-left: 20px;
+  font-weight: bold;
+}
+
+.not-available {
+  text-align: center;
+  font-size: 15px;
+}
+
+.pg-assnpro {
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 20px;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 37px;
+}
+
+button {
+  border: none;
+  background-color: inherit;
+}
+
+.searchbtn:hover {
+  background-color: #B2DDE7;
+  color: #FDFDFE;
+}
+
+
+
+.btnbar {
+  width: 100%;
+  height: 77px;
+  float: right;
+  background-color: rgb(0, 66, 128);
+  padding: 5px;
+}
+
+li {
+  list-style: none;
+  float: right;
+  background-color: inherit;
+}
+
+p {
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+mat-card {
+  background-color: white;
+}
+
+.cardhr {
+  border-color: #C6CED3;
+}
+
+.example-container {
+  max-height: 550px;
+  width: 100%;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  word-wrap: normal;
+  margin:auto;
+}
+
+th.mat-column-edit, td.mat-column-edit {
+flex:1 1 auto;
+}
+th {
+  background-color: rgb(38, 82, 124);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(199, 222, 243);
+}

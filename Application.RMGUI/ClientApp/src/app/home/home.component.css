@@ -1,0 +1,81 @@
+.pg-assnpro {
+  padding: 0.5% 0.2% 0.2% 0.2%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #bdbbbb;
+  min-height: calc(100vh - 60px);
+  max-height: calc(100vh - 60px);
+  height:100%;
+  display: inline-block;
+}
+
+.numcards {
+  float: left;
+  height: inherit;
+  max-width: 15%;
+  width: 100%;
+  padding: 0.25% 0.25% 0.25% 0.25%;
+  overflow-y:auto;
+}
+
+.cards {
+  border: 0.3px solid darkgray;
+  border-radius: 3px;
+  box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.5);
+  background-color: white;
+  width: 100%;
+  margin: 4.5% 0% 0% 0%;
+  padding: calc((100vh - 60px)/14.2) 0%;
+}
+
+.homegraphs {
+  float: right;
+  height:100%;
+  max-width: 85%;
+  width: 100%;
+  padding: 0.25%;
+  overflow: auto;
+}
+.maingraph {
+  border: 0.3px solid darkgray;
+  box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.5);
+  background-color: white;
+  width: 100%;
+  margin: 0.5% 0% 0% 0%;
+  padding: 1%;
+  display: inline-block;
+  border-radius: 3px;
+}
+h4 {
+  text-align: center;
+  font-size: 1vw;
+  font-weight: 900;
+  font-family: Calibri;
+  color: rgb(0,66,128) !important;
+  margin:0%;
+}
+h1 {
+  text-align: center;
+  margin: 0%;
+  font-size: 2.8vw;
+  font-weight: 900;
+  font-family: Calibri;
+  color: rgb(0,66,128) !important;
+}
+.lgraph {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+.rgraph {
+  float: right;
+  width: 50%;
+  height: 100%;
+}
+
+p {
+  font-size: 1vw;
+  padding: 0;
+  margin: 0;
+  font-weight: 900;
+}

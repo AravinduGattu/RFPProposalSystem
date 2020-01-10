@@ -1,0 +1,149 @@
+<div>
+  <div class="content-container">
+    <span id="close-icon"><i (click)="closeDialog()" class="glyphicon glyphicon-remove"></i></span>
+  </div>
+ 
+  <div style="padding:10px">
+    <mat-card>
+      <p style="text-align:center"><b><span style="color:rgb(38, 82, 124)">Request Id</span> : <span style="color:red">{{obj_RRFC?.res_req_pid}}</span></b></p>
+      <table style="width:100%">
+        <tr style="background-color:rgb(199, 222, 243)">
+
+
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>Resource Count</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_num_res}}</td>
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>Project name</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_project_name}}</td>
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>Customer name</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_customer_name}}</td>
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>COE</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_coe}}</td>  
+
+        </tr>
+
+        <tr style="background-color:white">
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>EDGE Practice</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_practice_name}}</td>
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>Cost Center Code</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_ccc}}</td>
+
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>Location</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_location}}</td>
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>Category</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_category}}</td>
+
+
+        </tr>
+
+        <tr style="background-color:rgb(199, 222, 243)">
+
+
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>Start Date</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_start_date| date:'dd-MMM-yyyy'}}</td>
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>End Date</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_end_date| date:'dd-MMM-yyyy'}}</td>
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>Status</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_status}}</td>
+          <td style="float:right;padding-top:10px;padding-bottom:10px"><b><i>Requested By</i></b></td>
+          <td style="padding-top:10px;padding-bottom:10px">&nbsp;<b>:</b> {{obj_RRFC?.res_req_created_by}}</td>
+        </tr>
+
+        <tr style="background-color:white">
+          
+          
+        </tr>
+      </table>
+
+    </mat-card>
+    <hr class="cardhr">
+    <mat-card>
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="data_Source" matSort>
+
+          <ng-container matColumnDef="assign" >
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef></th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let row"><button  class="buttons assign" *ngIf="userRole==='ADMIN'  && row.creq_status==='Open' || userRole==='RMG' && row.creq_status==='Open'" style=" border:none" (click)="assignproject(row)">Assign</button></td>
+          </ng-container>
+          <ng-container matColumnDef="createnewjob">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef></th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"><button class="buttons newjob" *ngIf="userRole==='ADMIN'  && element.creq_status==='Open' || userRole==='RMG' && element.creq_status==='Open'" style=" border:none" (click)="createnewjob()">New&nbsp;Job</button></td>
+          </ng-container>
+          <ng-container matColumnDef="viewsuggestion">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef></th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"><button class="buttons viewsuggestion" *ngIf="user===requestBy && element.creq_status==='Pending'"  style=" border:none" (click)="openAcceptDialog(element.res_req_cid)">View&nbsp;Suggestion</button></td>
+          </ng-container>
+          
+          <ng-container matColumnDef="cancel">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef></th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"><button class="buttons cancel" *ngIf="userRole==='ADMIN'  && element.creq_status==='Open' || userRole==='RMG' && element.creq_status==='Open' || user===requestBy && element.creq_status==='Pending'" style=" border:none" (click)="cancelAssignRequest(element.res_req_cid)">Cancel</button></td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_pid">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Request Id </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> <u>{{element.res_req_pid}} </u></td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_cid">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Ticket No </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_cid}} </td>
+          </ng-container>
+          <ng-container matColumnDef="creq_status">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.creq_status}} </td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_project_name">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Project Name </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_project_name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_customer_name">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Customer Name </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_customer_name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_ccc">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Cost Center Code </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_ccc}} </td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_skillset">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Skill </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_skillset}} </td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_type_of_billing">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Type Of Billing </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_type_of_billing}} </td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_location">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Location </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_location}} </td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_category">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Category </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_category}} </td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_practice_name">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Practice Name </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_practice_name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="res_req_created_by">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header hidden> Created By </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element" hidden> {{element.res_req_created_by}} </td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_start_date">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Start Date </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_start_date |date:'dd-MMM-yyyy'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="res_req_end_date">
+            <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> End Date </th>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.res_req_end_date |date:'dd-MMM-yyyy'}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <mat-paginator #paginator
+                     [pageSize]="10"
+                     [pageSizeOptions]="[ 10, 20,50,100]"
+                     [showFirstLastButtons]="true">
+      </mat-paginator>
+    </mat-card>
+
+  </div>
+</div>

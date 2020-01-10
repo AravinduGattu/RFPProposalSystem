@@ -1,0 +1,161 @@
+<div class="btnbar">
+  <li style="float: left;">
+    <button mat-button routerLink="/home" style="color:white"><span class="glyphicon glyphicon-home"></span><p role="presentation">Home</p></button>
+  </li>
+  <h3 style="float: left; color:white">Employee Project Info</h3>
+  <li>
+    <span class="spacer"></span>
+    <button mat-button disabled style="color:white; cursor: no-drop"><span class="glyphicon glyphicon-import"></span><p role="presentation">Import</p></button>
+  </li>
+  <li>
+    <button (click)="exportAsXLSX()" mat-button style="color:white"><span class="glyphicon glyphicon-export"></span><p role="presentation">Export</p></button>
+  </li>
+  <li>
+    <button mat-button disabled style="color:white; cursor: no-drop"><span class="glyphicon glyphicon-plus"></span><p role="presentation">Add</p></button>
+  </li>
+  <li>
+    <button mat-button (click)="m_searchbar()" style="color:white"><span class="glyphicon glyphicon-search"></span><p role="presentation">Search</p></button>
+  </li>
+</div>
+<br><br>
+<div class="pg-assnpro" style="height: calc( 100vh - 142px)">
+  <br>
+  <div *ngIf="v_searchbar">
+    <mat-card>
+      <form [formGroup]="epmForm">
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input type="text" placeholder="Employee Id" matInput formControlName="emp_Id" [matAutocomplete]="Emp_Id">
+        </mat-form-field>
+        <mat-autocomplete #Emp_Id="matAutocomplete">
+          <mat-option *ngFor="let empdrop of empdroplist" [value]="empdrop.emp_Id">{{empdrop.emp_Id}}</mat-option>
+        </mat-autocomplete>&nbsp;&nbsp;
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="Employee Name" formControlName="emp_Name" id="Emp_Name">
+        </mat-form-field>&nbsp;&nbsp;
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input type="text" placeholder="Project Name" matInput formControlName="project_Name" [matAutocomplete]="Project_Name">
+        </mat-form-field>
+        <mat-autocomplete #Project_Name="matAutocomplete">
+          <mat-option *ngFor="let projdrop of projectdroplist" [value]="projdrop.project_Name">{{projdrop.project_Name}}</mat-option>
+        </mat-autocomplete>&nbsp;&nbsp;
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="Project Assigning Date" [matDatepicker]="ProAsnDate" formControlName="assign_Project_StartDate">
+          <mat-datepicker-toggle matSuffix [for]="ProAsnDate"></mat-datepicker-toggle>
+          <mat-datepicker #ProAsnDate></mat-datepicker>
+        </mat-form-field>&nbsp;&nbsp;
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="Project End Date" [matDatepicker]="ProendDate" formControlName="assign_Project_EndDate">
+          <mat-datepicker-toggle matSuffix [for]="ProendDate"></mat-datepicker-toggle>
+          <mat-datepicker #ProendDate></mat-datepicker>
+        </mat-form-field>&nbsp;&nbsp;
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <mat-label>Billable</mat-label>
+          <mat-select [(value)]="billable" formControlName="billable">
+            <mat-option value="yes">
+              yes
+            </mat-option>
+            <mat-option value="No">
+              No
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="Billing (%)" formControlName="billing_Percentage" id="Billing_Percentage">
+        </mat-form-field>&nbsp;&nbsp;
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <input matInput placeholder="Location" formControlName="location" id="Location">
+        </mat-form-field>&nbsp;&nbsp;
+        <mat-form-field style="width: 200px;padding: 0% 0.8% 0% 0.8%">
+          <mat-label>Shore</mat-label>
+          <mat-select [(value)]="shore" formControlName="onsite">
+            <mat-option value="Onsite">
+              Onsite
+            </mat-option>
+            <mat-option value="Offsite">
+              Offsite
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <hr class="cardhr">
+        <button mat-button class="searchbtn" (click)="m_epmSearchQuery()" style="color:rgb(58, 56, 56);float:right;"><span class="glyphicon glyphicon-search" style="padding-bottom:3px;"></span>&nbsp; Search</button>
+        <button mat-button class="searchbtn" (click)="OnResetSearch()" style="color:rgb(58, 56, 56);float:right;"><span class="glyphicon glyphicon-refresh" style="padding-bottom:3px;"></span>&nbsp; Reset</button>
+        <br />
+        <br />
+      </form>
+    </mat-card>
+    <hr class="cardhr">
+  </div>
+  <div [hidden]="vload==1">
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+    <mat-card>
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="data_Source" matSort>
+
+          <!-- Employee Id Column -->
+          <ng-container matColumnDef="emp_Id">
+            <th mat-header-cell style="width:90px; font-weight:bold" *matHeaderCellDef mat-sort-header> Employee Id </th>
+            <td mat-cell style="font-size:11.5px; width:90px;" *matCellDef="let element"> {{element.emp_Id}} </td>
+          </ng-container>
+
+          <!-- Employee Name Column -->
+          <ng-container matColumnDef="emp_Name">
+            <th mat-header-cell style="width:250px; font-weight:bold" *matHeaderCellDef mat-sort-header> Employee Name </th>
+            <td mat-cell style="font-size:11.5px; width:250px;" *matCellDef="let element"> {{element.emp_Name}} </td>
+          </ng-container>
+
+          <!-- Project Code  Column -->
+          <ng-container matColumnDef="project_Code">
+            <th mat-header-cell style="width:250px; font-weight:bold" *matHeaderCellDef mat-sort-header> Project Code </th>
+            <td mat-cell style="font-size:11.5px;width:250px;" *matCellDef="let element"> {{element.project_Code}} </td>
+          </ng-container>
+
+          <!-- Project Name  Column -->
+          <ng-container matColumnDef="project_Name">
+            <th mat-header-cell style="width:250px; font-weight:bold" *matHeaderCellDef mat-sort-header> Project Name </th>
+            <td mat-cell style="font-size:11.5px;width:250px;" *matCellDef="let element"> {{element.project_Name}} </td>
+          </ng-container>
+
+          <!-- Assign Date Column -->
+          <ng-container matColumnDef="assign_Project_StartDate">
+            <th mat-header-cell style="width:150px; font-weight:bold" *matHeaderCellDef mat-sort-header> Assign Date </th>
+            <td mat-cell style="font-size:11.5px; width:150px;" *matCellDef="let element"> {{element.assign_Project_StartDate|date:'dd-MMM-yyyy'}} </td>
+          </ng-container>
+
+          <!-- Release Date  Column -->
+          <ng-container matColumnDef="assign_Project_EndDate">
+            <th mat-header-cell style="width:150px; font-weight:bold" *matHeaderCellDef mat-sort-header> Release Date </th>
+            <td mat-cell style="font-size:11.5px; width:150px;" *matCellDef="let element"> {{element.assign_Project_EndDate|date:'dd-MMM-yyyy'}} </td>
+          </ng-container>
+
+          <!-- Billable Column -->
+          <ng-container matColumnDef="billable">
+            <th mat-header-cell style="width:100px; font-weight:bold" *matHeaderCellDef mat-sort-header> Billable </th>
+            <td mat-cell style="font-size:11.5px; width:100px;" *matCellDef="let element"> {{element.billable}} </td>
+          </ng-container>
+
+          <!-- Billable (%) Column -->
+          <ng-container matColumnDef="billing_Percentage">
+            <th mat-header-cell style="width:100px; font-weight:bold" *matHeaderCellDef mat-sort-header> Billable (%) </th>
+            <td mat-cell style="font-size:11.5px; width:100px;" *matCellDef="let element"> {{element.billing_Percentage}} </td>
+          </ng-container>
+
+          <!-- LocationColumn -->
+          <ng-container matColumnDef="location">
+            <th mat-header-cell style="width:150px; font-weight:bold" *matHeaderCellDef mat-sort-header> Location </th>
+            <td mat-cell style="font-size:11.5px; width:150px;" *matCellDef="let element"> {{element.location}} </td>
+          </ng-container>
+
+          <!-- Shore Column -->
+          <ng-container matColumnDef="onsite">
+            <th mat-header-cell style="width:80px; font-weight:bold" *matHeaderCellDef mat-sort-header> Shore </th>
+            <td mat-cell style="font-size:11.5px; width:80px;" *matCellDef="let element"> {{element.onsite}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+        </table>
+      </div>
+    </mat-card>
+  </div>
+</div>
+

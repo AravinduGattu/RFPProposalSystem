@@ -1,0 +1,22 @@
+.col-md-6 {
+  padding: 0;
+  margin: 0;
+}
+
+mat-label {
+  font-weight: 700;
+  color: rgb(0, 66, 128);
+}
+
+.assesmentTab {
+  height: 30px;
+  /* width: 100%; */
+  padding-right: 20px;
+  background-color: black;
+  margin-right: 25px;
+  color: white;
+}
+
+.assesmentTabGroup {
+  text-align:center;
+}

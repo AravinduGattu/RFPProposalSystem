@@ -1,0 +1,57 @@
+<form [formGroup]="edgeform">
+  <div class="popheader">
+    Add Edge Practice
+    <span style="float:right; cursor:pointer; background-color: inherit !important" (click)="onClose()"><mat-icon>clear</mat-icon></span>
+  </div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <mat-label>Edge Practice Name <span style="color:red;">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput type="text" formControlName="edgePractice">
+          <mat-error *ngIf="hasError('edgePractice','required')"> Name is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Edge PracticeStatus <span style="color:red;">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <mat-select [(ngModel)]='nrSelect' [(value)]="Active" formControlName="epStatus">
+            <mat-option value="Active">
+              Active
+            </mat-option>
+            <mat-option value="Inactive">
+              Inactive
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('epStatus','required')">Status is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-label>Edge Practice Start Date</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput (focus)="StartDate.open()" [max]="edgeform.controls['epEndDate'].value" [matDatepicker]="StartDate" formControlName="epStartDate">
+          <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+          <mat-datepicker #StartDate></mat-datepicker>
+          <mat-error *ngIf="hasError('epStartDate', 'required')"> Start Date is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Edge Practice End Date</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput (focus)="EndDate.open()" [min]="edgeform.controls['epStartDate'].value" [matDatepicker]="EndDate" formControlName="epEndDate">
+          <mat-datepicker-toggle matSuffix [for]="EndDate"></mat-datepicker-toggle>
+          <mat-datepicker #EndDate></mat-datepicker>
+          <mat-error *ngIf="hasError('epEndDate', 'required')"> End Date is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>&nbsp;&nbsp;&nbsp;
+  <!--<button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>-->
+  <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+</div>

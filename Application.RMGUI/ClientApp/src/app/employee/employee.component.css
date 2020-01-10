@@ -1,0 +1,217 @@
+.heading {
+  font-style: italic;
+  padding: 4px;
+  width: 100%;
+}
+
+h3 {
+  padding-left: 20px;
+  font-weight: bold;
+}
+
+.not-available {
+  text-align: center;
+  font-size: 15px;
+}
+
+.pg-assnpro {
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom:20px;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 37px;
+}
+
+button {
+  border: none;
+  background-color: inherit;
+}
+
+.searchbtn:hover {
+  background-color: #B2DDE7;
+  color: #FDFDFE;
+}
+
+
+
+.btnbar {
+  width: 100%;
+  height: 77px;
+  float: right;
+  background-color: rgb(0, 66, 128);
+  padding: 5px;
+}
+
+li {
+  list-style: none;
+  float: right;
+  background-color: inherit;
+}
+p {
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+mat-card {
+  background-color: white;
+}
+
+.cardhr {
+  border-color: #C6CED3;
+}
+.example-container {
+  max-height: 550px;
+  width: 100%;
+  overflow: auto;
+}
+table{
+  width:2700px;
+  flex: none;
+  word-wrap: normal;
+}
+
+td.mat-column-select {
+  width: 80px;
+  height: 40px;
+  word-wrap: normal;
+  flex: none;
+  background-color: white;
+}
+td.mat-column-edit {
+  width: 90px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-emp_Id, td.mat-column-emp_Id {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-emp_Name, td.mat-column-emp_Name {
+  width: 250px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-designation_Id, td.mat-column-designation_Id {
+  width: 180px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-department_Id, td.mat-column-department_Id {
+  width: 180px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-edge_Practice_Id, td.mat-column-edge_Practice_Id {
+  width: 180px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-coe_Id, td.mat-column-coe_Id {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-job_Description, td.mat-column-job_Description {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-cat_Description, td.mat-column-cat_Description {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-sub_Cat_Description, td.mat-column-sub_Cat_Description {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-location, td.mat-column-location {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-joining_Date, td.mat-column-joining_Date {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-address, td.mat-column-address {
+  width: 250px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-contact_Number, td.mat-column-contact_Number {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-email_ID, td.mat-column-email_ID {
+  width: 250px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-reporting_To, td.mat-column-reporting_To {
+  width: 250px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th.mat-column-reporting_To_email, td.mat-column-reporting_To_email {
+  width: 250px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+th {
+  background-color: rgb(38, 82, 124);
+  color: white;
+}
+tr:nth-child(even) {
+  background-color: rgb(199, 222, 243);
+}
+
+
+::ng-deep .mat-dialog-container {
+  resize: both;
+
+}
+
+

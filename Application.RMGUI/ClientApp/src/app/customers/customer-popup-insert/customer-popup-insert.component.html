@@ -1,0 +1,91 @@
+<form [formGroup]="customerForm">
+    <div class="popheader">
+      Add Customer
+      <span style="float:right; cursor:pointer; background-color: inherit !important" (click)="Close()"><mat-icon>clear</mat-icon></span>
+    </div>
+  
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <mat-label>Business Group <span style="color:red">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="business_group">
+            <mat-option *ngFor="let custbgrp of custBusinessGroup" [value]="custbgrp.bg_desc">
+              {{custbgrp.bg_desc}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Customer Code <span style="color:red">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <input matInput formControlName="cust_code" id="Customer_Code">
+          <mat-error *ngIf="hasError('cust_code', 'required')">Customer Code is required</mat-error>
+          <mat-error *ngIf="hasError('cust_code', 'maxlength')">You have more than 20 characters</mat-error>
+          <mat-error *ngIf="hasError('cust_code', 'minlength')">You have less than 4 characters</mat-error>
+        </mat-form-field>
+      </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-label>Customer Name <span style="color:red">*</span></mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+            <input matInput formControlName="cust_name" id="Customer_Name">
+            <mat-error *ngIf="hasError('cust_name', 'required')">Customer Name is required</mat-error>
+            <mat-error *ngIf="hasError('cust_name', 'pattern')">Customer Name should not contain numbers</mat-error>
+            <mat-error *ngIf="hasError('cust_name', 'maxlength')">You have more than 30 characters</mat-error>
+          </mat-form-field><br />
+        </div>
+
+        <div class="col-md-6">
+          <!--<mat-label>Country</mat-label>
+  <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+
+    <mat-select formControlName="country"  (selectionChange)="GetCities($event)">
+
+      <mat-option *ngFor=" let custloc of custLocation" [value]="custloc.country">
+        {{custloc.country}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>-->
+          <mat-label>City</mat-label>
+          <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+            <mat-select formControlName="location">
+
+              <mat-option *ngFor="let object of custLocation" [value]="object.city">
+                {{object.city}},{{object.country}}
+
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+
+       
+
+            <!--<mat-label>City</mat-label>
+            <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+              <mat-select formControlName="city" >
+
+                <mat-option *ngFor="let object of custLocation" [value]="object.city">
+                  {{object.city}}
+
+                </mat-option>
+              </mat-select>
+            </mat-form-field>-->
+
+
+          </div>
+        </div>
+        </div>
+</form>
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="OnSubmit()">Submit</button>&nbsp;&nbsp;
+  <button mat-raised-button color="warn" (click)="Clear()">Clear</button>
+
+</div>
+

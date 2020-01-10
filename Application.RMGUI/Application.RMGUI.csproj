@@ -1,0 +1,201 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+
+    <!-- Set this to true if you enable server-side prerendering -->
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <UserSecretsId>2dd16a23-0970-4ee5-bef9-3e646feb0808</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
+    <PackageReference Include="Microsoft.Office.js" Version="1.1.0.15" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="MySql.Data" Version="8.0.16" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\NewFolder\**" />
+    <Compile Remove="ClientApp\src\app\resourcerequest\**" />
+    <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\NewFolder\**" />
+    <Content Remove="ClientApp\src\app\resourcerequest\**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="ClientApp\src\app\NewFolder\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\resourcerequest\**" />
+    <None Remove="ClientApp\src\app\NewFolder\**" />
+    <None Remove="ClientApp\src\app\resourcerequest\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ClientApp\src\app\models\JobFamily.cs" />
+    <Compile Remove="ClientApp\src\app\models\PrevYearEmpJoin.cs" />
+    <Compile Remove="Models\ProjectassignDropAttribute.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\models\AllModuleCounts.ts" />
+    <None Remove="ClientApp\src\app\models\APIResponse.ts" />
+    <None Remove="ClientApp\src\app\models\AsesmtApplicantDrpDwn.ts" />
+    <None Remove="ClientApp\src\app\models\Applicantprofile.ts" />
+    <None Remove="ClientApp\src\app\models\Assesment.ts" />
+    <None Remove="ClientApp\src\app\models\AssignProject.ts" />
+    <None Remove="ClientApp\src\app\models\BusinessGroup.ts" />
+    <None Remove="ClientApp\src\app\models\businessgroupAtt.ts" />
+    <None Remove="ClientApp\src\app\models\ChartData.ts" />
+    <None Remove="ClientApp\src\app\models\ChartsEmpProjRe.ts" />
+    <None Remove="ClientApp\src\app\models\CoeAtt.ts" />
+    <None Remove="ClientApp\src\app\models\Customer.ts" />
+    <None Remove="ClientApp\src\app\models\CustomerDetails.ts" />
+    <None Remove="ClientApp\src\app\models\DepartAtt.ts" />
+    <None Remove="ClientApp\src\app\models\DesingAtt.ts" />
+    <None Remove="ClientApp\src\app\models\EdgePracAtt.ts" />
+    <None Remove="ClientApp\src\app\models\EmpCategoriesAttribute.ts" />
+    <None Remove="ClientApp\src\app\models\EmpExitCount.ts" />
+    <None Remove="ClientApp\src\app\models\EmpInProjCount.ts" />
+    <None Remove="ClientApp\src\app\models\ErrorResponse.ts" />
+    <None Remove="ClientApp\src\app\models\JobFamily.ts" />
+    <None Remove="ClientApp\src\app\models\Jobtitle.ts" />
+    <None Remove="ClientApp\src\app\models\Location.ts" />
+    <None Remove="ClientApp\src\app\models\LoginData.ts" />
+    <None Remove="ClientApp\src\app\models\LoginResponse.ts" />
+    <None Remove="ClientApp\src\app\models\NewjobrequirementAttribute.ts" />
+    <None Remove="ClientApp\src\app\models\PrevYearEmpJoin.ts" />
+    <None Remove="ClientApp\src\app\models\ReportsEPMAttribute.ts" />
+    <None Remove="ClientApp\src\app\models\ResourceReqChildAttribute.ts" />
+    <None Remove="ClientApp\src\app\models\RRFChildAttribute.ts" />
+    <None Remove="ClientApp\src\app\models\projectnameAssigndrop .ts" />
+    <None Remove="ClientApp\src\app\models\Timesheet.ts" />
+    <None Remove="ClientApp\src\app\models\UserRole.ts" />
+    <None Remove="ClientApp\src\app\services\AdminConfigService.ts" />
+    <None Remove="ClientApp\src\app\services\ApplicantServicets.ts" />
+    <None Remove="ClientApp\src\app\services\AssesmentService.ts" />
+    <None Remove="ClientApp\src\app\services\AssignProjectService.ts" />
+    <None Remove="ClientApp\src\app\services\dialog.service.spec.ts" />
+    <None Remove="ClientApp\src\app\services\dialog.service.spec.ts" />
+    <None Remove="ClientApp\src\app\services\ExcelExport.ts" />
+    <None Remove="ClientApp\src\app\services\HomeService.ts" />
+    <None Remove="ClientApp\src\app\services\JobtitleService.ts" />
+    <None Remove="ClientApp\src\app\services\LoginGuard.ts" />
+    <None Remove="ClientApp\src\app\services\NewjobrequirementService.ts" />
+    <None Remove="ClientApp\src\app\services\NotificationService.ts" />
+    <None Remove="ClientApp\src\app\services\projectnameAssigndrop.ts" />
+    <None Remove="ClientApp\src\app\services\reportservice.ts" />
+    <None Remove="ClientApp\src\app\services\RoleGuardAdmin.ts" />
+    <None Remove="ClientApp\src\app\services\RoleGuardCust.ts" />
+    <None Remove="ClientApp\src\app\services\RoleGuardEmp.ts" />
+    <None Remove="ClientApp\src\app\services\RoleGuardProj.ts" />
+    <None Remove="ClientApp\src\app\services\RoleGuardReports.ts" />
+    <None Remove="ClientApp\src\app\services\RoleGuardRRF.ts" />
+    <None Remove="ClientApp\src\app\services\RoleGuardTA.ts" />
+    <None Remove="ClientApp\src\app\shared\loader\loader.interceptor.ts" />
+    <None Remove="ClientApp\src\app\shared\MaterialModule.ts" />
+    <None Remove="ClientApp\src\app\shared\myDateAdapter.ts" />
+    <None Remove="Models\PracticeCountAttribute.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Models\PrevYearEmpJoin.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\AllModuleCounts.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\APIResponse.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\AsesmtApplicantDrpDwn.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Assesment.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\AssignProject.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\BusinessGroup.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\businessgroupAtt.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\ChartData.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\ChartsEmpProjRe.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\CoeAtt.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Customer.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\CustomerDetails.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\DepartAtt.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\DesingAtt.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\EdgePracAtt.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\EmpCategoriesAttribute.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\EmpExitCount.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\EmpInProjCount.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\ErrorResponse.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\JobFamily.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Jobtitle.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Location.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\LoginData.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\LoginResponse.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\NewjobrequirementAttribute.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\PrevYearEmpJoin.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\ReportsEPMAttribute.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\ResourceReqChildAttribute.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\RRFChildAttribute.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\projectnameAssigndrop .ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Timesheet.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\UserRole.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\AdminConfigService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\ApplicantServicets.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\AssesmentService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\AssignProjectService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\ExcelExport.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\NewjobrequirementService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\reportservice.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\HomeService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\JobtitleService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\LoginGuard.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\NotificationService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\RoleGuardAdmin.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\RoleGuardCust.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\RoleGuardEmp.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\RoleGuardProj.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\RoleGuardReports.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\RoleGuardRRF.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\RoleGuardTA.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\loader\loader.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\MaterialModule.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\myDateAdapter.ts" />
+    <TypeScriptCompile Include="Models\PracticeCountAttribute.ts" />
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>

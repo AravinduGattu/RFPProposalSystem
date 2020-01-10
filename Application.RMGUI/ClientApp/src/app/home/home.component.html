@@ -1,0 +1,276 @@
+<div class="pg-assnpro" style="height: calc( 100vh - 60px)">
+  <!--Main Division-->
+  <div class="numcards">
+    <div class="cards" style="margin:0%;">
+      <h1>{{empcount}}</h1>
+      <h4>Employee Head Count</h4>
+    </div>
+    <div class="cards">
+      <h1>{{deliveryCount}}</h1>
+      <h4>Delivery Team</h4>
+    </div>
+    <div class="cards">
+      <h1>{{availableRes}}</h1>
+      <h4>Non-Delivery Team </h4>
+    </div>
+    <div class="cards">
+      <h1>{{empProjcount}}</h1>
+      <h4>Billable Count</h4>
+    </div>
+
+    <div class="cards">
+      <h1>{{empBenchcount}}</h1>
+      <h4>Non Billable Count</h4>
+    </div>
+    <div class="cards">
+      <h1>{{projcount}}</h1>
+      <h4>Projects</h4>
+    </div>
+    <!--Newly added-->
+
+    <div class="cards">
+      <h1>{{rrfOpen}}</h1>
+      <h4>RR Tickets Open</h4>
+    </div>
+    <div class="cards">
+      <h1>{{rrfWIP}}</h1>
+      <h4>RR Tickets InProcess</h4>
+    </div>
+    <div class="cards">
+      <h1>{{rrfClosed}}</h1>
+      <h4>RR Tickets Closed</h4>
+    </div>
+  </div>
+
+  <!--Main Division-->
+  <div class="homegraphs">
+    <div class="maingraph" style="margin:0%">
+      <div class="lgraph">
+        <!--donut chart for employess billable and pool-->
+        <div class="chart">
+          <p align="center" style="font-family:Calibri;">Customers & Projects</p><br /><br /><br />
+          <canvas baseChart
+                  [data]="doughnutChartData2"
+                  [labels]="doughnutChartLabels2"
+                  [options]="doughnutChartOptions"
+                  [colors]="doughnutChartColors2"
+                  [chartType]="doughnutChartType"></canvas>
+
+
+        </div>
+        <br />
+      </div>
+      <div class="rgraph">
+        <div class="chart">
+          <!--bar chart for total count of employees,projects and customers-->
+          <p align="center" style="font-family:Calibri;">Billable & Non Billable</p><br /><br /><br />
+          <canvas baseChart
+                  [data]="doughnutChartData"
+                  [labels]="doughnutChartLabels"
+                   [options]="doughnutChartOptions"
+                  [colors]="doughnutChartColors"
+                  [chartType]="doughnutChartType"></canvas>
+          <br />
+
+        </div>
+      </div>
+
+      <!--div2 for charts-->
+      <div class="maingraph" style="margin:0%">
+        <div class="lgraph" style="padding:2%">
+          <!--donut chart for employess billable and pool-->
+          <div class="chart">
+            <p align="center" style="font-family:Calibri;">Employee Release</p><br /><br /><br />
+            <canvas style="height:inherit;" baseChart
+                    [datasets]="barChartData3"
+                    [labels]="barChartLabels3"
+                    [colors]="barChartColors1"
+                    [options]="barChartOptions3"
+                    [plugins]="barChartPlugins3"
+                    [legend]="barChartLegend3"
+                    [chartType]="barChartType3"></canvas>
+          </div>
+          <br />
+        </div>
+        <div class="rgraph" style="padding:2%">
+          <!--bar chart for total count of employees,projects and customers-->
+          <p align="center" style="font-family:Calibri;">Projects Ending</p><br /><br /><br />
+          <canvas style="height:inherit;" baseChart
+                  [datasets]="barChartData4"
+                  [labels]="barChartLabels4"
+                  [colors]="barChartColors2"
+                  [options]="barChartOptions4"
+                  [plugins]="barChartPlugins4"
+                  [legend]="barChartLegend4"
+                  [chartType]="barChartType4"></canvas>
+
+          <br />
+        </div>
+      </div>
+
+
+      <div class="maingraph">
+        <p align="center" style="font-family:Calibri;">Employees per Project</p><br /><br />
+        <!--bar chart for total number of employees in each project-->
+        <canvas style="height:inherit;" baseChart
+                [datasets]="barChartData2"
+                [labels]="barChartLabels2"
+                [colors]="barChartColors1"
+                [options]="barChartOptions2"
+                [plugins]="barChartPlugins2"
+                [legend]="barChartLegend2"
+                [chartType]="barChartType"></canvas>
+      </div>
+
+
+
+      <!--div2 for charts-->
+      <div class="maingraph" style="margin:0%">
+        <div class="lgraph" style="padding:2%">
+          <!--donut chart for employess billable and pool-->
+          <div class="chart">
+            <p align="center" style="font-family:Calibri;">Employee by EDGE Practice</p><br /><br /><br />
+            <canvas style="height:inherit;" baseChart
+                    [datasets]="barChartData8"
+                    [labels]="barChartLabels8"
+                    [colors]="barChartColors1"
+                    [options]="barChartOptions8"
+                    [plugins]="barChartPlugins8"
+                    [legend]="barChartLegend8"
+                    [chartType]="barChartType8"></canvas>
+          </div>
+          <br />
+        </div>
+        <div class="rgraph" style="padding:2%">
+          <!--bar chart for total count of employees,projects and customers-->
+          <p align="center" style="font-family:Calibri;">Employee by COE</p><br /><br /><br />
+          <canvas style="height:inherit;" baseChart
+                  [datasets]="barChartData9"
+                  [labels]="barChartLabels9"
+                  [colors]="barChartColors2"
+                  [options]="barChartOptions9"
+                  [plugins]="barChartPlugins9"
+                  [legend]="barChartLegend9"
+                  [chartType]="barChartType9"></canvas>
+
+          <br />
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+      <!--div2 for charts-->
+      <div class="maingraph" style="margin:0%">
+        <div class="lgraph" style="padding:2%">
+          <!--donut chart for employess billable and pool-->
+          <div class="chart">
+            <p align="center" style="font-family:Calibri;">Employee Count by Job Family</p><br /><br /><br />
+            <canvas style="height:inherit;" baseChart
+                    [datasets]="barChartData10"
+                    [labels]="barChartLabels10"
+                    [colors]="barChartColors1"
+                    [options]="barChartOptions10"
+                    [plugins]="barChartPlugins10"
+                    [legend]="barChartLegend10"
+                    [chartType]="barChartType10"></canvas>
+          </div>
+          <br />
+        </div>
+        <div class="rgraph" style="padding:2%">
+          <!--bar chart for total count of employees,projects and customers-->
+          <p align="center" style="font-family:Calibri;">Employee Count by Category</p><br /><br /><br />
+          <canvas style="height:inherit;" baseChart
+                  [datasets]="barChartData11"
+                  [labels]="barChartLabels11"
+                  [colors]="barChartColors2"
+                  [options]="barChartOptions11"
+                  [plugins]="barChartPlugins11"
+                  [legend]="barChartLegend11"
+                  [chartType]="barChartType11"></canvas>
+
+          <br />
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+      <div class="maingraph">
+        <p align="center" style="font-family:Calibri;">Monthly Recruitment of Employee</p><br /><br />
+        <!--bar chart for total number of employees in each project-->
+        <canvas style="height:inherit;" baseChart
+                [datasets]="barChartData5"
+                [labels]="barChartLabels5"
+                [options]="barChartOptions5"
+                [colors]="barChartColors1"
+                [plugins]="barChartPlugins5"
+                [legend]="barChartLegend5"
+                [chartType]="barChartType5"></canvas>
+      </div>
+
+      <div class="maingraph">
+        <p align="center" style="font-family:Calibri;"> Employee Count By Month</p><br /><br />
+        <!--bar chart for total number of employees in each project-->
+        <canvas style="height:inherit;" baseChart
+                [datasets]="barChartData6"
+                [labels]="barChartLabels6"
+                [options]="barChartOptions6"
+                [colors]="barChartColors2"
+                [plugins]="barChartPlugins6"
+                [legend]="barChartLegend6"
+                [chartType]="barChartType6"></canvas>
+      </div>
+
+      <div class="maingraph">
+        <p align="center" style="font-family:Calibri;"> Employee Resigned by Month</p><br /><br />
+        <!--bar chart for total number of employees in each project-->
+        <canvas style="height:inherit;" baseChart
+                [datasets]="barChartData7"
+                [labels]="barChartLabels7"
+                [options]="barChartOptions7"
+                [colors]="barChartColors1"
+                [plugins]="barChartPlugins7"
+                [legend]="barChartLegend7"
+                [chartType]="barChartType7"></canvas>
+      </div>
+
+
+      <div class="maingraph">
+        <div class="lgraph">
+          <p align="center" style="font-family:Calibri;">Employees Released from Projects</p><br /><br />
+          <!--polararea chart to get employees release details-->
+          <canvas baseChart
+                  [data]="polarAreaChartData"
+                  [labels]="polarAreaChartLabels"
+                  [legend]="polarAreaLegend"
+                  [options]="polarAreaChartOptions"
+                  [colors]="polarAreaChartColors1"
+                  [chartType]="polarAreaChartType"></canvas>
+        </div>
+        <div class="rgraph">
+          <p align="center" style="font-family:Calibri;">Projects Ending</p><br /><br />
+          <canvas baseChart
+                  [data]="polarAreaChartData1"
+                  [labels]="polarAreaChartLabels1"
+                  [legend]="polarAreaLegend1"
+                  [options]="polarAreaChartOptions1"
+                  [colors]="polarAreaChartColors1"
+                  [chartType]="polarAreaChartType1"></canvas>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+

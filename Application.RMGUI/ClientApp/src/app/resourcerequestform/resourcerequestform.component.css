@@ -1,0 +1,215 @@
+.heading {
+  font-style: italic;
+  padding: 4px;
+  width: 100%;
+}
+
+h3 {
+  padding-left: 20px;
+  font-weight: bold;
+}
+
+.not-available {
+  text-align: center;
+  font-size: 15px;
+}
+.pg-assnpro {
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+
+}
+
+button {
+  border: none;
+  background-color: inherit;
+}
+
+.searchbtn:hover {
+  background-color: #B2DDE7;
+  color: #FDFDFE;
+}
+.btnbar {
+  width: 100%;
+  height: 77px;
+  float: right;
+  background-color: rgb(0, 66, 128);
+  padding: 5px;
+}
+
+li {
+  list-style: none;
+  float: right;
+  background-color: inherit;
+}
+
+p {
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+mat-card {
+  background-color: white;
+}
+
+/*hr {
+  border-color: rgb(255, 210, 21);
+}*/
+
+.cardhr {
+  border-color: #C6CED3;
+}
+.example-container {
+  max-height: 550px;
+  width: 100%;
+  overflow: auto;
+}
+
+table {
+  width: 2170px;
+  flex: none;
+  word-wrap: normal;
+}
+
+th.mat-column-edit, td.mat-column-edit {
+  width: 90px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_created_by, td.mat-column-res_req_created_by {
+  width: 250px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_pid, td.mat-column-res_req_pid {
+  width: 100px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_num_res, td.mat-column-res_req_num_res {
+  width: 100px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_project_name, td.mat-column-res_req_project_name {
+  width: 250px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_customer_name, td.mat-column-res_req_customer_name {
+  width: 180px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_coe, td.mat-column-res_req_coe {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_request_for, td.mat-column-res_req_request_for {
+  width: 100px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_ccc, td.mat-column-res_req_ccc {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_skillset, td.mat-column-res_req_skillset {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_type_of_billing, td.mat-column-res_req_type_of_billing {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_location, td.mat-column-res_req_location {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_category, td.mat-column-res_req_category {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_practice_name, td.mat-column-res_req_practice_name {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_start_date, td.mat-column-res_req_start_date {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th.mat-column-res_req_end_date, td.mat-column-res_req_end_date {
+  width: 150px;
+  height: 40px;
+  padding: 10px;
+  word-wrap: normal;
+  flex: none;
+}
+
+th {
+  background-color: rgb(38, 82, 124);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(199, 222, 243);
+}
+
+
