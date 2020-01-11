@@ -82,6 +82,10 @@ export const Months = {
   12: 'Dec'
 }
 
+export const appConstants = {
+  dateFormat: 'dd-MMM-yyyy'
+}
+
 export const MileStones = [
   {
     mileStoneId: 1,

@@ -43,7 +43,8 @@ export class BasicProposalComponent implements OnInit {
     var Id = this.activatedRoute.snapshot.params.Id;
     this.createForm();
     this.getLocations();
-    
+
+    this.newProposalForm.get('rfpCode').disable();
     if (this.new === true) {
       this.newProposalForm.get('practiceType').setValue(Id);
       this.getPracticeLeads();

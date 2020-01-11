@@ -125,8 +125,8 @@ import { DialogService } from './services/dialog.service';
       useClass: TokenInterceptor,
       multi: true
     },
-    //{ provide: DateAdapter, useClass: MyDateAdapter },
-    //{ provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: DateAdapter, useClass: MyDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
   bootstrap: [AppComponent],
   entryComponents: [AlertDialogComponent, ConfirmationDialogComponent]

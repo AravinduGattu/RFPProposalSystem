@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { ProposalRequestModel } from '../view-models/proposal-request-view-model';
 import { Router } from '@angular/router';
 import { ProposalService } from './proposal.service';
+import { appConstants } from '../global/constants';
 
 @Component({
   selector: 'app-proposals',
@@ -15,6 +16,7 @@ export class ProposalsComponent implements OnInit {
   dataSource = new MatTableDataSource<ProposalRequestModel>();
   data: ProposalRequestModel[];
   filterText: string;
+  constants: any;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -41,6 +43,7 @@ export class ProposalsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.constants = appConstants;
     this.getProposals();   
   }
 

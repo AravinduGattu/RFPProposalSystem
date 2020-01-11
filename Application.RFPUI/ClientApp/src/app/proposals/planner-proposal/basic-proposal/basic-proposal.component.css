@@ -1,0 +1,4 @@
+::ng-deep .mat-form-field-disabled .mat-form-field-wrapper {
+  background-color: #eaeaea !important;
+  background-clip: content-box;
+}

@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
     const userName = this.sessionService.getSession(Session.userName);
     const role = this.sessionService.getSession(Session.userRole);
     if (userName && role) {
-      this.router.navigate(['']);
+      this.router.navigate(['/app/proposals/list']);
     } else {
       this.isValidCredentials = false;
     }

@@ -78,6 +78,9 @@ exports.Months = {
     11: 'Nov',
     12: 'Dec'
 };
+exports.appConstants = {
+    dateFormat: 'dd-MMM-yyyy'
+};
 exports.MileStones = [
     {
         mileStoneId: 1,

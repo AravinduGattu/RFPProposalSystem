@@ -5,7 +5,7 @@ import { ProposalService } from '../proposal.service';
 import { stepsForDL, stepsForPRL, stepsForPUL, stepsForSL, RFPMockupData, scheduleDetails, stepsForDLComplete } from '../../global/MockupConstants';
 import { SessionService } from '../../global/session.service';
 import { CommonService } from '../../services/common.service';
-import { RequestTypes, Streams, MileStones, TaskStatus } from '../../global/constants';
+import { RequestTypes, Streams, MileStones, TaskStatus, appConstants } from '../../global/constants';
 import { ProposalUsers, Session } from '../../global/enum';
 import { NotificationService } from '../../services/notification.service';
 
@@ -28,6 +28,7 @@ export class PlannerViewComponent implements OnInit {
   taskStatus: any;
   locations: any;
   Leads: any;
+  constants: any;
   
   proposaldata: any;
   scheduleData: any;
@@ -80,11 +81,11 @@ export class PlannerViewComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.constants = appConstants;
     this.roles = ProposalUsers;
     this.role = +this.sessionService.getSession(Session.userRole);
 
-    this.selectedTab = 5;
+    this.selectedTab = 0;
     var rfpID = this.activatedRoute.snapshot.params.Id;
     //this.proposaldata = RFPMockupData.filter(data => data.id === +rfpID)[0];
     this.getProposaldata(+rfpID);
@@ -257,7 +258,8 @@ export class PlannerViewComponent implements OnInit {
       questionID: new FormControl(0),
       question: new FormControl(''),
       answer: new FormControl(''),
-      response: new FormControl('')
+      response: new FormControl(''),
+      comments: new FormControl('')
     });
   }
 

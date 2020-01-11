@@ -91,7 +91,7 @@
         <ng-container matColumnDef="releaseDate" class="container">
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Released Date </mat-header-cell>
           <mat-cell *matCellDef="let element" class="cell">
-            <span class="sort-header">{{element.releaseDate | date: 'dd-MMM-yyyy'}}</span>
+            <span class="sort-header">{{element.releaseDate | date: constants.dateFormat}}</span>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></mat-header-row>

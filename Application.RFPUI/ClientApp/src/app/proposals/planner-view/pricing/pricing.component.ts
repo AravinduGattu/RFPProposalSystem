@@ -39,7 +39,7 @@ export class PricingComponent implements OnInit {
       '2': 'Manager'
     };
 
-    this.requiredFields = ['role', 'count', 'allocation', 'locationID', 'totalHours'];
+    this.requiredFields = ['role', 'count', 'allocation', 'locationID', 'totalHours', 'totalCost'];
 
     this.gridOptionsPricing = <GridOptions>{};
     this.gridOptionsPricing.defaultColDef = { headerClass: 'custom-ag-header' };
@@ -111,7 +111,7 @@ export class PricingComponent implements OnInit {
         headerCheckboxSelection: true,
         headerCheckboxSelectionFilteredOnly: true,
         checkboxSelection: true,
-        suppressFilter: true
+        filter: true
       },
       {
         headerName: 'S.No',
@@ -187,7 +187,7 @@ export class PricingComponent implements OnInit {
         editable: true
       },
       {
-        headerName: 'Total Cost',
+        headerName: 'Total Cost *',
         field: 'totalCost',
         width: 110,
         sortable: true,
@@ -197,6 +197,10 @@ export class PricingComponent implements OnInit {
         editable: true
       }
     ]
+  }
+
+  getSerialNumber() {
+    const index = this.gridOptionsPricing
   }
 
   addNewRecord() {
