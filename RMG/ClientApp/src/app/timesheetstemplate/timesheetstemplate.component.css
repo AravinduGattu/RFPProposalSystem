@@ -1,0 +1,34 @@
+.pg-assnpro {
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  margin-top: 37px;
+  display:flex;
+}
+.btnbar {
+  width: 100%;
+  height: 77px;
+  float: right;
+  background-color: rgb(0, 66, 128);
+  padding: 5px;
+  list-style:none;
+}
+button {
+  border: none;
+  background-color: inherit;
+}
+h3 {
+  padding-left: 20px;
+  font-weight: bold;
+}
+.import{
+  border: 0.8px solid gray;
+  border-radius: 8px;
+  margin:auto;
+  padding: 7% 7%;
+  width:20%;
+  display:inline-block;
+}

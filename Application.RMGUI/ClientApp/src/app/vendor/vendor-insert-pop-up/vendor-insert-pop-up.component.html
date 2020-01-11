@@ -1,0 +1,103 @@
+<form [formGroup]="vendorForm">
+  <div class="col-md-12">
+    <mat-toolbar>
+      <mat-label style="width: 100%;color:rgb(47, 72, 131);font-size:large">{{title}} </mat-label>&nbsp;&nbsp;&nbsp;
+      <button style="float:right; background-color:inherit; border:none" (click)="Close()"><mat-icon>clear</mat-icon></button>
+    </mat-toolbar><br /><br>
+  </div><br /><br />
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <!--<mat-label>Vendor Code </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <input matInput  formControlName="vendor_code" id="vendor_code">
+          <mat-error *ngIf="hasError('vendor_code', 'required')">Vendor Code is required</mat-error>
+        </mat-form-field>-->
+
+        <mat-label>Vendor Name </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <input matInput formControlName="vendor_name" id="vendor_name">
+          <mat-error *ngIf="hasError('vendor_name', 'required')">Vendor Name is required</mat-error>
+          <mat-error *ngIf="hasError('vendor_name', 'pattern')">Vendor Name should not contain numbers</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Email </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <input matInput formControlName="email" id="email">
+          <mat-error *ngIf="hasError('email', 'required')">Email Id is required</mat-error>
+          <!--<mat-error *ngIf="hasError('email', 'pattern')">Email Id should be end with .com</mat-error>-->
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+    <div class="col-md-6">
+      <mat-label>Mobile </mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+        <input matInput formControlName="mobile" id="mobile">
+        <mat-error *ngIf="hasError('mobile', 'required')">Contact number is required</mat-error>
+        <mat-error *ngIf="hasError('mobile', 'minlength')">Contact Number is less than 10 characters</mat-error>
+        <mat-error *ngIf="hasError('mobile', 'maxlength')">Contact Number is more than 13 characters</mat-error>
+        <mat-error *ngIf="hasError('mobile', 'pattern')">Contact Number should not contain characters</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-label> Telephone</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+        <input matInput formControlName="telephone" id="telephone">
+        <mat-error *ngIf="hasError('telephone', 'required')">  Contact is required</mat-error>
+        <mat-error *ngIf="hasError('telephone', 'minlength')">Contact Number is less than 8 characters</mat-error>
+        <mat-error *ngIf="hasError('telephone', 'maxlength')">Contact Number is more than 13 characters</mat-error>
+        <mat-error *ngIf="hasError('telephone', 'pattern')">Contact Number should not contain characters</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-label>Start date</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+        <input matInput [matDatepicker]="StartDate" [max]="vendorForm.controls['vendor_enddate'].value" formControlName="vendor_startdate">
+        <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+        <mat-datepicker #StartDate></mat-datepicker>
+        <mat-error *ngIf="hasError('vendor_startdate', 'required')">Start Date is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-label>End date</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+        <input matInput [matDatepicker]="EndtDate" [min]="vendorForm.controls['vendor_startdate'].value" formControlName="vendor_enddate">
+        <mat-datepicker-toggle matSuffix [for]="EndtDate"></mat-datepicker-toggle>
+        <mat-datepicker #EndtDate></mat-datepicker>
+        <mat-error *ngIf="hasError('vendor_enddate', 'required')">Vendor End Date is required</mat-error>
+      </mat-form-field>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-label>Vendor Site</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+        <input matInput formControlName="vendor_site" id="vendor_site">
+        <mat-error *ngIf="hasError('vendor_site', 'required')">Vendor site is required</mat-error>
+      </mat-form-field>
+    </div>
+    </div>
+  </div>
+    <!--<br><hr class="cardhr">-->
+    <!--<mat-label>Status </mat-label>
+  <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+    <mat-select [(value)]="vendorStatus" formControlName="vendor_status">
+      <mat-option value="active">
+        Active
+      </mat-option>
+      <mat-option value="inactive">
+        Inactive
+      </mat-option>
+    </mat-select>
+  </mat-form-field>-->
+ 
+</form>
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="OnSubmit()">Submit</button>&nbsp;&nbsp;
+  <button mat-raised-button color="warn" (click)="Clear()">Clear</button>
+
+</div>

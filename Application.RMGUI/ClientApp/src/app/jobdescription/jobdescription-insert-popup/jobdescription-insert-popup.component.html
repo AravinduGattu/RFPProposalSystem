@@ -1,0 +1,131 @@
+<form [formGroup]="jobdescriptionForm">
+
+  <div class="col-md-12">
+    <mat-toolbar>
+      <mat-label style="width: 100%;color:rgb(47, 72, 131);font-size:medium">{{title}}</mat-label>
+      <button mat-button style="float:right; background-color:inherit" (click)="onClose()"><mat-icon>close</mat-icon></button>
+    </mat-toolbar>
+    <br /><br />
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-label>Job code</mat-label>
+      <mat-form-field style="width: 100%;">
+        <input matInput type="text" formControlName="job_Posting_code">
+        <mat-error *ngIf="hasError('job_Posting_code','required')">job_Posting_code  is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-label>Salary</mat-label>
+      <mat-form-field style="width: 100%;padding: 0% 2% 0% 2%">
+        <mat-select [(value)]="salary" formControlName="salary">
+          <mat-option value=" 100000-50000">
+            100000-50000
+          </mat-option>
+          <mat-option value="50000-100000">
+            50000-100000
+          </mat-option>
+          <mat-option value="1000000-1500000">
+            1000000-1500000
+          </mat-option>
+          <mat-option value="1500000-2500000">
+            1500000-2500000
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('salary', 'required')">Salary  is required</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-label>Experience</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput type="text" formControlName="experience">
+        <mat-error *ngIf="hasError('experience','required')">Experience is required</mat-error>
+        <mat-error *ngIf="hasError('experience','maxlength')">You have more than 10 characters</mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-md-4">
+      <mat-label>Job title</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+        <mat-select formControlName="job_title">
+          <mat-option *ngFor="let jtdrop of jobtitledroplist" [value]="jtdrop.job_title">{{jtdrop.job_title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-label>Work Location</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput formControlName="worklocation">
+        <mat-error *ngIf="hasError('worklocation','required')">worklocation is required</mat-error>
+        <mat-error *ngIf="hasError('worklocation','maxlength')">You have more than 10 characters</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-label>Job Type</mat-label>
+      <mat-form-field style="width: 100%;padding: 0% 2% 0% 2%">
+        <mat-select [(value)]="job_type" formControlName="job_type">
+          <mat-option value="contract">
+            Contract
+          </mat-option>
+          <mat-option value="fulltime">
+            Full-Time
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('job_type','required')">Job type is required</mat-error>
+      </mat-form-field><br /><br />
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <hr />
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-label>Skills</mat-label>
+      <mat-form-field style="width: 100%;padding: 0% 2% 0% 2%">
+        <mat-select formControlName="skills" multiple="true">
+          <mat-option *ngFor="let skill of skilldroplist" [value]="skill.skills">{{skill.skills}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('skills', 'required')">Skill is required</mat-error>
+      </mat-form-field>
+    </div>
+
+
+
+    <div class="col-md-4">
+      <mat-label>Job description</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <textarea matInput formControlName="job_description"></textarea>
+        <mat-error *ngIf="hasError('job_description','required')">job description is required</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="OnSubmit()">Post</button>&nbsp;
+
+  <button mat-raised-button color="warn" (click)="Clear()">Clear</button>
+</div>
+
+
+
+
+
+
+
+
+

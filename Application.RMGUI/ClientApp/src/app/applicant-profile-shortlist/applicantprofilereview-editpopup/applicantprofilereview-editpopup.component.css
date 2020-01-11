@@ -1,0 +1,16 @@
+.col-md-6 {
+  padding: 0;
+  margin: 0;
+}
+
+mat-label {
+  font-weight: 700;
+  color: rgb(0, 66, 128);
+}
+.readonly-wrapper {
+  cursor: not-allowed;
+}
+
+  .readonly-wrapper .readonly-block {
+    pointer-events: none;
+  }

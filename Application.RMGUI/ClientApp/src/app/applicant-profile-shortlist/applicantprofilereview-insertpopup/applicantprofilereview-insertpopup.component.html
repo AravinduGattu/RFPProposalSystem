@@ -1,0 +1,93 @@
+<form [formGroup]="applicantprofilereviewForm">
+  <div class="col-md-12">
+    <!--<div class="popheader">
+      Add Customer
+      <span style="float:right; cursor:pointer; background-color: inherit !important" (click)="Close()"><mat-icon>clear</mat-icon></span>
+    </div>-->
+    <mat-toolbar>
+    <mat-label style="width: 100%;color:rgb(47, 72, 131);font-size:large">{{title}} </mat-label>&nbsp;&nbsp;&nbsp;
+    <button style="float:right; background-color:inherit; border:none" (click)="Close()"><mat-icon>clear</mat-icon></button>
+  </mat-toolbar><br /><br>
+  </div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <!--<mat-label>Panel Name </mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+        <input matInput  formControlName="panel_name" id="panel_name" [matAutocomplete]="panelname">
+        <mat-error *ngIf="hasError('panel_name', 'required')">Panel Name is required</mat-error>-->
+        <!--<mat-error *ngIf="hasError('Panel_name', 'maxlength')">You have more than 10 characters</mat-error-->
+        <!--</mat-form-field>
+      <mat-autocomplete #panelname="matAutocomplete">
+
+        <mat-option *ngFor="let panelname of panelemp" [value]="panelname.emp_Name">{{panelname.emp_Name}}</mat-option>
+
+      </mat-autocomplete>-->
+
+        <mat-label>Panel Name </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="panel_name">
+            <mat-option *ngFor="let panelname of panelemp" [value]="panelname.emp_Name">
+              {{panelname.emp_Name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('panel_name', 'required')">Panel Name is required</mat-error>
+          <mat-error *ngIf="hasError('panel_name', 'pattern')">Panel Name should not contain numbers</mat-error>
+        </mat-form-field>
+
+      </div>
+      <div class="col-md-6">
+        <!--<mat-label>Applicant Name </mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+        <input matInput formControlName="applicant_name" id="applicant_name">
+        <mat-error *ngIf="hasError('applicant_name', 'required')">Applicant Name is required</mat-error>
+        <mat-error *ngIf="hasError('applicant_name', 'pattern')">Applicant Name should not contain numbers</mat-error>
+      </mat-form-field>-->
+
+
+        <mat-label>Applicant Name </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="applicant_name">
+            <mat-option *ngFor="let panelappname of panelapp" [value]="panelappname.applicant_name">
+              {{panelappname.applicant_name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('applicant_name', 'required')">Applicant Name is required</mat-error>
+          <mat-error *ngIf="hasError('applicant_name', 'pattern')">Applicant Name should not contain numbers</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <mat-label>Applicant Profile Status </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select [(value)]="applicant_profile_status" formControlName="applicant_profile_status">
+            <mat-option value="active">
+              Active
+            </mat-option>
+            <mat-option value="inactive">
+              Inactive
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Panel Profile Review </mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <input matInput formControlName="panel_profile_review" id="panel_profile_review">
+          <mat-error *ngIf="hasError('panel_profile_review', 'required')">Panel Profile Review is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="OnSubmit()">Submit</button>&nbsp;&nbsp;&nbsp;
+  <button mat-raised-button color="warn" (click)="Clear()">Clear</button>
+
+</div>

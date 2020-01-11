@@ -1,0 +1,169 @@
+<form [formGroup]="EmployeeForm">
+  <div class="popheader">
+    Add Employee
+    <span style="float:right; cursor:pointer; background-color: inherit !important" (click)="onClose()"><mat-icon>clear</mat-icon></span>
+  </div>
+
+  <!--<div class="col-md-12">
+    <mat-toolbar>
+      <mat-label style="width: 100%;color:rgb(47, 72, 131);font-size:large">{{title}} </mat-label>&nbsp;&nbsp;&nbsp;
+      <button mat-button style="float:right; background-color:inherit; border:none" (click)="onClose()"><mat-icon>clear</mat-icon></button>
+    </mat-toolbar><br /><br>
+
+  </div>-->
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-label>Business Group <span style="color:red;">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="bg_id">
+            <mat-option *ngFor="let b of businessgroup" [value]="b.bg_desc">{{b.bg_desc}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('bg_id', 'required')">Business Group is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-label>Employee Id <span style="color:red;">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="emp_Id">
+          <mat-error *ngIf="hasError('emp_Id', 'required')">Employee Id is required</mat-error>
+          <mat-error *ngIf="hasError('emp_Id', 'maxlength')">Employee Id cannot be more than 8 characters</mat-error>
+          <mat-error *ngIf="hasError('emp_Id', 'minlength')">Employee Id cannot be less than 8 characters</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-label>Employee Name <span style="color:red;">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="emp_Name">
+          <mat-error *ngIf="hasError('emp_Name', 'required')">Employee Name is required</mat-error>
+          <mat-error *ngIf="hasError('emp_Name', 'pattern')">Employee Name should not contain special characters and numbers</mat-error>
+          <mat-error *ngIf="hasError('emp_Name', 'maxlength')">Employee Name cannot be more than 100 characters</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-label>Email Id <span style="color:red;">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="email_Id">
+          <mat-error *ngIf="hasError('email_Id', 'required')">Email Id is required</mat-error>
+          <mat-error *ngIf="hasError('email_Id', 'pattern')">Email Id should be end with @pactera.com</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-label>Contact Number</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput formControlName="contact_Number" type="text">
+          <mat-error *ngIf="hasError('contact_Number', 'required')">Contact Number is required</mat-error>
+          <mat-error *ngIf="hasError('contact_Number', 'minlength')">Contact Number is less than 10 characters</mat-error>
+          <mat-error *ngIf="hasError('contact_Number', 'maxlength')">Contact Number is more than 13 characters</mat-error>
+          <mat-error *ngIf="hasError('contact_Number', 'pattern')">Contact Number should not contain characters</mat-error>
+        </mat-form-field>
+      </div>
+
+    <div class="col-md-4">
+      <mat-label>Address</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput formControlName="address" type="text" maxlength="200">
+        <mat-error *ngIf="hasError('address', 'required')">Address is required</mat-error>
+        <mat-error *ngIf="hasError('address', 'maxlength')">Contact Number is more than 200 characters</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-label>Designation</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="designation_Id">
+            <mat-option *ngFor="let d of design" [value]="d.designation_Description">{{d.designation_Description}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('designation_Id', 'required')">Designation is required</mat-error>
+        </mat-form-field>
+
+
+      </div>
+
+      <div class="col-md-4">
+        <mat-label>Reporting Manager</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input type="text" formControlName="reporting_To" matInput [matAutocomplete]="empReportingTo">
+          <mat-error *ngIf="hasError('reporting_To', 'required')">Reporting Manager is required</mat-error>
+          <mat-autocomplete #empReportingTo="matAutocomplete" (optionSelected)="GetEmailID($event)">
+            <mat-option *ngFor="let r of ReportingTo" [value]="r.emp_Name">{{r.emp_Name}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-label>Base Location</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="location">
+            <mat-option *ngFor="let d of Location" [value]="d.city">{{d.city}} , {{d.country}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('location_Id', 'required')">Location Code is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-label>COE</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="coe_Id">
+            <mat-option *ngFor="let d of coe" [value]="d.coe_Description">{{d.coe_Description}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('coe_Id', 'required')">COE is required</mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div class="col-md-4">
+        <mat-label>Reporting Manager E-Mail</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input id="reporting_To_Email" matInput formControlName="reporting_To_Email">
+          <mat-error *ngIf="hasError('reporting_To_Email', 'required')">Reporting Manager Email is required</mat-error>
+          <mat-error *ngIf="hasError('reporting_To_Email', 'pattern')">Reporting Manager Email should ends with @pactera.com</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-label>Joined Date <span style="color:red;">*</span></mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+          <input matInput (focus)="myDatepicker.open()" [matDatepicker]="myDatepicker" formControlName="joining_Date">
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+          <mat-error *ngIf="hasError('joining_Date', 'required')">Joining Date is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-label>EDGE Practice</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+          <mat-select formControlName="edge_Practice_Id">
+            <mat-option *ngFor="let d of edge" [value]="d.edge_Practice_Description">{{d.edge_Practice_Description}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('edge_Practice_Id', 'required')">Edge Practice Name is required</mat-error>
+        </mat-form-field>
+      </div>
+       <div class="col-md-4">
+         <mat-label>Department</mat-label>
+        <mat-form-field style="width: 100%;padding:0% 2% 0% 2%">
+         <mat-select formControlName="department_Id">
+           <mat-option *ngFor="let d of dept" [value]="d.department_Description">{{d.department_Description}}</mat-option>
+         </mat-select>
+         <mat-error *ngIf="hasError('department_Id', 'required')">Department is required</mat-error>
+       </mat-form-field>
+      </div>
+    </div>
+    </div>
+</form>
+ 
+<div class="col-md-12">
+  <button mat-raised-button color="primary" (click)="OnSubmit()">Submit</button>&nbsp;&nbsp;&nbsp;
+  <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+</div>

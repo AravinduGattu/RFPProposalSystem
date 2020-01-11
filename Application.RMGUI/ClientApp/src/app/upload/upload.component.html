@@ -1,0 +1,6 @@
+<button style="float:right; background-color:inherit; border:none"><mat-icon (click)="onClose()">clear</mat-icon></button>
+
+<input type="file" hidden accept=".xls, .xlsx" (change)="handleFileInput($event.target.files)" />
+<br /><br />
+<button mat-button type="button" (click)="OnDownload()">Download Template</button>
+<button mat-raised-button type="button" (click)="onSubmit()" color="primary" style="float:right">Submit</button>

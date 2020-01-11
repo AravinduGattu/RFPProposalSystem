@@ -1,0 +1,104 @@
+<div class="padcla">
+  <form [formGroup]="assignpro.assignProjectForm">
+    <br>
+    <div class="popheader">
+      Assign Project
+      <button style="float:right; background-color:inherit; border:none" (click)="closeDialog()"><mat-icon>clear</mat-icon></button>
+      <!--<span style="float:right; cursor:pointer; background-color: inherit !important" (click)="closeDialog()"><mat-icon>clear</mat-icon></span>-->
+    </div>
+
+    <!--<div class="col-md-12">
+      <mat-toolbar>
+        <mat-label style="width: 100%;color:rgb(47, 72, 131);font-size:large">{{title}} </mat-label>
+        <button style="float:right; background-color:inherit; border:none" (click)="closeDialog()"><mat-icon>clear</mat-icon></button>
+      </mat-toolbar><br /><br>
+    </div>-->
+    <!--<div class="content-container">
+      <mat-label style="width: 100%;color:rgb(255, 51, 51);font-size:large">{{title}} </mat-label>&nbsp;&nbsp;&nbsp;
+      <span id="close-icon"><i (click)="closeDialog()" class="glyphicon glyphicon-remove"></i></span>
+    </div>-->
+
+    <div class="col-md-6">
+      <mat-label>Requested By</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" type="text" formControlName="res_req_created_by">
+      </mat-form-field><br />
+
+      <mat-label>Select Employee</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <mat-select formControlName="emp_Id">
+          <mat-option *ngFor="let empdrop of empdroplist; let i=index" [value]="empdrop.emp_Id">{{empdrop.emp_Name}}-{{empdrop.coe_Description}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('emp_Id','required')">Employee Id is required</mat-error>
+      </mat-form-field><br>
+
+      <!--<mat-label>Employee Id</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input type="text" matInput formControlName="emp_Id" [matAutocomplete]="emp_Id">
+        <mat-error *ngIf="hasError('emp_Id','required')">Employee Id is required</mat-error>
+      </mat-form-field><br>
+      <mat-autocomplete #i #emp_Id="matAutocomplete">
+        <mat-option *ngFor="let empdrop of empdroplist; let i=index" [value]="empdrop.emp_Id">{{empdrop.emp_Id}},{{empdrop.emp_Name}}</mat-option>
+      </mat-autocomplete>-->
+      <!--<mat-label>Location</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input type="text" formControlName="location" matInput [matAutocomplete]="location">
+        <mat-error *ngIf="hasError('location', 'required')">Location is required</mat-error>
+      </mat-form-field>
+      <mat-autocomplete #i #location="matAutocomplete">
+        <mat-option *ngFor="let location of assPrjLocation; let i=index" [value]="location.region">{{location.city}},{{location.region}}</mat-option>
+      </mat-autocomplete>-->
+
+      <mat-label>Location</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <mat-select formControlName="location">
+          <mat-option *ngFor="let location of assPrjLocation; let i=index" [value]="location.region">{{location.city}},{{location.region}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('location', 'required')">Location is required</mat-error>
+      </mat-form-field><br>
+
+      <mat-label>Project Assigning Date</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput (focus)="ProAsnDate.open()" [max]="assignpro.assignProjectForm.controls['assign_Project_EndDate'].value" [matDatepicker]="ProAsnDate" formControlName="assign_Project_StartDate">
+        <mat-datepicker-toggle matSuffix [for]="ProAsnDate"></mat-datepicker-toggle>
+        <mat-datepicker #ProAsnDate></mat-datepicker>
+        <mat-error *ngIf="hasError('assign_Project_StartDate', 'required')">Assign Project Start Date is required</mat-error>
+      </mat-form-field>
+
+    </div>
+    <div class="col-md-6">
+      <mat-label>Ticket No</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" type="text" formControlName="res_req_cid">
+      </mat-form-field><br />
+
+      <mat-label>Project Name</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput [readonly]="!editable" type="text" formControlName="res_req_project_name">
+      </mat-form-field><br>
+
+      <mat-label>Billing (%)</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput type="text" formControlName="billing_Percentage" id="Billing_Percentage">
+        <mat-error *ngIf="hasError('billing_Percentage', 'required')">Billing Percentage is required</mat-error>
+        <mat-error *ngIf="hasError('billing_Percentage', 'max')">You have maximum upto 100 %</mat-error>
+      </mat-form-field>
+
+
+      <mat-label>Project End Date</mat-label>
+      <mat-form-field style="width: 100%;padding:0% 2% 0% 2%;">
+        <input matInput (focus)="ProendDate.open()" [min]="assignpro.assignProjectForm.controls['assign_Project_StartDate'].value" [matDatepicker]="ProendDate" formControlName="assign_Project_EndDate">
+        <mat-datepicker-toggle matSuffix [for]="ProendDate"></mat-datepicker-toggle>
+        <mat-datepicker #ProendDate></mat-datepicker>
+        <mat-error *ngIf="hasError('assign_Project_EndDate', 'required')">Assign Project End Date is required</mat-error>
+      </mat-form-field>
+    </div>
+
+  </form>
+
+  <div class="col-md-12">
+    <!--<button mat-raised-button color="primary" >Save</button>&nbsp;&nbsp;&nbsp;-->
+    <button mat-raised-button color="primary" (click)="OnSubmit()">Save</button>&nbsp;&nbsp;&nbsp;
+    <button mat-raised-button color="warn" [mat-dialog-close]="true">Cancel</button>
+  </div>
+</div>
