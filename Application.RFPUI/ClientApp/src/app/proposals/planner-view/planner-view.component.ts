@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ProposalService } from '../proposal.service';
-import { stepsForDL, stepsForPRL, stepsForPUL, stepsForSL, RFPMockupData, scheduleDetails, stepsForDLComplete } from '../../global/MockupConstants';
+import { stepsForDL, stepsForPRL, stepsForPUL, stepsForSL, scheduleDetails, stepsForDLComplete } from '../../global/MockupConstants';
 import { SessionService } from '../../global/session.service';
 import { CommonService } from '../../services/common.service';
 import { RequestTypes, Streams, MileStones, TaskStatus, appConstants } from '../../global/constants';
 import { ProposalUsers, Session } from '../../global/enum';
 import { NotificationService } from '../../services/notification.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-planner-view',
@@ -52,6 +53,7 @@ export class PlannerViewComponent implements OnInit {
   questionForm: FormArray;
 
   selectedTab: any;
+  ageing: number;
 
   constructor(private proposalService: ProposalService,
     private sessionService: SessionService,
@@ -138,10 +140,18 @@ export class PlannerViewComponent implements OnInit {
         //this.porposalStatus = this.proposaldata.status;
         //this.proposalBy = this.proposaldata.rfpUser;
         //this.dataLoad(this.proposaldata);
+        this.getAgeing();
       }
     }, (error: any) => {
 
     })
+  }
+
+  getAgeing() {
+    const today = moment(new Date());
+    const submissiondate = moment(this.proposaldata.rfpSubmissionDate);
+    this.ageing = moment.duration(submissiondate.diff(today, 'days')).asDays(); 
+    console.log(this.ageing)
   }
 
   getProposalTracking() {

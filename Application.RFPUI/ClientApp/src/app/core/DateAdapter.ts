@@ -1,13 +1,16 @@
 import { NativeDateAdapter } from "@angular/material";
-import { Months } from '../global/constants';
+import { Months, appConstants } from '../global/constants';
+import { DatePipe } from '@angular/common';
 
 export class MyDateAdapter extends NativeDateAdapter {
    format(date: Date, displayFormat: Object): string {
        if (displayFormat == "input") {
-           let day = date.getDate();
-           let month = date.getMonth() + 1;
-           let year = date.getFullYear();
-         return this._to2digit(day) + '-' + this._toShortMonth(month) + '-' + year;
+           //let day = date.getDate();
+           //let month = date.getMonth() + 1;
+           //let year = date.getFullYear();
+        // return this._to2digit(day) + '-' + this._toShortMonth(month) + '-' + year;
+         var datePipe = new DatePipe(appConstants.locale);
+         return datePipe.transform(date, appConstants.dateFormat);
        } else {
            return date.toDateString();
        }

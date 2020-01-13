@@ -79,7 +79,8 @@ exports.Months = {
     12: 'Dec'
 };
 exports.appConstants = {
-    dateFormat: 'dd-MMM-yyyy'
+    dateFormat: 'dd-MMM-yyyy',
+    locale: 'en-US'
 };
 exports.MileStones = [
     {

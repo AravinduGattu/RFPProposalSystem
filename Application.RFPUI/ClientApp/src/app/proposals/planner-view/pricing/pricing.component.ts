@@ -3,7 +3,9 @@ import { GridOptions } from 'ag-grid-community/main';
 import { ActivatedRoute } from '@angular/router';
 import { DropdownEditorComponent } from '../../../cell-render/dropdown-renderer.component';
 import { EditCellRenderComponent } from '../../../cell-render/editcell-renderer.component';
+import { ButtonRendererComponent } from '../../../cell-render/button-renderer.component';
 import { CommonService } from '../../../services/common.service';
+import { SerialNumberComponent } from '../../../cell-render/serial-number.component';
 import { ProposalService } from '../../../proposals/proposal.service';
 import { PricingModel } from '../../../view-models/proposal-request-view-model';
 import { NotificationService } from '../../../services/notification.service';
@@ -52,7 +54,9 @@ export class PricingComponent implements OnInit {
     this.gridOptionsPricing.columnDefs = [];
     this.gridOptionsPricing.frameworkComponents = {
       dropdownEditor: DropdownEditorComponent,
-      cellEditor: EditCellRenderComponent
+      cellEditor: EditCellRenderComponent,
+      buttonRenderer: ButtonRendererComponent,
+      serialRenderer: SerialNumberComponent
     };
     this.gridOptionsPricing.rowSelection = 'multiple';
     this.gridOptionsPricing.getRowNodeId = data => data.id;
@@ -104,21 +108,30 @@ export class PricingComponent implements OnInit {
 
   createColumnDefs() {
     return [
-      {
-        headerName: '',
-        field: '',
-        width: 35,
-        headerCheckboxSelection: true,
-        headerCheckboxSelectionFilteredOnly: true,
-        checkboxSelection: true,
-        filter: true
-      },
+      //{
+      //  headerName: '',
+      //  field: '',
+      //  width: 35,
+      //  headerCheckboxSelection: true,
+      //  headerCheckboxSelectionFilteredOnly: true,
+      //  checkboxSelection: true,
+      //  filter: true
+      //},
       {
         headerName: 'S.No',
-        field: '',
+        cellRenderer: 'serialRenderer',
         width: 50,
         sortable: true,
         resizable: true
+      },
+      {
+        headerName: 'Delete',
+        width: 65,
+        cellRenderer: 'buttonRenderer',
+        cellRendererParams: {
+          onClick: this.deleteRow.bind(this),
+          label: 'Delete'
+        }
       },
       {
         headerName: 'Role *',
@@ -199,14 +212,16 @@ export class PricingComponent implements OnInit {
     ]
   }
 
-  getSerialNumber() {
-    const index = this.gridOptionsPricing
-  }
+  //getSerialNumber() {
+  //  const index = this.gridOptionsPricing
+  //  return index + 1;
+  //}
 
   addNewRecord() {
     this.gridOptionsPricing.api.ensureIndexVisible(0);
     const newPricing = this.createPricingRow();
     this.gridOptionsPricing.api.updateRowData({ add: [newPricing], addIndex: 0 });
+    this.gridOptionsPricing.api.setColumnDefs(this.createColumnDefs());
   }
 
   createPricingRow() {
@@ -327,7 +342,15 @@ export class PricingComponent implements OnInit {
     }
   }
 
-
+  deleteRow(e) {
+    if (+e.rowData.id < 0) {
+      this.notificationService.showSuccess('Pricing details deleted', 'Success !');
+      this.getPricingData();
+    } else {
+      this.deletePricing(+e.rowData.id);
+      this.getPricingData();
+    }
+  }
 
   deletePricing(Id: any) {
     this.proposalService.deletePricingDetails(Id)

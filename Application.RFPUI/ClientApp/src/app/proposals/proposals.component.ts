@@ -49,7 +49,6 @@ export class ProposalsComponent implements OnInit {
 
   getProposals() {
     this.proposalService.getProposals().subscribe((response: any) => {
-      console.log(response);
 
       if (response) {
         this.data = response;

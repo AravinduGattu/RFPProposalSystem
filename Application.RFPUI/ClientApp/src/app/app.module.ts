@@ -55,6 +55,8 @@ import { EditCellRenderNumberWODecimalComponent } from './cell-render/cell-edit-
 import { DateRendererComponent } from './cell-render/date-renderer.component';
 import { DropdownEditorComponent } from './cell-render/dropdown-renderer.component';
 import { EditCellRenderComponent } from './cell-render/editcell-renderer.component';
+import { ButtonRendererComponent } from './cell-render/button-renderer.component';
+import { SerialNumberComponent } from './cell-render/serial-number.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 import { DialogService } from './services/dialog.service';
@@ -88,6 +90,8 @@ import { DialogService } from './services/dialog.service';
     DateRendererComponent,
     DropdownEditorComponent,
     EditCellRenderComponent,
+    ButtonRendererComponent,
+    SerialNumberComponent,
     AlertDialogComponent,
     ConfirmationDialogComponent
   ],
@@ -106,7 +110,9 @@ import { DialogService } from './services/dialog.service';
       EditCellRenderNumberWODecimalComponent,
       DateRendererComponent,
       DropdownEditorComponent,
-        EditCellRenderComponent]
+      EditCellRenderComponent,
+      ButtonRendererComponent,
+      SerialNumberComponent]
     )
   ],
   providers: [HttpService, ProposalService, LoginService, LoaderService, DashboardService, SessionService, DialogService,

@@ -5,7 +5,7 @@ import {ICellEditorAngularComp} from 'ag-grid-angular';
 @Component({
     selector: 'app-editor-cell',
     template: `
-    <div #container>
+    <div #container style="height: 100%">
     <select class="ag-cell-edit-input" (change)="Clog($event.target.value)" [(ngModel)]="active" >
                      <option *ngFor="let x of dropdownvalues" [value]="x" >{{params.dropdownvalues[x]}}</option>
     </select>
