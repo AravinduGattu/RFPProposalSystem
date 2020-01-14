@@ -1,0 +1,65 @@
+<div>
+  <button class="btn btn-sm btn-default" (click)="downloadTemplate()">Download Template</button>
+  <button class="btn btn-sm btn-info" (click)="uploadQuesions()">Upload</button>
+  <button class="btn btn-sm btn-info" (click)="ExportQuesions()">Export</button>
+</div>
+<br />
+<div class="questionnaireSection">
+  <form id="proposalAssignment" [formGroup]="formQuestionnaire">
+    <div formArrayName="questionnaire" *ngFor="let X of formQuestionnaire.get('questionnaire')['controls']; let i = index;">
+      <div class="questionnaire" [formGroupName]="i">
+        <div class="pull-right btn crossbtn" *ngIf="formQuestionnaire.get('questionnaire').controls.length > 1" (click)="removeQuestionnaire(i)">
+          <mat-icon>highlight_off</mat-icon>
+        </div>
+        <br />
+        <div>
+          <mat-label>Area <label>*</label></mat-label>
+          <mat-form-field>
+            <input matInput formControlName="questionnaireArea" required maxlength="50">
+          </mat-form-field>
+        </div>
+        <div formArrayName="questions" *ngFor="let Y of X.get('questions')['controls']; let j = index;">
+          <div class="question" [formGroupName]="j">
+            <div class="pull-right btn crossbtn" *ngIf="X.get('questions').controls.length > 1" (click)="removeQuestion(i,j)">
+              <mat-icon>highlight_off</mat-icon>
+            </div>
+            <br />
+            <div>
+              <mat-label>Question <label>*</label></mat-label>
+              <mat-form-field>
+                <textarea rows="1" matInput multiline formControlName="question" required maxlength="150"></textarea>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-label>Answer <label>*</label></mat-label>
+              <mat-form-field>
+                <textarea rows="1" matInput multiline formControlName="answer" required maxlength="300"></textarea>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-label>Customer Response</mat-label>
+              <mat-form-field>
+                <textarea rows="1" matInput multiline formControlName="response" maxlength="300"></textarea>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-label>Comments</mat-label>
+              <mat-form-field>
+                <textarea rows="1" matInput multiline formControlName="comments" maxlength="300"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <br />
+        </div>
+        <div>
+          <button type="button" class="btn btn-sm btn-info" (click)="addNewQuestion(i)">New Question</button>
+        </div>
+      </div>
+      <br />
+    </div>
+    <div>
+      <button type="button" class="btn btn-sm btn-info" (click)="addNewQuestionnaire()">New Area</button>
+    </div>
+  </form>
+  <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
+</div>

@@ -96,10 +96,10 @@ export class PricingComponent implements OnInit {
   }
 
   getPricingData() {
-    this.updatePricingIds = [];
     this.proposalService.getPricingDetails(this.proposalID).subscribe((response: any) => {
       if (response) {
         this.rowData = response;
+        this.updatePricingIds = [];
         this.gridOptionsPricing.api.setColumnDefs(this.createColumnDefs());
         this.gridOptionsPricing.api.setRowData(this.rowData);
       }
@@ -344,11 +344,13 @@ export class PricingComponent implements OnInit {
 
   deleteRow(e) {
     if (+e.rowData.id < 0) {
+      const deleterow = [e.rowData]
+      this.updatePricingIds = this.updatePricingIds.filter(x => x !== +e.rowData.id);
+      this.gridOptionsPricing.api.updateRowData({ remove: deleterow });
       this.notificationService.showSuccess('Pricing details deleted', 'Success !');
-      this.getPricingData();
     } else {
+      this.updatePricingIds = this.updatePricingIds.filter(x => x !== +e.rowData.id);
       this.deletePricing(+e.rowData.id);
-      this.getPricingData();
     }
   }
 
@@ -357,6 +359,9 @@ export class PricingComponent implements OnInit {
       .subscribe(response => {
         if (response && response === true) {
           this.notificationService.showSuccess('Pricing details deleted', 'Success !');
+          //this.getPricingData();
+          const deleterow = [this.gridOptionsPricing.api.getRowNode(Id.toString())];
+          this.gridOptionsPricing.api.updateRowData({ remove: deleterow });
         } else {
           this.notificationService.showError('Pricing details delete failed', 'Error !');
         }

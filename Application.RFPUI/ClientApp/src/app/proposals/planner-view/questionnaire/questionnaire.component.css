@@ -1,0 +1,15 @@
+.questionnaire {
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  padding: 0px 20px 20px;
+}
+
+.question {
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  padding: 0px 20px 20px;
+}
+
+.btn {
+  margin-left: 10px;
+}

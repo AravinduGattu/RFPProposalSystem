@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="col-lg-10 col-md-10">
-      <div class="example1">
+      <div class="example1" [ngClass]="{'rfp7': (ageing < 7), 'rfp15': (ageing >= 7 && ageing <=15) }">
         <p>Please submit the proposal before {{proposaldata?.rfpSubmissionDate | date: constants.dateFormat}}.</p>
       </div>
       <mat-accordion>
@@ -68,12 +68,13 @@
           <mat-tab label="Basic Info">
             <div class="proposalTab">
               <app-basic-proposal [new]="false"></app-basic-proposal>
-              <div>
+              <!--<div>
                 <button class="btn btn-info pull-right" (click)="next()">Next</button>
-              </div>
+              </div>-->
             </div>
           </mat-tab>
           <mat-tab label="Schedule">
+
             <div class="journeyDiv">
               <div class="timelinehr">
                 <div class="swiper-slide" *ngFor="let item of scheduleData">
@@ -88,6 +89,7 @@
               <div class="swiper-pagination"></div>
             </div>
             <div class="proposalTab">
+            <!--<app-schedule></app-schedule>-->
 
               <div>
                 <form id="proposalSchedule" [formGroup]="formSchedule">
@@ -111,7 +113,6 @@
                           </td>
                           <td>
                             <mat-form-field>
-                              <!--<input matInput formControlName="milestone" required maxlength="100">-->
                               <mat-select matinput formControlName="milestone" required>
                                 <mat-option *ngFor="let data of mileStones" title="{{data.mileStoneName}}" value="{{data.mileStoneId}}">{{data.mileStoneName}}</mat-option>
                               </mat-select>
@@ -134,11 +135,7 @@
                           <td>
                             <mat-form-field>
                               <mat-select matinput formControlName="status" required>
-                                <!--<mat-option value="Yet to Start">Yet to Start</mat-option>
-                            <mat-option value="Inprogress">Inprogress</mat-option>
-                            <mat-option value="Review">Review</mat-option>
-                            <mat-option value="Completed">Completed</mat-option>-->
-                                <mat-option *ngFor="let data of taskStatus" value="{{data.statusId}}">{{data.status}}</mat-option>
+                              <mat-option *ngFor="let data of taskStatus" value="{{data.statusId}}">{{data.status}}</mat-option>
                               </mat-select>
                             </mat-form-field>
                           </td>
@@ -162,83 +159,19 @@
                 </form>
               </div>
               <div>
-                <button class="btn btn-info pull-right" (click)="next()">Next</button>
+                <!--<button class="btn btn-info pull-right" (click)="next()">Next</button>-->
                 <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
-                <button class="btn btn-info pull-right" (click)="back()">Back</button>
+                <!--<button class="btn btn-info pull-right" (click)="back()">Back</button>-->
               </div>
             </div>
           </mat-tab>
           <mat-tab label="Questionnaire">
             <div class="proposalTab">
-              <div>
-                <button class="btn btn-sm btn-default" (click)="downloadTemplate()">Download Template</button>
-                <button class="btn btn-sm btn-info" (click)="uploadQuesions()">Upload</button>
-                <button class="btn btn-sm btn-info" (click)="ExportQuesions()">Export</button>
-              </div>
-              <br />
-              <div class="questionnaireSection">
-                <form id="proposalAssignment" [formGroup]="formQuestionnaire">
-                  <div formArrayName="questionnaire" *ngFor="let X of formQuestionnaire.get('questionnaire')['controls']; let i = index;">
-                    <div class="questionnaire" [formGroupName]="i">
-                      <div class="pull-right btn crossbtn" *ngIf="formQuestionnaire.get('questionnaire').controls.length > 1" (click)="removeQuestionnaire(i)">
-                        <mat-icon>highlight_off</mat-icon>
-                      </div>
-                      <br />
-                      <div>
-                        <mat-label>Area <label>*</label></mat-label>
-                        <mat-form-field>
-                          <input matInput formControlName="questionnaireArea" required maxlength="50">
-                        </mat-form-field>
-                      </div>
-                      <div formArrayName="questions" *ngFor="let Y of X.get('questions')['controls']; let j = index;">
-                        <div class="question" [formGroupName]="j">
-                          <div class="pull-right btn crossbtn" *ngIf="X.get('questions').controls.length > 1" (click)="removeQuestion(i,j)">
-                            <mat-icon>highlight_off</mat-icon>
-                          </div>
-                          <br />
-                          <div>
-                            <mat-label>Question <label>*</label></mat-label>
-                            <mat-form-field>
-                              <textarea rows="1" matInput multiline formControlName="question" required maxlength="150"></textarea>
-                            </mat-form-field>
-                          </div>
-                          <div>
-                            <mat-label>Answer <label>*</label></mat-label>
-                            <mat-form-field>
-                              <textarea rows="1" matInput multiline formControlName="answer" required maxlength="300"></textarea>
-                            </mat-form-field>
-                          </div>
-                          <div>
-                            <mat-label>Customer Response</mat-label>
-                            <mat-form-field>
-                              <textarea rows="1" matInput multiline formControlName="response" maxlength="300"></textarea>
-                            </mat-form-field>
-                          </div>
-                          <div>
-                            <mat-label>Comments</mat-label>
-                            <mat-form-field>
-                              <textarea rows="1" matInput multiline formControlName="comments" maxlength="300"></textarea>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <br />
-                      </div>
-                      <div>
-                        <button type="button" class="btn btn-sm btn-info" (click)="addNewQuestion(i)">New Question</button>
-                      </div>
-                    </div>
-                    <br />
-                  </div>
-                  <div>
-                    <button type="button" class="btn btn-sm btn-info" (click)="addNewQuestionnaire()">New Area</button>
-                  </div>
-                </form>
-              </div>
-              <div>
+              <app-questionnaire></app-questionnaire>
+              <!--<div>
                 <button class="btn btn-info pull-right" (click)="next()">Next</button>
-                <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
                 <button class="btn btn-info pull-right" (click)="back()">Back</button>
-              </div>
+              </div>-->
             </div>
           </mat-tab>
           <mat-tab label="Documents">
@@ -294,9 +227,9 @@
                 </form>
               </div>
               <div>
-                <button class="btn btn-info pull-right" (click)="next()">Next</button>
+                <!--<button class="btn btn-info pull-right" (click)="next()">Next</button>-->
                 <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
-                <button class="btn btn-info pull-right" (click)="back()">Back</button>
+                <!--<button class="btn btn-info pull-right" (click)="back()">Back</button>-->
               </div>
             </div>
           </mat-tab>
@@ -357,9 +290,9 @@
                 </form>
               </div>
               <div>
-                <button class="btn btn-info pull-right" (click)="next()">Next</button>
+                <!--<button class="btn btn-info pull-right" (click)="next()">Next</button>-->
                 <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
-                <button class="btn btn-info pull-right" (click)="back()">Back</button>
+                <!--<button class="btn btn-info pull-right" (click)="back()">Back</button>-->
               </div>
             </div>
           </mat-tab>
@@ -436,7 +369,7 @@
           </form>-->
               <app-pricing></app-pricing>
             </div>
-            <button class="btn btn-info pull-right" (click)="back()">Back</button>
+            <!--<button class="btn btn-info pull-right" (click)="back()">Back</button>-->
           </mat-tab>
         </mat-tab-group>
       </div>

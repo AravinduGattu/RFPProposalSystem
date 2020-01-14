@@ -150,7 +150,12 @@ export class PlannerViewComponent implements OnInit {
   getAgeing() {
     const today = moment(new Date());
     const submissiondate = moment(this.proposaldata.rfpSubmissionDate);
-    this.ageing = moment.duration(submissiondate.diff(today, 'days')).asDays(); 
+    //this.ageing = Math.abs(submissiondate.diff(today, 'days'));
+    if (submissiondate > today) {
+      this.ageing = Math.abs(submissiondate.diff(today, 'days'));
+    } else {
+      this.ageing = -1;
+    }
     console.log(this.ageing)
   }
 

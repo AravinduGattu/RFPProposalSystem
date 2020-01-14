@@ -60,6 +60,10 @@ import { SerialNumberComponent } from './cell-render/serial-number.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 import { DialogService } from './services/dialog.service';
+import { AssignmentComponent } from './proposals/planner-view/assignment/assignment.component';
+import { QuestionnaireComponent } from './proposals/planner-view/questionnaire/questionnaire.component';
+import { ScheduleComponent } from './proposals/planner-view/schedule/schedule.component';
+import { DocumentsComponent } from './proposals/planner-view/documents/documents.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +97,11 @@ import { DialogService } from './services/dialog.service';
     ButtonRendererComponent,
     SerialNumberComponent,
     AlertDialogComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    AssignmentComponent,
+    QuestionnaireComponent,
+    ScheduleComponent,
+    DocumentsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

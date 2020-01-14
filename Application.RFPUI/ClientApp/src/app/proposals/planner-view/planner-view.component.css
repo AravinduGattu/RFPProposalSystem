@@ -64,8 +64,7 @@ mat-panel-title {
 }
 
 mat-panel-description {
-  color: red;
-  /*font-weight: bold;*/
+  color: white;
 }
 
 ::ng-deep .mat-expansion-panel-body { /*ng-deep for ovverriding mat css*/
@@ -359,7 +358,7 @@ h5 .material-icons {
 
 /*questionnaire section*/
 
-.questionnaire {
+/*.questionnaire {
   border: solid 1px lightgray;
   border-radius: 5px;
   padding: 0px 20px 20px;
@@ -369,7 +368,7 @@ h5 .material-icons {
   border: solid 1px lightgray;
   border-radius: 5px;
   padding: 0px 20px 20px;
-}
+}*/
 
 /*questionnaire section*/
 
