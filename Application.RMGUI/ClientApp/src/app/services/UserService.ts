@@ -1,10 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class UserService {
-  constructor(private httpClient: HttpClient, private router: Router) { }
+
+
+  private loginServiceUrl = `${environment.urlAddress}`;
+
+
+  constructor(private httpClient: HttpClient,
+    private router: Router) { 
+  }
+  
+ public authenticate(data: FormData){
+  let headers = new HttpHeaders();
+  headers = headers.append('Access-Control-Allow-Origin', '*');
+  headers = headers.append('noToken', 'noToken');
+   return this.httpClient.post(`${this.loginServiceUrl}Authenticate`,data,{ headers: headers })
+}
+
+
+
+
+
+
   //to validate userId, pwd and to get status, data
   ValidateUser(mailId: any, password: any,p_today : string) {
     const params = new HttpParams()

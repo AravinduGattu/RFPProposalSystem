@@ -35,6 +35,13 @@ export const MY_FORMATS = {
   ],
 })
 export class BussinessgroupComponent implements OnInit {
+
+//new variables
+bgData:any[]=[];
+obj_bg:BusinessgroupAtt;
+//
+
+
   public BGform: FormGroup;
   v_searchbar = true;
   s_Bg: BusinessgroupAtt;
@@ -69,7 +76,49 @@ export class BussinessgroupComponent implements OnInit {
   m_searchbar() {
     this.v_searchbar = !this.v_searchbar;
   }
+
   searchQuery() {
+    this.obj_bg = Object.assign({}, this.BGform.value);
+
+    this.obj_bg.bg_startdate = this.datepipe.transform(this.obj_bg.bg_startdate, 'yyyy-MM-dd');
+    this.obj_bg.bg_enddate = this.datepipe.transform(this.obj_bg.bg_enddate, 'yyyy-MM-dd');
+    
+     this.obj_bg.bg_description==null?this.obj_bg.bg_description='':this.obj_bg.bg_description=this.obj_bg.bg_description;
+     this.obj_bg.bg_startdate==null?this.obj_bg.bg_startdate='':this.obj_bg.bg_startdate=this.obj_bg.bg_startdate;
+     this.obj_bg.bg_enddate==null?this.obj_bg.bg_enddate='':this.obj_bg.bg_enddate=this.obj_bg.bg_enddate;
+
+    // if(this.obj_bg.bg_startdate==null){
+    //   this.obj_bg.bg_startdate='';
+    // }
+      console.log(this.obj_bg);
+    this.adminservice.getAllBusinessGroups(this.obj_bg.bg_description,this.obj_bg.bg_startdate,this.obj_bg.bg_enddate).subscribe((response: any[]) => {
+
+      if (response) {
+        this.bgData = response;
+        this.data_Source = new MatTableDataSource<any>(this.bgData);
+        //  this.data_Source.data = this.BG;
+          this.load = 0;
+          this.data_Source.paginator = this.paginator;
+          this.v_searchbar = false;
+          this.businessGroup = this.bgData;
+        
+
+      } else {
+      }
+    },
+    error => {
+      console.log(error)
+    });
+
+
+
+
+     
+
+  }
+
+
+  searchQuery1() {
     this.prefix = 'select * from view_getallbusinessgroup';
 
     this.s_Bg = Object.assign({}, this.BGform.value);

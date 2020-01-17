@@ -9,9 +9,32 @@ import { BusinessgroupAtt } from '../models/businessgroupAtt';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { FindEmpAtt } from '../Models/FindEmpAtt';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AdminService {
+
+  private bgServiceUrl = `${environment.urlAddress}BusinessGroups`;
+  constructor(private http: HttpClient) { }
+ 
+//latest bg service method
+  public getAllBusinessGroups(bgCode:string,bgStartDate:string,bgEndDate:string){
+    const headers = new HttpHeaders().set('AuthToken', sessionStorage.getItem('token'));
+    
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Content-Type', 'application/json');
+    // headers = headers.set('AuthToken', sessionStorage.getItem('token'));
+     return this.http.get(`${this.bgServiceUrl}/GetList?code=${bgCode}&startDate=${bgStartDate}&endDate=${bgEndDate}`,{ headers: headers })
+  }
+  
+
+
+
+
+
+
+
+
   coe: CoeAtt[] = [];
   data_Source: MatTableDataSource<EdgePracAtt>;
   coeform = new FormGroup({
@@ -101,7 +124,7 @@ export class AdminService {
     })
   }
   
-  constructor(private http: HttpClient) { }
+  
   AddCoe(coe: CoeAtt[]): Observable<CoeAtt[]> {
     let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     let options = { headers: httpHeaders };

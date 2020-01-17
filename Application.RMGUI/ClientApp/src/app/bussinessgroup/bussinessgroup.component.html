@@ -64,22 +64,22 @@
           <!-- Employee Name Column -->
           <ng-container matColumnDef="bg_description">
             <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Business Group </th>
-            <td mat-cell style="font-size:11.5px;" *matCellDef="let element">{{element.bg_description}} </td>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element">{{element.business_Description}} </td>
           </ng-container>
           <!-- Designation Column -->
           <ng-container matColumnDef="bg_status">
             <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Status </th>
-            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.bg_status}} </td>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.businessGroup_Status}} </td>
           </ng-container>
           <!-- Department Column -->
           <ng-container matColumnDef="bg_startdate">
             <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> Start Date </th>
-            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.bg_startdate| date:'dd-MMM-yyyy'}} </td>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.businessGroup_StartDate| date:'dd-MMM-yyyy'}} </td>
           </ng-container>
           <!-- Edge Practice Column -->
           <ng-container matColumnDef="bg_enddate">
             <th mat-header-cell style="font-weight:bold" *matHeaderCellDef mat-sort-header> End Date </th>
-            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.bg_enddate|date:'dd-MMM-yyyy'}} </td>
+            <td mat-cell style="font-size:11.5px;" *matCellDef="let element"> {{element.businessGroup_EndDate|date:'dd-MMM-yyyy'}} </td>
           </ng-container>
           <!-- Edge Practice Column -->
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
