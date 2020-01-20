@@ -75,7 +75,7 @@
           </mat-tab>
           <mat-tab label="Schedule">
 
-            <div class="journeyDiv">
+            <!--<div class="journeyDiv">
               <div class="timelinehr">
                 <div class="swiper-slide" *ngFor="let item of scheduleData">
                   <div class="timestamp">
@@ -87,11 +87,11 @@
                 </div>
               </div>
               <div class="swiper-pagination"></div>
-            </div>
+            </div>-->
             <div class="proposalTab">
-            <!--<app-schedule></app-schedule>-->
+            <app-schedule></app-schedule>
 
-              <div>
+              <!--<div>
                 <form id="proposalSchedule" [formGroup]="formSchedule">
                   <div class="scheduleSection">
                     <table>
@@ -157,7 +157,7 @@
                     </div>
                   </div>
                 </form>
-              </div>
+              </div>-->
               <div>
                 <!--<button class="btn btn-info pull-right" (click)="next()">Next</button>-->
                 <button class="btn btn-success pull-right" type="submit" (click)="save()">Save</button>
@@ -298,75 +298,6 @@
           </mat-tab>
           <mat-tab label="Pricing">
             <div class="proposalTab">
-              <!--<form id="proposalPricing" [formGroup]="formPricing">
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>Role</th>
-                    <th>Description</th>
-                    <th>Count</th>
-                    <th>Allocation</th>
-                    <th>Location</th>
-                    <th>Total Hours</th>
-                    <th>Total Cost</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody formArrayName="pricing" *ngFor="let X of formPricing.get('pricing')['controls']; let i = index;">
-                  <tr [formGroupName]="i">
-                    <td>
-                      <label>{{i+1}}</label>
-                    </td>
-                    <td>
-                      <mat-form-field>
-                        <input matInput formControlName="role" required maxlength="50">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field>
-                        <input matInput formControlName="description" required maxlength="50">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field>
-                        <input matInput formControlName="count" required maxlength="50">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field>
-                        <input matInput formControlName="allocation" required maxlength="50">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field>
-                        <input matInput formControlName="location" required maxlength="50">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field>
-                        <input matInput formControlName="totalHours" required maxlength="50">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field>
-                        <input matInput formControlName="totalCost" required maxlength="50">
-                      </mat-form-field>
-                    </td>
-                    <td *ngIf="formPricing.get('pricing').controls.length > 1">
-                      <mat-icon class="matIconButton" (click)="removePricing(i)">remove_circle</mat-icon>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div>
-              <div class="btn" (click)="addNewPricing()">
-                <mat-icon>add_circle</mat-icon>
-              </div>
-            </div>
-          </form>-->
               <app-pricing></app-pricing>
             </div>
             <!--<button class="btn btn-info pull-right" (click)="back()">Back</button>-->
@@ -375,7 +306,4 @@
       </div>
     </div>
   </div>
-  <!--<div>
-    
-  </div>-->
 </div>

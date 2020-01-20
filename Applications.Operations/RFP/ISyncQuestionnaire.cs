@@ -15,6 +15,7 @@ namespace Applications.Operations.RFP
     {
         Task<List<Questionnaire>> GetList(string area, string question, int proposalId);
         Task<int> Save(Questionnaire item);
+        Task<int> SaveList(List<Questionnaire> list);
         Task<int> Delete(int id);
     }
 }

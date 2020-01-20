@@ -37,10 +37,18 @@
             <span class="sort-header">{{i+1}}</span>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="action" class="container">
+        <ng-container matColumnDef="actions" class="container">
           <mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header> Action </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button class="btn btnMd" [routerLink]="['/app/proposals/view',element.id]">View</button>
+            <!--<button class="btn btnMd" [routerLink]="['/app/proposals/view',element.id]">View</button>-->
+            <button class="btn btnApprove" *ngIf="element.approveID > 0" (click)="approve(i,element)" title={{element.approveTxt}}>
+              <!--{{element.approveTxt}}-->
+              <span><i class="material-icons">check_circle</i></span>
+            </button>
+            <button class="btn btnReject" *ngIf="element.rejectID > 0" (click)="reject(i,element)" title={{element.rejectTxt}}>
+              <!--{{element.rejectTxt}}-->
+              <span><i class="material-icons">cancel</i></span>
+            </button>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="id" class="container">

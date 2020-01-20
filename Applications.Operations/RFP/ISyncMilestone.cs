@@ -15,6 +15,7 @@ namespace Applications.Operations.RFP
     {
         Task<List<Milestone>> GetList(int proposalId, int milestoneId);
         Task<int> Save(Milestone item);
+        Task<int> SaveList(List<Milestone> list);
         Task<int> Delete(int id);
     }
 }

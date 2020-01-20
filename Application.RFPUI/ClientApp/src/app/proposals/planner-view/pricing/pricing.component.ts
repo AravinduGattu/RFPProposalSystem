@@ -252,8 +252,8 @@ export class PricingComponent implements OnInit {
       this.updatePricingIds.forEach(id => {
         const rowDetails = this.gridOptionsPricing.api.getRowNode(id.toString());
 
-        if (rowDetails.data.id || rowDetails.data.id || rowDetails.data.id ||
-          rowDetails.data.id || rowDetails.data.id) {
+        if (rowDetails.data.role || rowDetails.data.count || rowDetails.data.allocation ||
+          rowDetails.data.locationID || rowDetails.data.totalHours || rowDetails.data.totalCost) {
           this.requiredFields.forEach(Expelement => {
             if (rowDetails.data[Expelement] === '') {
               this.isRequired = true;

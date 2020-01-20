@@ -21,7 +21,7 @@ export class ProposalsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  displayedColumns = ['SNo', 'rfpCode', 'opportunityName', 'requestType', 'proposalStatusName', 'createdBy', 'releaseDate'];
+  displayedColumns = ['SNo', 'rfpCode', 'actions', 'opportunityName', 'requestType', 'proposalStatusName', 'createdBy', 'releaseDate'];
 
 
   constructor(private router: Router,
@@ -64,6 +64,14 @@ export class ProposalsComponent implements OnInit {
 
   newProposal() {
     this.router.navigate(['/app/newProposal']);
+  }
+
+  approve(i: number, data: any) {
+    alert(data.approveTxt);
+  }
+
+  reject(i: number, data: any) {
+    alert(data.rejectTxt);
   }
 
 }

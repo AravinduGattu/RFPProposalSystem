@@ -59,6 +59,28 @@ namespace Application.RFPSystem.Controllers
             }
         }
 
+        [Route("api/V1/Milestones/SaveList")]
+        [HttpPost]
+        public async Task<IActionResult> SaveList(List<Milestone> list)
+        {
+            try
+            {
+                bool status = false;
+                using (ISyncMilestone service = new MilestoneService())
+                {
+                    if (list != null && list.Count() > 0)
+                        list.ForEach(x => { x.CreatedBy = x.ModifiedBy = UserID; });
+                    status = await service.SaveList(list) > 0;
+                }
+
+                return Ok(status);
+            }
+            catch (System.Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
         [Route("api/V1/Milestones/Delete")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)

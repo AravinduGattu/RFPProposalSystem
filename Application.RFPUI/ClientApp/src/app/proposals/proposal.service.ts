@@ -32,4 +32,30 @@ export class ProposalService {
   public deletePricingDetails(id: any): Observable<any> {
     return this.httpService.makeGetRequest('Pricing/Delete?id=' + id);
   }
+
+  //Questionnaire//
+  public getQuestionnaireDetails(ID: any): Observable<any> {
+    return this.httpService.makeGetRequest('Questionnaire/GetList?ProposalId=' + ID);
+  }
+
+  public saveQuestionnaireDetails(data: any): Observable<any> {
+    return this.httpService.makePostRequest('Questionnaire/SaveList', data);
+  }
+
+  public deleteQuestionnaireDetails(id: any): Observable<any> {
+    return this.httpService.makeGetRequest('Questionnaire/Delete?id=' + id);
+  }
+
+  //Schedule//
+  public getScheduleDetails(ID: any): Observable<any> {
+    return this.httpService.makeGetRequest('Milestones/GetList?ProposalId=' + ID);
+  }
+
+  public saveScheduleDetails(data: any): Observable<any> {
+    return this.httpService.makePostRequest('Milestones/SaveList', data);
+  }
+
+  public deleteScheduleDetails(id: any): Observable<any> {
+    return this.httpService.makeGetRequest('Milestones/Delete?id=' + id);
+  }
 }

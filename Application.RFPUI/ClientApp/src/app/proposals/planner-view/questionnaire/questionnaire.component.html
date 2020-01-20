@@ -15,7 +15,7 @@
         <div>
           <mat-label>Area <label>*</label></mat-label>
           <mat-form-field>
-            <input matInput formControlName="questionnaireArea" required maxlength="50">
+            <input matInput formControlName="area" required maxlength="50">
           </mat-form-field>
         </div>
         <div formArrayName="questions" *ngFor="let Y of X.get('questions')['controls']; let j = index;">
@@ -45,7 +45,7 @@
             <div>
               <mat-label>Comments</mat-label>
               <mat-form-field>
-                <textarea rows="1" matInput multiline formControlName="comments" maxlength="300"></textarea>
+                <textarea rows="1" matInput multiline formControlName="remarks" maxlength="300"></textarea>
               </mat-form-field>
             </div>
           </div>

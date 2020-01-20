@@ -36,6 +36,39 @@ export class PricingModel {
   totalCost: any;
 }
 
+export class QuestionnaireModel {
+  id: number;
+  proposalID: number;
+  area: string;
+  question: string;
+  answer: string;
+  remarks: string;
+}
+
+export class QueFormModel {
+  area: string;
+  questions: QFormModel[];
+}
+
+export class QFormModel {
+  id: number;
+  proposalID: number;
+  question: string;
+  answer: string;
+  response: string;
+  remarks: string;
+}
+
+export class ScheduleModel {
+  id: number;
+  milestoneID: number;
+  proposalID: number;
+  milestoneStartDate: Date;
+  milestoneEndDate: Date;
+  status: number;
+  remarks: string;
+}
+
 export class ProposalDocuments {
   documentId: number;
   documentName: string;
