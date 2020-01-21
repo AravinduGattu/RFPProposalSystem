@@ -28,7 +28,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_GetAllEdgePractice]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_GetAllEdgePractice", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (id > 0)
                     cmd.Parameters.AddWithValue("@Practice_ID", id);
@@ -49,7 +49,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_EdgePracticeInsertAndUpdate]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_EdgePracticeInsertAndUpdate", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Practice_ID", item.Practice_ID);
                 cmd.Parameters.AddWithValue("@Practice_Description", item.Practice_Description);
@@ -68,7 +68,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_Delete]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
                 cmd.Parameters.AddWithValue("@Table", "[rmg].[Practice_Master]");

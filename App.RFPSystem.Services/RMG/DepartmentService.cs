@@ -28,7 +28,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_GetDepartmentMaster]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_GetDepartmentMaster", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (id > 0)
                     cmd.Parameters.AddWithValue("@Dept_ID", id);
@@ -49,7 +49,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_Department]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_Department", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Dept_ID", item.Dept_ID);
                 cmd.Parameters.AddWithValue("@Department_Code", item.Department_Code);
@@ -69,7 +69,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_Delete]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
                 cmd.Parameters.AddWithValue("@Table", "Department");

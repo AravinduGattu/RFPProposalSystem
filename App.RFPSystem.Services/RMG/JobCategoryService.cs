@@ -27,7 +27,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_GetAllCategories]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_GetAllCategories", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (id > 0)
                 cmd.Parameters.AddWithValue("@Category_ID", id);
@@ -54,7 +54,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_CategoryMasterInsertAndUpdate]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_CategoryMasterInsertAndUpdate", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Category_ID", item.Category_ID);
                 cmd.Parameters.AddWithValue("@Category_Code", item.Category_Code);
@@ -73,7 +73,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_Delete]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
                 cmd.Parameters.AddWithValue("@Table", "[rmg].[Job_Category_Master]");
