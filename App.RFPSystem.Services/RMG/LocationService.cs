@@ -28,8 +28,10 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand(" [rmg].[sp_GetAllLocation]", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("rmg.sp_GetAllLocation", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
                 if (id > 0)
                     cmd.Parameters.AddWithValue("@Location_ID", id);
                 cmd.Parameters.AddWithValue("@Location_Code", code);
