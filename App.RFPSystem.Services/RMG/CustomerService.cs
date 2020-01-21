@@ -28,7 +28,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand(" [rmg].[sp_GetAllCustomer]", con);
+                SqlCommand cmd = new SqlCommand(" rmg.sp_GetAllCustomer", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (id > 0)
                     cmd.Parameters.AddWithValue("@Customer_ID", id);
