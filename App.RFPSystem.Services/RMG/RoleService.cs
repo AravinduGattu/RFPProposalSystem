@@ -28,7 +28,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_GetAllProjectRole]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_GetAllProjectRole", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (id > 0)
                     cmd.Parameters.AddWithValue("@Designation_ID", id);
@@ -49,7 +49,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_ProjectRoleInsertAndUpdate]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_ProjectRoleInsertAndUpdate", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Role_ID", item.Role_ID);
                 cmd.Parameters.AddWithValue("@Role_Name", item.Role_Name);
@@ -68,7 +68,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_Delete]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
                 cmd.Parameters.AddWithValue("@Table", "Designation");

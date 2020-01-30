@@ -28,7 +28,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_GetBusinessGroup_Master]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_GetBusinessGroup_Master", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (id > 0)
                     cmd.Parameters.AddWithValue("@Business_ID", id);
@@ -49,7 +49,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_BusinessGroup]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_BusinessGroup", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Business_ID", item.Business_ID);
                 cmd.Parameters.AddWithValue("@Business_Code", item.Business_Code);
@@ -69,7 +69,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_Delete]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
                 cmd.Parameters.AddWithValue("@Table", "BusinessGroup");

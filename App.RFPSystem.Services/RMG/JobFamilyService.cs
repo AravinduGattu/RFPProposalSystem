@@ -29,7 +29,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_GetAllJobFamily]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_GetAllJobFamily", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (id > 0)
                 cmd.Parameters.AddWithValue("@JobFamily_ID", id);
@@ -52,7 +52,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_JobFamilyMasterInsertAndUpdate]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_JobFamilyMasterInsertAndUpdate", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@JobFamily_ID", item.JobFamily_ID);
                 cmd.Parameters.AddWithValue("@JobFamily_Code", item.JobFamily_Code);
@@ -72,7 +72,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_Delete]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
                 cmd.Parameters.AddWithValue("@Table", "[rmg].[Job_Family_Master]");

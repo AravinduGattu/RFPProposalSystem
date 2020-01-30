@@ -25,7 +25,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_GetAllEmployees]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_GetAllEmployees", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (employee.Emp_ID > 0)
                 {
@@ -94,7 +94,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_EmployeeMasterInsertAndUpdate]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_EmployeeMasterInsertAndUpdate", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Emp_ID", employee.Emp_ID);
                 cmd.Parameters.AddWithValue("@Emp_Code", employee.Emp_Code);
@@ -126,7 +126,7 @@ namespace App.RFPSystem.Services.RMG
             using (SqlConnection con = new SqlConnection(strConString))
             {
                 await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("[rmg].[sp_Delete]", con);
+                SqlCommand cmd = new SqlCommand("rmg.sp_Delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
                 cmd.Parameters.AddWithValue("@Table", "[rmg].[Employee_Master]");
